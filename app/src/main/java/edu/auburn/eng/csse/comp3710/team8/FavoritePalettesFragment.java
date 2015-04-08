@@ -11,6 +11,7 @@ public class FavoritePalettesFragment extends Fragment {
 
     public interface FavoritePalettesListener {
         public void onFragmentInteraction();
+        public void foo();
     }
 
     private FavoritePalettesListener mListener;
