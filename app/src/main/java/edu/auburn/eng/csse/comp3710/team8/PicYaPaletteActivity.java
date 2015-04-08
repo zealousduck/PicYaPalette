@@ -12,6 +12,7 @@ public class PicYaPaletteActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pic_ya_palette);
+        int one = 1;
     }
 
 
