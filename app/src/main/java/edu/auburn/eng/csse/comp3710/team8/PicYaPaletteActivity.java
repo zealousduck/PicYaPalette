@@ -6,19 +6,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class ImageSelectActivity extends Activity {
+public class PicYaPaletteActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_select);
+        setContentView(R.layout.activity_pic_ya_palette);
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_image_select, menu);
+        getMenuInflater().inflate(R.menu.menu_pic_ya_palette, menu);
         return true;
     }
 
