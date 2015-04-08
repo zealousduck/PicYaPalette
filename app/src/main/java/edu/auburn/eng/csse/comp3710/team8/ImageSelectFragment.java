@@ -25,6 +25,7 @@ public class ImageSelectFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             // Restore state
+
         }
     }
 
