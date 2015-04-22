@@ -1,7 +1,6 @@
 package edu.auburn.eng.csse.comp3710.team8;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;

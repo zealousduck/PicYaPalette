@@ -13,6 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/splashImage"
-        android:layout_gravity="center"
-        android:src="splashimagetemp.png" />
+        android:layout_gravity="center"/>
+        <!-- android:src="splashimagetemp.png" -->
 </FrameLayout>

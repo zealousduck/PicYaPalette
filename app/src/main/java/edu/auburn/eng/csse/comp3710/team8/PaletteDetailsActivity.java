@@ -1,12 +1,12 @@
 package edu.auburn.eng.csse.comp3710.team8;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class PaletteDetailsActivity extends ActionBarActivity {
+public class PaletteDetailsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
