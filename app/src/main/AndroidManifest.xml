@@ -8,13 +8,29 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".ImageSelectActivity"
-            android:label="@string/app_name" >
+            android:name=".PicYaPaletteActivity"
+            android:label="@string/title_activity_pic_ya_palette" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ImageChooserActivity"
+            android:label="@string/title_activity_image_chooser" >
+        </activity>
+        <activity
+            android:name=".FavoritePalettesActivity"
+            android:label="@string/title_activity_favorite_palettes" >
+        </activity>
+        <activity
+            android:name=".GeneratedPalettesActivity"
+            android:label="@string/title_activity_generated_palettes" >
+        </activity>
+        <activity
+            android:name=".PaletteDetailsActivity"
+            android:label="@string/title_activity_palette_details" >
         </activity>
     </application>
 

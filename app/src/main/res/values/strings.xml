@@ -3,4 +3,13 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_pic_ya_palette">PicYaPaletteActivity</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_image_chooser">ImageChooserActivity</string>
+    <string name="title_activity_favorite_palettes">FavoritePalettesActivity</string>
+    <string name="title_activity_generated_palettes">GeneratedPalettesActivity</string>
+    <string name="title_activity_palette_details">PaletteDetailsActivity</string>
 </resources>
