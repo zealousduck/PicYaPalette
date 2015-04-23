@@ -42,4 +42,9 @@ public abstract class Palette {
         return name;
     }
 
+    public Bitmap render() {
+        // Return an image of the palette!
+        return null;
+    }
+
 }
