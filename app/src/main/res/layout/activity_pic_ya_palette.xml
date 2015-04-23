@@ -14,5 +14,21 @@
         android:layout_height="wrap_content"
         android:id="@+id/splashImage"
         android:layout_gravity="center"
-        android:src="splashimagetemp.png" />
+        android:src="@drawable/splashimagetemp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Pic Ya Palette"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal|top" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Team 8"
+        android:id="@+id/textView3"
+        android:layout_gravity="center_horizontal|bottom" />
 </FrameLayout>
