@@ -1,21 +1,23 @@
 package edu.auburn.eng.csse.comp3710.team8;
 
+import java.util.List;
+
 /**
  * Created by Patrick on 4/22/2015.
  */
-public static class PaletteStorageHelper {
+public  class PaletteStorageHelper {
 
-    public void save(Palette p) {
+    public static void save(Palette p) {
         // Add palette to favorites
     }
 
-    public void unsave(Palette p) {
+    public static void unsave(Palette p) {
         // Remove palette from favorites
     }
 
 
 
-    public List<Palette> getAllPalettes() {
+    public static List<Palette> getAllPalettes() {
         return null;
     }
 

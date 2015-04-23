@@ -1,6 +1,7 @@
 package edu.auburn.eng.csse.comp3710.team8;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,10 +9,17 @@ import android.view.MenuItem;
 
 public class GeneratedPalettesActivity extends Activity {
 
+    private int baseColor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generated_palettes);
+
+        Intent i = getIntent();
+        baseColor = i.getIntExtra(ImageChooserActivity.COLOR_KEY, 0xFFFFFFFF);
+
+        // Start thread to populate list of palettes!
     }
 
 

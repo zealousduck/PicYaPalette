@@ -21,7 +21,7 @@ public class ImageChooserActivity extends Activity {
     private Button mFavorites;
 
     private Camera mCamera;
-    private final static String COLOR_KEY = "COLOR";
+    public final static String COLOR_KEY = "COLOR";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +38,16 @@ public class ImageChooserActivity extends Activity {
                 //mCamera = Camera.open();
                 //SurfaceHolder holder =
 
-                Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
-                final Bundle extras = i.getExtras();
+                final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
                 // Analyze image in new thread!
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         // Process blueberries for now...
-                        Bitmap bmp = BitmapFactory.decodeFile("/res/drawable/blueberries.bmp");
+                        Bitmap bmp = BitmapFactory.decodeResource(ImageChooserActivity.this.getResources(),
+                                R.drawable.blueberries);
                         if (bmp != null) {
-                            extras.putInt(COLOR_KEY, ImageProcessor.getColorInt(bmp));
+                            i.putExtra(COLOR_KEY, ImageProcessor.getColorInt(bmp));
                         } else {
                             Log.i("mTakePic", "bitmap null!");
                         }
@@ -55,7 +55,7 @@ public class ImageChooserActivity extends Activity {
                 }).run();
 
                 // Pass result of image processing to GeneratedPalettesActivity, through bundle
-                startActivity(i);
+                ImageChooserActivity.this.startActivity(i);
 
             }
         });

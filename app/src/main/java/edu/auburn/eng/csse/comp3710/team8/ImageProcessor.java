@@ -14,7 +14,7 @@ public class ImageProcessor {
         int blue = Color.blue(pixel);
         int green = Color.green(pixel);
 
-        int color = (red << 16) | (blue << 8) | (green);
+        int color = (red << 16) | (green << 8) | (blue);
 
         return color;
     }
