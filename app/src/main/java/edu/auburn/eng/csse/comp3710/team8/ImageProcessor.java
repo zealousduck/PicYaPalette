@@ -4,7 +4,11 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 
 /**
- * Created by Patrick on 4/22/2015.
+ * Simple class for processing images provided by the Camera or Photo Library.
+ * Compresses the provided bitmap to a single pixel, then reads the color
+ * out of that pixel.
+ * It abuses the createScaledBitmap algorithm's functionality of creating the
+ * "dominant" color.
  */
 public class ImageProcessor {
     public static int getColorInt(Bitmap bmp) {
@@ -14,7 +18,7 @@ public class ImageProcessor {
         int blue = Color.blue(pixel);
         int green = Color.green(pixel);
 
-        int color = (red << 16) | (green << 8) | (blue);
+        int color = (0xFF << 24) | (red << 16) | (green << 8) | (blue);
 
         return color;
     }

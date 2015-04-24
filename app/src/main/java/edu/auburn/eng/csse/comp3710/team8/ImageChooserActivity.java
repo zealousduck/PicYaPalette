@@ -1,6 +1,7 @@
 package edu.auburn.eng.csse.comp3710.team8;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -40,6 +41,8 @@ public class ImageChooserActivity extends Activity {
 
                 final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
                 // Analyze image in new thread!
+                final ProgressDialog pd =
+                        ProgressDialog.show(ImageChooserActivity.this,"Processing...", "Hold on...",true,false);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -54,6 +57,7 @@ public class ImageChooserActivity extends Activity {
                         } else {
                             Log.i("mTakePic", "bitmap null!");
                         }
+                        pd.dismiss();
                     }
                 }).run();
 

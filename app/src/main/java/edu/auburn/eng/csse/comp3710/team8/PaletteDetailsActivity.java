@@ -20,7 +20,6 @@ public class PaletteDetailsActivity extends Activity {
     public static final int NUM_TEXT_VIEWS = 5;
 
     private ImageView mPaletteRender;
-    private TextView  mPaletteString[];
     private Button    mFavoriteButton;
 
     private Palette palette;
@@ -44,9 +43,9 @@ public class PaletteDetailsActivity extends Activity {
         textViews[3] = (R.id.text_palette_string3);
         textViews[4] = (R.id.text_palette_string4);
 
-        // Load palette, passing null to stop any generation!
+        // Load palette from Bundle!
         palette = new Palette(
-                getIntent().getExtras().getIntArray(PaletteAdapter.PALETTE_KEY), null);
+                getIntent().getExtras().getBundle(PaletteAdapter.PALETTE_KEY));
         paletteStgs = palette.getDetailedStrings();
 
         mPaletteRender = (ImageView)findViewById(R.id.image_palette_detail);

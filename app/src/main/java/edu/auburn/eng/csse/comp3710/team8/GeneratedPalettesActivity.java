@@ -1,6 +1,7 @@
 package edu.auburn.eng.csse.comp3710.team8;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,7 +14,7 @@ import android.widget.ListView;
 public class GeneratedPalettesActivity extends Activity {
 
     private static final int NUM_PALETTES = 10;
-    private static String ALGORITHM = Palette.DEFAULT; // Set via settings?
+    private static String ALGORITHM = Palette.PaletteAlgorithm.RANDOM; // Set via settings?
 
     private int baseColors[];
     private Palette[] palettes;
@@ -29,6 +30,8 @@ public class GeneratedPalettesActivity extends Activity {
         Intent i = getIntent();
         baseColors = i.getIntArrayExtra(ImageChooserActivity.COLOR_KEY);
 
+        final ProgressDialog pd =
+                ProgressDialog.show(this,"Processing...", "Hold on...",true,false);
         // Start thread to populate list of palettes!
         new Thread(new Runnable() {
             @Override
@@ -37,6 +40,7 @@ public class GeneratedPalettesActivity extends Activity {
                 for (int i = 0; i < NUM_PALETTES; i++) {
                     palettes[i] = new Palette(baseColors, ALGORITHM);
                 }
+                pd.dismiss();
             }
         }).run();
 
