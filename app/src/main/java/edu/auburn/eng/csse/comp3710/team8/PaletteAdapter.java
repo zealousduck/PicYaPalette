@@ -71,10 +71,6 @@ public class PaletteAdapter extends BaseAdapter {
         holder.paletteName.setText(palettesList[position].getName());
         Bitmap bmp = palettesList[position].render(size.x, size.y);
         holder.paletteRender.setImageBitmap(bmp);
-        //holder.paletteRender.setImageDrawable(
-        //        new BitmapDrawable(context.getResources(),
-         //               palettesList[position].render(size.x, size.y)));
-        //holder.paletteRender.draw(new Canvas(bmp));
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +78,7 @@ public class PaletteAdapter extends BaseAdapter {
                 // Open up the PaletteDetails!
                 Intent i = new Intent(context, PaletteDetailsActivity.class);
                 i.putExtra(PALETTE_KEY, palettesList[position].getColors());
-                //context.startActivity(i);
+                context.startActivity(i);
             }
         });
 

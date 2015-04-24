@@ -1,17 +1,82 @@
 package edu.auburn.eng.csse.comp3710.team8;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 
 public class PaletteDetailsActivity extends Activity {
+
+    public static final int NUM_TEXT_VIEWS = 5;
+
+    private ImageView mPaletteRender;
+    private TextView  mPaletteString[];
+    private Button    mFavoriteButton;
+
+    private Palette palette;
+    private String  paletteStgs[];
+    private int     textViews[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_palette_details);
+        // Necessary for render() !
+        WindowManager wm = (WindowManager)getSystemService(WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        textViews = new int[NUM_TEXT_VIEWS];
+        textViews[0] = (R.id.text_palette_string0);
+        textViews[1] = (R.id.text_palette_string1);
+        textViews[2] = (R.id.text_palette_string2);
+        textViews[3] = (R.id.text_palette_string3);
+        textViews[4] = (R.id.text_palette_string4);
+
+        // Load palette, passing null to stop any generation!
+        palette = new Palette(
+                getIntent().getExtras().getIntArray(PaletteAdapter.PALETTE_KEY), null);
+        paletteStgs = palette.getDetailedStrings();
+
+        mPaletteRender = (ImageView)findViewById(R.id.image_palette_detail);
+        Bitmap bmp = palette.render(2*size.x, 2*size.y); // Constants to enlarge image
+        if (bmp == null) {
+            Log.i("PaletteDetailsActivity", "bmp nulL!");
+        }
+        else mPaletteRender.setImageBitmap(bmp);
+        if (palette.numColors <= 3) {   // Center the text views for less than 3 colors
+            for (int i = 0; i < paletteStgs.length; i++) {
+                TextView temp = (TextView)findViewById(textViews[i+1]);
+                temp.setText(paletteStgs[i]);
+            }
+        }
+        else {  // Display 4-5 colors
+            for (int i = 0; i < paletteStgs.length; i++) {
+                TextView temp = (TextView)findViewById(textViews[i]);
+                temp.setText(paletteStgs[i]);
+            }
+        }
+
+        mFavoriteButton = (Button)findViewById(R.id.button_save);
+        mFavoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Save the palette!
+                // Allow user to set name?
+            }
+        });
+
     }
 
 

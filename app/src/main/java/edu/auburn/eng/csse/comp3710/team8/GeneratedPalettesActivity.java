@@ -41,7 +41,7 @@ public class GeneratedPalettesActivity extends Activity {
         }).run();
 
         mList = (ListView)findViewById(R.id.list_generated);
-        mAdapter = new PaletteAdapter(this, palettes);
+        mAdapter = new PaletteAdapter(GeneratedPalettesActivity.this, palettes);
         mList.setAdapter(mAdapter);
     }
 

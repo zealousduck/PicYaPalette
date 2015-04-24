@@ -28,16 +28,21 @@ public class Palette {
     // Colors are only int values of the format (red << 16) | (green << 8) | (blue)
     protected int[] colors; // Array implementation supports arbitrary number of colors
 
-
     protected Palette(int[] colorSeeds, String algorithm) {
         name = DEFAULT_NAME + COUNTER++;
         colors = new int[numColors];
-        if (algorithm.equals(DEFAULT)) {  // Set colors manually for testing purposes
+        if (algorithm == null) { // Just read in seed colors, no generation
+            for (int i = 0; i < colorSeeds.length; i++) {
+                colors[i] = colorSeeds[i];
+            }
+        }
+        else if (algorithm.equals(DEFAULT)) {  // Set colors manually for testing purposes
             colors[0] = Color.CYAN;
             colors[1] = Color.LTGRAY;
             colors[2] = Color.MAGENTA;
             return;
-        } else { // Standard use case, fill in based on seeds, then generate remaining
+        }
+        else { // Standard use case, fill in based on seeds, then generate remaining
             int i = 0;
             for (int j = 0; j < numColors; j++) {
                 if (i < colorSeeds.length) { // If colors[j] found in seed, fill it in
@@ -64,6 +69,25 @@ public class Palette {
 
     public static int getNumColors() {
         return numColors;
+    }
+
+    @Override
+    public String toString() {
+        String stg = "";
+        return stg;
+    }
+
+    public String[] getDetailedStrings() {
+        String stgs[] = new String[numColors];
+        for (int i = 0; i < numColors; i++) {
+            String stg = "";
+            stg += "0x" + Integer.toHexString(colors[i]).substring(2).toUpperCase() + "\n"
+                +    "R: " + Color.red(colors[i]) + "\n"
+                +    "G: " + Color.green(colors[i]) + "\n"
+                +    "B: " + Color.blue(colors[i]) + "\n";
+            stgs[i] = stg;
+        }
+        return stgs;
     }
 
     /* Renders the palette to a Bitmap. Size scales based on screen dimensions.

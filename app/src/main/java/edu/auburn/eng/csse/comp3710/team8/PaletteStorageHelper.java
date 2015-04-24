@@ -17,7 +17,7 @@ public  class PaletteStorageHelper {
 
 
 
-    public static List<Palette> getAllPalettes() {
+    public static Palette[] getAllPalettes() {
         return null;
     }
 
