@@ -8,14 +8,10 @@ import android.graphics.Color;
 public class RandomPalette extends Palette {
     public RandomPalette(int primary) {
         super(primary);
-        // Generate secondary and tertiary colors!
-
     }
 
     public RandomPalette(int primary, int secondary) {
         super(primary, secondary);
-        // Generate tertiary colors!
-
     }
 
     public RandomPalette(int primary, int secondary, int tertiary) {

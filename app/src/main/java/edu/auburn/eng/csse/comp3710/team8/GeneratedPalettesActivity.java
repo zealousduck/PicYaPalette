@@ -5,11 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
 
 
 public class GeneratedPalettesActivity extends Activity {
 
+    private static final int NUM_PALETTES = 10;
+
     private int baseColor;
+    private Palette[] palettes;
+
+    private ListView mList;
+    private PaletteAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +28,16 @@ public class GeneratedPalettesActivity extends Activity {
         baseColor = i.getIntExtra(ImageChooserActivity.COLOR_KEY, 0xFFFFFFFF);
 
         // Start thread to populate list of palettes!
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                rerollPalettes();
+            }
+        }).run();
+
+        mList = (ListView)findViewById(R.id.list_generated);
+        mAdapter = new PaletteAdapter(this, palettes);
+        mList.setAdapter(mAdapter);
     }
 
 
@@ -43,5 +61,13 @@ public class GeneratedPalettesActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void rerollPalettes() {
+        palettes = new Palette[NUM_PALETTES];
+
+        for (int i = 0; i < NUM_PALETTES; i++) {
+            palettes[i] = Palette.createPalette(baseColor, Palette.RANDOM);
+        }
     }
 }
