@@ -31,7 +31,10 @@ public class GeneratedPalettesActivity extends Activity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                rerollPalettes();
+                palettes = new Palette[NUM_PALETTES];
+                for (int i = 0; i < NUM_PALETTES; i++) {
+                    palettes[i] = new Palette(baseColor, Palette.RANDOM);
+                }
             }
         }).run();
 
@@ -62,12 +65,13 @@ public class GeneratedPalettesActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
+    /*
     public void rerollPalettes() {
         palettes = new Palette[NUM_PALETTES];
 
         for (int i = 0; i < NUM_PALETTES; i++) {
-            palettes[i] = Palette.createPalette(baseColor, Palette.RANDOM);
+            palettes[i] = new Palette()
         }
     }
+    */
 }

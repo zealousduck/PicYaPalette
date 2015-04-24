@@ -29,9 +29,9 @@ public class PaletteAdapter extends BaseAdapter {
     private         Palette[]       palettesList;
     private static  LayoutInflater  inflater = null;
 
-    public PaletteAdapter(Activity activityIn, Palette[] paletteIn) {
+    public PaletteAdapter(Activity activityIn, Palette[] palettesIn) {
         this.context =      activityIn;
-        this.palettesList = paletteIn;
+        this.palettesList = palettesIn;
         inflater =          (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
