@@ -15,62 +15,41 @@ import android.view.WindowManager;
  * Created by patrickstewart on 4/22/15.
  */
 public class Palette {
+    protected static int numColors = 3;
 
-    public static String RANDOM = "RANDOM";
-    public static String COMPLEMENTARY = "COMPLEMENTARY";
+    public static final String RANDOM = "RANDOM";
+    public static final String COMPLEMENTARY = "COMPLEMENTARY";
+    public static final String DEFAULT = "DEFAULT";
 
     protected static int COUNTER = 0; // Used for numbering palettes for default names
     protected static final String DEFAULT_NAME = "Palette #";
 
     protected String name;
-    protected static final int numColors = 3;
     // Colors are only int values of the format (red << 16) | (green << 8) | (blue)
     protected int[] colors; // Array implementation supports arbitrary number of colors
 
-    protected Palette(int primary, String algorithm) {
+
+    protected Palette(int[] colorSeeds, String algorithm) {
         name = DEFAULT_NAME + COUNTER++;
         colors = new int[numColors];
-        colors[0] = primary;
-        // Generate additional colors!
-        for (int i = 1; i < numColors; i++) {
-            // Calculate colors here!
-            colors[i] = generateColor(this.colors, algorithm);
+        if (algorithm.equals(DEFAULT)) {  // Set colors manually for testing purposes
+            colors[0] = Color.CYAN;
+            colors[1] = Color.LTGRAY;
+            colors[2] = Color.MAGENTA;
+            return;
+        } else { // Standard use case, fill in based on seeds, then generate remaining
+            int i = 0;
+            for (int j = 0; j < numColors; j++) {
+                if (i < colorSeeds.length) { // If colors[j] found in seed, fill it in
+                    colors[j] = colorSeeds[i];
+                    i++;
+                } else { // If colors[j] not found, generate it
+                    colors[j] = generateColor(colors, algorithm);
+                }
+            }
         }
     }
 
-    /*
-    protected Palette(int primary, int secondary) {
-        //this.primary = primary;
-        //this.secondary = secondary;
-        name = DEFAULT_NAME + COUNTER++;
-        colors[0] = primary;
-        colors[1] = secondary;
-        // Generate additional colors!
-        for (int i = 2; i < numColors; i++) {
-            int tempColor = 0;
-            // Calculate colors here!
-            tempColor = generateColor(colors, RANDOM);
-            colors[i] = tempColor;
-        }
-    }
-
-    protected Palette(int primary, int secondary, int tertiary) {
-        //this.primary = primary;
-        //this.secondary = secondary;
-        //this.tertiary = tertiary;
-        name = DEFAULT_NAME + COUNTER++;
-        colors[0] = primary;
-        colors[1] = secondary;
-        colors[2] = tertiary;
-        // Generate additional colors!
-        for (int i = 3; i < numColors; i++) {
-            int tempColor = 0;
-            // Calculate colors here!
-            tempColor = generateColor(colors, RANDOM);
-            colors[i] = tempColor;
-        }
-    }
-    */
     public int[] getColors() {
         return colors;
     }
@@ -83,6 +62,12 @@ public class Palette {
         return name;
     }
 
+    public static int getNumColors() {
+        return numColors;
+    }
+
+    /* Renders the palette to a Bitmap. Size scales based on screen dimensions.
+     */
     public Bitmap render(int screenWidth, int screenHeight) {
         final int RENDER_WIDTH = screenWidth/2;
         final int RENDER_HEIGHT = screenHeight/7;
@@ -92,25 +77,17 @@ public class Palette {
         Canvas canvas = new Canvas(bmp);
         int x = canvas.getWidth();
         int y = canvas.getHeight();
-        Log.i("render()", "(x,y) = (" + x + "," + y + ")");
         Paint paint = new Paint();
-        //paint.setStyle(Paint.Style.FILL);
-        // Background color!
-        //paint.setColor(Color.WHITE);
-        //canvas.drawPaint(paint);
-        // Draw circles!
+        paint.setStyle(Paint.Style.FILL);
         for (int i = 0; i < numColors; i++) {
-            Log.i("render()", "Draw circle " + i);
-            paint = new Paint();
-            paint.setStyle(Paint.Style.FILL);
             paint.setColor(colors[i]);
             Log.i("render()", "Draw circle " + i + " Color: " + colors[i]);
             canvas.drawCircle(((i+1)*x)/(numColors+1), y/2, RENDER_RADIUS, paint);
         }
-        Log.i("render()", "render() called!");
         return bmp;
     }
 
+    // Make sure to OR our results with 0xFF000000 in order to nullify transparency!
     public static int generateColor(int[] colorsIn, String algorithm) {
         if (algorithm.equals(COMPLEMENTARY)) {
             return Color.RED;

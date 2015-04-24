@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 
@@ -12,8 +13,9 @@ import android.widget.ListView;
 public class GeneratedPalettesActivity extends Activity {
 
     private static final int NUM_PALETTES = 10;
+    private static String ALGORITHM = Palette.DEFAULT; // Set via settings?
 
-    private int baseColor;
+    private int baseColors[];
     private Palette[] palettes;
 
     private ListView mList;
@@ -23,9 +25,9 @@ public class GeneratedPalettesActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generated_palettes);
-
+        baseColors = new int[Palette.getNumColors()];
         Intent i = getIntent();
-        baseColor = i.getIntExtra(ImageChooserActivity.COLOR_KEY, 0xFFFFFFFF);
+        baseColors = i.getIntArrayExtra(ImageChooserActivity.COLOR_KEY);
 
         // Start thread to populate list of palettes!
         new Thread(new Runnable() {
@@ -33,7 +35,7 @@ public class GeneratedPalettesActivity extends Activity {
             public void run() {
                 palettes = new Palette[NUM_PALETTES];
                 for (int i = 0; i < NUM_PALETTES; i++) {
-                    palettes[i] = new Palette(baseColor, Palette.RANDOM);
+                    palettes[i] = new Palette(baseColors, ALGORITHM);
                 }
             }
         }).run();
@@ -65,13 +67,31 @@ public class GeneratedPalettesActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-    /*
-    public void rerollPalettes() {
-        palettes = new Palette[NUM_PALETTES];
 
-        for (int i = 0; i < NUM_PALETTES; i++) {
-            palettes[i] = new Palette()
-        }
+    /* WARNING: Any changes to the reroll() method must be replicated in onCreate()!
+     * Rerolls our generated palettes without needing to get a new picture!
+     */
+    public void reroll(View view) {
+        // Start thread to populate list of palettes!
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                palettes = new Palette[NUM_PALETTES];
+                for (int i = 0; i < NUM_PALETTES; i++) {
+                    palettes[i] = new Palette(baseColors, ALGORITHM);
+                }
+            }
+        }).run();
+
+        mAdapter = new PaletteAdapter(this, palettes);
+        mList.setAdapter(mAdapter);
     }
-    */
+
+    public void readSettings() {
+        // TO-DO: Read a preferences file to determine algorithm!
+    }
+
+    public void setAlgorithm(String algorithmIn) {
+        // Allow user to set algorithm being used (called from settings?)
+    }
 }

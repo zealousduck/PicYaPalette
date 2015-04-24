@@ -47,9 +47,10 @@ public class ImageChooserActivity extends Activity {
                         Bitmap bmp = BitmapFactory.decodeResource(ImageChooserActivity.this.getResources(),
                                 R.drawable.blueberries);
                         if (bmp != null) {
-                            int color = ImageProcessor.getColorInt(bmp);
-                            i.putExtra(COLOR_KEY, color);
-                            Log.i("mTakePic", "Color:" + color);
+                            int[] colors = new int[1];
+                            colors[0] = ImageProcessor.getColorInt(bmp);
+                            i.putExtra(COLOR_KEY, colors);
+                            Log.i("mTakePic", "Color:" + colors[0]);
                         } else {
                             Log.i("mTakePic", "bitmap null!");
                         }
