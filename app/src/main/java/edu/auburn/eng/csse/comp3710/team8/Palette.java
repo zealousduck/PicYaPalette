@@ -189,4 +189,15 @@ public class Palette {
         return algorithm;
     }
 
+    /* Used for preference spinner. New algorithms must be added here to be available for
+     * selection.
+     */
+    public static String[] getAlgorithmChoices() {
+        String[] algs = new String[PaletteAlgorithm.numAlgorithms+1];
+        algs[0] = PaletteAlgorithm.ANY;
+        algs[1] = PaletteAlgorithm.RANDOM;
+        algs[2] = PaletteAlgorithm.BTCH_IM_FABULOUS;
+        return algs;
+    }
+
 }

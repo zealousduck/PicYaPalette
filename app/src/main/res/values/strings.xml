@@ -12,4 +12,5 @@
     <string name="title_activity_favorite_palettes">FavoritePalettesActivity</string>
     <string name="title_activity_generated_palettes">GeneratedPalettesActivity</string>
     <string name="title_activity_palette_details">PaletteDetailsActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
 </resources>

@@ -7,11 +7,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <uses-permission android:name="android.permission.CAMERA" />
+
         <uses-feature android:name="android.hardware.camera" />
         <uses-feature android:name="android.hardware.camera.autofocus" />
-
 
         <activity
             android:name=".PicYaPaletteActivity"
@@ -37,6 +36,10 @@
         <activity
             android:name=".PaletteDetailsActivity"
             android:label="@string/title_activity_palette_details" >
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" >
         </activity>
     </application>
 

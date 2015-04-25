@@ -3,6 +3,7 @@ package edu.auburn.eng.csse.comp3710.team8;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ public class GeneratedPalettesActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generated_palettes);
+        readSettings(); // Check shared preferences for generation settings
 
         mAlgorithm = (TextView)findViewById(R.id.text_algorithm_used);
         mAlgorithm.setText("Algorithm used: " + ALGORITHM);
@@ -126,6 +128,9 @@ public class GeneratedPalettesActivity extends Activity {
 
     public void readSettings() {
         // TO-DO: Read a preferences file to determine algorithm!
+        SharedPreferences preferences = getSharedPreferences(SettingsActivity.PREF_FILE_NAME, MODE_PRIVATE);
+        NUM_PALETTES = preferences.getInt(SettingsActivity.NUM_PAL_PREF, 10);
+        ALGORITHM = preferences.getString(SettingsActivity.ALGORITHM_PREF, Palette.PaletteAlgorithm.ANY);
     }
 
     public void setAlgorithm(String algorithmIn) {

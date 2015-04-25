@@ -20,6 +20,7 @@ public class ImageChooserActivity extends Activity {
     private Button mTakePic;
     private Button mChoosePic;
     private Button mFavorites;
+    private Button mSettings;
 
     private Camera mCamera;
     public final static String COLOR_KEY = "COLOR";
@@ -79,6 +80,15 @@ public class ImageChooserActivity extends Activity {
             public void onClick(View v) {
                 // Launch Favorites activity!
                 Intent i = new Intent(ImageChooserActivity.this, FavoritePalettesActivity.class);
+                startActivity(i);
+            }
+        });
+
+        mSettings = (Button)findViewById(R.id.button_settings);
+        mSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ImageChooserActivity.this, SettingsActivity.class);
                 startActivity(i);
             }
         });
