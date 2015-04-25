@@ -12,8 +12,9 @@ import android.widget.TextView;
 
 public class GeneratedPalettesActivity extends Activity {
 
-    private static final int NUM_PALETTES = 10;
+    private static int NUM_PALETTES = 10;       // Settings?
     private static String ALGORITHM = Palette.PaletteAlgorithm.ANY; // Set via settings?
+    private static final String OUTSTATE_KEY = "GEN_PALETTE#";
 
     private int baseColors[];
     private Palette[] palettes;
@@ -26,37 +27,53 @@ public class GeneratedPalettesActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generated_palettes);
-        baseColors = new int[Palette.getNumColors()];
-        Intent i = getIntent();
-        baseColors = i.getIntArrayExtra(ImageChooserActivity.COLOR_KEY);
-
-        final ProgressDialog pd =
-                ProgressDialog.show(this,"Processing...", "Hold on...",true,false);
-        // Start thread to populate list of palettes!
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                palettes = new Palette[NUM_PALETTES];
-                for (int i = 0; i < NUM_PALETTES; i++) {
-                    if (ALGORITHM.equals(Palette.PaletteAlgorithm.ANY)) {
-                        palettes[i] = new Palette(baseColors, Palette.any());
-                    }
-                    else {
-                        palettes[i] = new Palette(baseColors, ALGORITHM);
-                    }
-                }
-                pd.dismiss();
-            }
-        }).run();
 
         mAlgorithm = (TextView)findViewById(R.id.text_algorithm_used);
         mAlgorithm.setText("Algorithm used: " + ALGORITHM);
 
+        baseColors = new int[Palette.getNumColors()];
+        Intent intent = getIntent();
+        baseColors = intent.getIntArrayExtra(ImageChooserActivity.COLOR_KEY);
+
+        if(savedInstanceState != null) {
+            palettes = new Palette[NUM_PALETTES];
+            for (int i = 0; i < NUM_PALETTES; i++) {
+                palettes[i] = new Palette(savedInstanceState.getBundle(OUTSTATE_KEY+i));
+            }
+        }
+        else{
+            final ProgressDialog pd =
+                    ProgressDialog.show(this, "Processing...", "Hold on...", true, false);
+            // Start thread to populate list of palettes!
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    palettes = new Palette[NUM_PALETTES];
+                    for (int i = 0; i < NUM_PALETTES; i++) {
+                        if (ALGORITHM.equals(Palette.PaletteAlgorithm.ANY)) {
+                            palettes[i] = new Palette(baseColors, Palette.any());
+                        } else {
+                            palettes[i] = new Palette(baseColors, ALGORITHM);
+                        }
+                    }
+                    pd.dismiss();
+                }
+            }).run();
+        }
         mList = (ListView)findViewById(R.id.list_generated);
         mAdapter = new PaletteAdapter(GeneratedPalettesActivity.this, palettes);
         mList.setAdapter(mAdapter);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (outState != null) {
+            for (int i = 0; i < NUM_PALETTES; i++) {
+                outState.putBundle(OUTSTATE_KEY + i, palettes[i].getPaletteBundle());
+            }
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
