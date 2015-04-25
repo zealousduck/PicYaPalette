@@ -7,9 +7,16 @@
     android:orientation="vertical"
     tools:context="edu.auburn.eng.csse.comp3710.team8.GeneratedPalettesActivity">
 
-    <ListView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/text_algorithm_used"
+        android:gravity="center" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:id="@+id/list_generated"
         android:layout_gravity="center"
         android:layout_weight="1"/>

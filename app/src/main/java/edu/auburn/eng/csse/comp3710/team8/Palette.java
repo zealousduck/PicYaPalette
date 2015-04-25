@@ -15,9 +15,14 @@ import java.util.Random;
 public class Palette {
     /* Storage for various Algorithm name keys. */
     public final class PaletteAlgorithm {
-        public static final String RANDOM = "RANDOM";
-        public static final String COMPLEMENTARY = "COMPLEMENTARY";
-        public static final String DEFAULT = "DEFAULT";
+        public static final String ANY = "Any"; // Allows user to use any of the algorithms
+        public static final String DEFAULT = "Default";
+        public static final String COMPLEMENTARY = "Complementary";
+        /* Actual algorithms: */
+        public static final String RANDOM = "Random";
+        public static final String BTCH_IM_FABULOUS = "Fabulous";
+
+        private static final int numAlgorithms = 2;
     }
 
     /* Bundle key data */
@@ -44,11 +49,6 @@ public class Palette {
             for (int i = 0; i < colorSeeds.length; i++) {
                 colors[i] = (colorSeeds[i] | 0xFF000000); // Nullify transparency
             }
-        }
-        else if (algorithm.equals(PaletteAlgorithm.DEFAULT)) {  // Set colors manually for testing purposes
-            colors[0] = 0xFF2D397E;
-            colors[1] = 0xFFFFFFFF;
-            colors[2] = 0xFFE47F13;
         }
         else { // Standard use case, fill in based on seeds, then generate remaining
             int i = 0;
@@ -134,7 +134,7 @@ public class Palette {
         paint.setStyle(Paint.Style.FILL);
         for (int i = 0; i < numColors; i++) {
             paint.setColor(colors[i]);
-            Log.i("render()", "Draw circle " + i + " Color: " + colors[i]);
+            Log.i("render()", "Draw circle " + i + " Color: " + Integer.toHexString(colors[i]));
             canvas.drawCircle(((i+1)*x)/(numColors+1), y/2, RENDER_RADIUS, paint);
         }
         return bmp;
@@ -146,15 +146,47 @@ public class Palette {
      * Make sure to OR our results with 0xFF000000 in order to nullify transparency!
      */
     public static int generateColor(int[] colorsIn, String algorithm) {
+        Random rng = new Random();
         if (algorithm.equals(PaletteAlgorithm.COMPLEMENTARY)) {
             return Color.RED;
         }
         else if (algorithm.equals(PaletteAlgorithm.RANDOM)) {
-            Random rng = new Random();
             // Return a random number in the range 0 to 2^24
             return (rng.nextInt(0x01000000) | 0xFF000000);
         }
+        else if (algorithm.equals(PaletteAlgorithm.BTCH_IM_FABULOUS)) {
+            int base = 0;
+            for (int i = 0; i < colorsIn.length; i++) {
+                base += (colorsIn[i] & 0x00FF0000);
+            }
+            return (((rng.nextInt(base)+0x00770000) & 0xFFFF55FF) | 0xFF000077);
+        }
+        else if (algorithm.equals(PaletteAlgorithm.DEFAULT)) {  // Set colors manually for testing purposes
+            colorsIn[0] = 0xFF2D397E;
+            colorsIn[1] = 0xFFFFFFFF;
+            colorsIn[2] = 0xFFE47F13;
+            return 0;
+        }
         else return 0;
+    }
+
+    /* Call this whenever ANY is passed to generateColor()
+         */
+    public static String any() {
+        String algorithm;
+        Random rng = new Random();
+        switch (rng.nextInt(PaletteAlgorithm.numAlgorithms)) {
+            case 0:
+                algorithm = PaletteAlgorithm.RANDOM;
+                break;
+            case 1:
+                algorithm = PaletteAlgorithm.BTCH_IM_FABULOUS;
+                break;
+            default:
+                algorithm = PaletteAlgorithm.DEFAULT;
+        }
+        Log.i("any()", algorithm);
+        return algorithm;
     }
 
 }

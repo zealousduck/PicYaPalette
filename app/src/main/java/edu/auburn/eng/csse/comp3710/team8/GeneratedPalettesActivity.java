@@ -8,19 +8,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-
-
+import android.widget.TextView;
 
 public class GeneratedPalettesActivity extends Activity {
 
     private static final int NUM_PALETTES = 10;
-    private static String ALGORITHM = Palette.PaletteAlgorithm.RANDOM; // Set via settings?
+    private static String ALGORITHM = Palette.PaletteAlgorithm.ANY; // Set via settings?
 
     private int baseColors[];
     private Palette[] palettes;
 
     private ListView mList;
     private PaletteAdapter mAdapter;
+    private TextView mAlgorithm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +38,19 @@ public class GeneratedPalettesActivity extends Activity {
             public void run() {
                 palettes = new Palette[NUM_PALETTES];
                 for (int i = 0; i < NUM_PALETTES; i++) {
-                    palettes[i] = new Palette(baseColors, ALGORITHM);
+                    if (ALGORITHM.equals(Palette.PaletteAlgorithm.ANY)) {
+                        palettes[i] = new Palette(baseColors, Palette.any());
+                    }
+                    else {
+                        palettes[i] = new Palette(baseColors, ALGORITHM);
+                    }
                 }
                 pd.dismiss();
             }
         }).run();
+
+        mAlgorithm = (TextView)findViewById(R.id.text_algorithm_used);
+        mAlgorithm.setText("Algorithm used: " + ALGORITHM);
 
         mList = (ListView)findViewById(R.id.list_generated);
         mAdapter = new PaletteAdapter(GeneratedPalettesActivity.this, palettes);
@@ -76,14 +84,22 @@ public class GeneratedPalettesActivity extends Activity {
      * Rerolls our generated palettes without needing to get a new picture!
      */
     public void reroll(View view) {
+        final ProgressDialog pd =
+                ProgressDialog.show(this,"Processing...", "Hold on...",true,false);
         // Start thread to populate list of palettes!
         new Thread(new Runnable() {
             @Override
             public void run() {
                 palettes = new Palette[NUM_PALETTES];
                 for (int i = 0; i < NUM_PALETTES; i++) {
-                    palettes[i] = new Palette(baseColors, ALGORITHM);
+                    if (ALGORITHM.equals(Palette.PaletteAlgorithm.ANY)) {
+                        palettes[i] = new Palette(baseColors, Palette.any());
+                    }
+                    else {
+                        palettes[i] = new Palette(baseColors, ALGORITHM);
+                    }
                 }
+                pd.dismiss();
             }
         }).run();
 
