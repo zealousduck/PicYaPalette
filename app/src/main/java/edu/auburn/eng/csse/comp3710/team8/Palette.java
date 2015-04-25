@@ -165,7 +165,7 @@ public class Palette {
             colorsIn[0] = 0xFF2D397E;
             colorsIn[1] = 0xFFFFFFFF;
             colorsIn[2] = 0xFFE47F13;
-            return 0;
+            return 0xFFE47F13;
         }
         else return 0;
     }
