@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/splashImage"
         android:layout_gravity="center"
-        android:src="@drawable/splashimagetemp"
+        android:src="@drawable/logo"
         android:layout_weight="1" />
 
     <TextView
