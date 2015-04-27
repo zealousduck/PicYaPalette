@@ -13,24 +13,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Take a Pic"
+        android:onClick="takeAPicture"
         android:id="@+id/button_take"
         android:layout_gravity="center_horizontal" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Choose a Pic"
+        android:onClick="chooseAPicture"
         android:id="@+id/button_choose"
         android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Pic for Me"
+        android:onClick="picForMe"
+        android:id="@+id/button_pic_for_me" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Favorites"
+        android:onClick="openFavorites"
         android:id="@+id/button_favorites"
         android:layout_gravity="center_horizontal" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Settings"
+        android:onClick="openSettings"
         android:id="@+id/button_settings"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>

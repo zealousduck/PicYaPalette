@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.hardware.Camera;
 import android.view.SurfaceHolder;
 
+import java.util.Random;
+
 public class ImageChooserActivity extends Activity {
 
     private Button mTakePic;
@@ -30,80 +32,80 @@ public class ImageChooserActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_chooser);
-
-        // Open preferences
-        final SharedPreferences prefs = getSharedPreferences(SettingsActivity.PREF_FILE_NAME, MODE_PRIVATE);
-
-        // Hook up Buttons
-        mTakePic =      (Button)findViewById(R.id.button_take);
-        mTakePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle taking a picture!
-                // http://developer.android.com/reference/android/hardware/Camera.html
-                //mCamera = Camera.open();
-                //SurfaceHolder holder =
-
-                final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
-                // Analyze image in new thread!
-                final ProgressDialog pd =
-                        ProgressDialog.show(ImageChooserActivity.this,"Processing...", "Hold on...",true,false);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Process blueberries for now...
-                        Bitmap bmp = BitmapFactory.decodeResource(ImageChooserActivity.this.getResources(),
-                                R.drawable.blueberries);
-                        if (bmp != null) {
-                            int[] colors = new int[1];
-                            colors[0] = ImageProcessor.getColorInt(bmp,
-                                    prefs.getString(SettingsActivity.LIGHT_PREF, ImageProcessor.NORMAL));
-                            i.putExtra(COLOR_KEY, colors);
-                            Log.i("mTakePic", "Color:" + colors[0]);
-                        } else {
-                            Log.i("mTakePic", "bitmap null!");
-                        }
-                        pd.dismiss();
-                    }
-                }).run();
-
-                // Pass result of image processing to GeneratedPalettesActivity, through bundle
-                ImageChooserActivity.this.startActivity(i);
-
-            }
-        });
-        mChoosePic =    (Button)findViewById(R.id.button_choose);
-        mChoosePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle choosing a picture!
-            }
-        });
-        mFavorites =    (Button)findViewById(R.id.button_favorites);
-        mFavorites.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Launch Favorites activity!
-                Intent i = new Intent(ImageChooserActivity.this, FavoritePalettesActivity.class);
-                startActivity(i);
-            }
-        });
-
-        mSettings = (Button)findViewById(R.id.button_settings);
-        mSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ImageChooserActivity.this, SettingsActivity.class);
-                startActivity(i);
-            }
-        });
-
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    public void takeAPicture(View view) {
+        // Handle taking a picture!
+        // http://developer.android.com/reference/android/hardware/Camera.html
+        //mCamera = Camera.open();
+        //SurfaceHolder holder =
 
+        final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
+        // Analyze image in new thread!
+        final ProgressDialog pd =
+                ProgressDialog.show(ImageChooserActivity.this,"Processing...", "Hold on...",true,false);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // Process blueberries for now...
+                Bitmap bmp = BitmapFactory.decodeResource(ImageChooserActivity.this.getResources(),
+                        R.drawable.blueberries);
+                if (bmp != null) {
+                    int[] colors = new int[1];
+                    SharedPreferences prefs = getSharedPreferences(SettingsActivity.PREF_FILE_NAME, MODE_PRIVATE);
+                    colors[0] = ImageProcessor.getColorInt(bmp,
+                            prefs.getString(SettingsActivity.LIGHT_PREF, ImageProcessor.NORMAL));
+                    i.putExtra(COLOR_KEY, colors);
+                    Log.i("mTakePic", "Color:" + colors[0]);
+                } else {
+                    Log.i("mTakePic", "bitmap null!");
+                }
+                pd.dismiss();
+            }
+        }).run();
+
+        // Pass result of image processing to GeneratedPalettesActivity, through bundle
+        ImageChooserActivity.this.startActivity(i);
+    }
+
+    public void chooseAPicture(View view) {
+        // Moved from Listener implementation to onClick implementation!
+        // Handle choosing a picture from the photo library
+    }
+
+    public void picForMe(View view) {
+        // Moved from Listener implementation to onClick implementation!
+        // generate palettes for a random color!
+        final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
+        // Analyze image in new thread!
+        final ProgressDialog pd =
+                ProgressDialog.show(ImageChooserActivity.this,"Processing...", "Hold on...",true,false);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int seed = new Random().nextInt(0x01000000);
+                int[] colors = new int[1];
+                colors[0] = seed;
+                i.putExtra(COLOR_KEY, colors);
+                Log.i("Pic For Me", "Color:" + colors[0]);
+                pd.dismiss();
+            }
+        }).run();
+
+        // Pass result of image processing to GeneratedPalettesActivity, through bundle
+        ImageChooserActivity.this.startActivity(i);
+    }
+
+    public void openFavorites(View view) {
+        // Moved from Listener implementation to onClick implementation!
+        Intent i = new Intent(ImageChooserActivity.this, FavoritePalettesActivity.class);
+        startActivity(i);
+    }
+
+    public void openSettings(View view) {
+        // Moved from Listener implementation to onClick implementation!
+        Intent i = new Intent(ImageChooserActivity.this, SettingsActivity.class);
+        startActivity(i);
     }
 
     @Override
