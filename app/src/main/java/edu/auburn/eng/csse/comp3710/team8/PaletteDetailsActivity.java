@@ -1,9 +1,12 @@
 package edu.auburn.eng.csse.comp3710.team8;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
@@ -11,8 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class PaletteDetailsActivity extends Activity {
@@ -97,16 +102,62 @@ public class PaletteDetailsActivity extends Activity {
             public void onClick(View v) {
                 if (saved) {
                     // Remove palette
-                    psh.remove(palette);
+                    //psh.remove(palette);
+                    Toast toast = Toast.makeText(PaletteDetailsActivity.this,
+                                  "Palette Removed from Favorites",
+                                  Toast.LENGTH_SHORT);
+                    toast.show();
                     saved = false;
                     mFavoriteButton.setText(SAVE_TEXT);
                 }
                 else {
                     // Allow user to set name?
-                    // Save the palette!
-                    psh.save(palette);
-                    saved = true;
-                    mFavoriteButton.setText(UNSAVE_TEXT);
+                    final EditText input = new EditText(PaletteDetailsActivity.this);
+                    input.setInputType(InputType.TYPE_CLASS_TEXT);
+                    input.setHint("Palette Name Here");
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PaletteDetailsActivity.this,
+                            AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+                    builder.setView(input);
+                    builder.setTitle("Enter a name for the Palette:");
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.setPositiveButton("Save Palette", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Save the palette!
+                            int result = PaletteStorageHelper.SUCCESS;
+                            String tempName = input.getText().toString();
+                            if (tempName != null && !tempName.equals("")){
+                                palette.setName(tempName);
+                            }
+                            //result = psh.save(palette);
+                            saved = true;
+                            mFavoriteButton.setText(UNSAVE_TEXT);
+                            Toast toast;
+                            if (result == PaletteStorageHelper.SUCCESS) {
+                                toast = Toast.makeText(PaletteDetailsActivity.this,
+                                        "Palette Saved to Favorites",
+                                        Toast.LENGTH_SHORT);
+                            }
+                            else if (result == PaletteStorageHelper.DUPLICATE) {
+                                toast = Toast.makeText(PaletteDetailsActivity.this,
+                                        "Duplicate Palette Detected",
+                                        Toast.LENGTH_SHORT);
+                            }
+                            else {
+                                toast = Toast.makeText(PaletteDetailsActivity.this,
+                                        "Failed to Save Palette",
+                                        Toast.LENGTH_SHORT);
+                            }
+                            toast.show();
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.show();
                 }
             }
         });
