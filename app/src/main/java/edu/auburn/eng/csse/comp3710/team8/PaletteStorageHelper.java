@@ -73,7 +73,7 @@ public class PaletteStorageHelper {
         open();
         Cursor cursor = database.rawQuery("SELECT " + DBManager.COLUMN_COLORS
                 + " FROM " + DBManager.TABLE_PALETTES + " WHERE "
-                + DBManager.COLUMN_COLORS + " = \'" + temp + "'", null);
+                + DBManager.COLUMN_COLORS + " = '" + temp + "'", null);
         close();
         if(cursor.getCount() > 0) return true; // Return true for success
         return false;
