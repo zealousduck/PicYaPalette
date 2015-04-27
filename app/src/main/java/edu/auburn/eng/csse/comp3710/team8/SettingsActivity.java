@@ -1,6 +1,8 @@
 package edu.auburn.eng.csse.comp3710.team8;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -59,6 +61,33 @@ public class SettingsActivity extends Activity {
         lightAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mLightConditions.setAdapter(lightAdapter);
 
+        mDelete = (Button)findViewById(R.id.button_delete_all);
+        mDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a pop-up dialog!
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,
+                        AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+                builder.setIcon(android.R.drawable.ic_dialog_alert);
+                builder.setTitle("Delete All Favorites?");
+                builder.setMessage("This action cannot be undone.");
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.setPositiveButton("Delete All", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Completely clear database!
+
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        });
     }
 
     @Override
