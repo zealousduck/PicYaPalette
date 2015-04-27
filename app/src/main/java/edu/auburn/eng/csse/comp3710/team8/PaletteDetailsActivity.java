@@ -18,18 +18,24 @@ import android.widget.TextView;
 public class PaletteDetailsActivity extends Activity {
 
     public static final int NUM_TEXT_VIEWS = 5;
+    private static final String SAVE_TEXT = "Save Palette to Favorites";
+    private static final String UNSAVE_TEXT = "Remove Palette from Favorites";
 
     private ImageView mPaletteRender;
     private Button    mFavoriteButton;
 
+    private PaletteStorageHelper psh;
+
     private Palette palette;
     private String  paletteStgs[];
     private int     textViews[];
+    private boolean saved;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_palette_details);
+
         // Necessary for render() !
         WindowManager wm = (WindowManager)getSystemService(WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -67,12 +73,31 @@ public class PaletteDetailsActivity extends Activity {
             }
         }
 
+        psh = new PaletteStorageHelper(PaletteDetailsActivity.this);
+        saved = psh.isSaved(palette);
         mFavoriteButton = (Button)findViewById(R.id.button_save);
+        if (saved) {
+            mFavoriteButton.setText(UNSAVE_TEXT);
+        }
+        else {
+            mFavoriteButton.setText(SAVE_TEXT);
+        }
         mFavoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Save the palette!
-                // Allow user to set name?
+                if (saved) {
+                    // Remove palette
+                    psh.remove(palette);
+                    saved = false;
+                    mFavoriteButton.setText(SAVE_TEXT);
+                }
+                else {
+                    // Allow user to set name?
+                    // Save the palette!
+                    psh.save(palette);
+                    saved = true;
+                    mFavoriteButton.setText(UNSAVE_TEXT);
+                }
             }
         });
 

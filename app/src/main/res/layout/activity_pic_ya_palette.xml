@@ -9,15 +9,6 @@
     android:orientation="vertical"
     tools:context="edu.auburn.eng.csse.comp3710.team8.PicYaPaletteActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Pic Ya Palette"
-        android:id="@+id/textView2"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_weight="1" />
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,9 +21,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Team 8"
-        android:id="@+id/textView3"
+        android:text="@string/team_8_info_string"
+        android:id="@+id/team_8_names"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:gravity="center_horizontal" />
 
 </LinearLayout>
