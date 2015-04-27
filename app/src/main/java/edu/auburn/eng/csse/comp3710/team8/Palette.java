@@ -21,8 +21,9 @@ public class Palette {
         /* Actual algorithms: */
         public static final String RANDOM = "Random";
         public static final String BTCH_IM_FABULOUS = "Fabulous";
+        public static final String GRADIENT = "Gradient";
 
-        private static final int numAlgorithms = 2;
+        private static final int numAlgorithms = 3;
     }
 
     /* Bundle key data */
@@ -161,6 +162,13 @@ public class Palette {
             }
             return (((rng.nextInt(base)+0x00770000) & 0xFFFF55FF) | 0xFF000077);
         }
+        else if (algorithm.equals(PaletteAlgorithm.GRADIENT)) {  // Set colors manually for testing purposes
+            //for (int i = 0; )
+            colorsIn[0] = 0xFF2D397E;
+            colorsIn[1] = 0xFFFFFFFF;
+            colorsIn[2] = 0xFFE47F13;
+            return 0xFFE47F13;
+        }
         else if (algorithm.equals(PaletteAlgorithm.DEFAULT)) {  // Set colors manually for testing purposes
             colorsIn[0] = 0xFF2D397E;
             colorsIn[1] = 0xFFFFFFFF;
@@ -169,6 +177,34 @@ public class Palette {
         }
         else return 0;
     }
+
+   /* public static Color RandomMix(Color color1, Color color2, Color color3,
+                                  float greyControl) {
+        Random random = new Random();
+        byte[] bytes = new byte[1];
+        random.nextBytes(bytes);
+        int randomIndex = bytes[0] % 3;
+
+        float mixRatio1 =
+                (randomIndex == 0) ? random.nextFloat() * greyControl : random.nextFloat();
+
+        float mixRatio2 =
+                (randomIndex == 1) ? random.nextFloat() * greyControl : random.nextFloat();
+
+        float mixRatio3 =
+                (randomIndex == 2) ? random.nextFloat() * greyControl : random.nextFloat();
+
+        float sum = mixRatio1 + mixRatio2 + mixRatio3;
+
+        mixRatio1 /= sum;
+        mixRatio2 /= sum;
+        mixRatio3 /= sum;
+        return Color(
+                (byte)(mixRatio1 * color1.getRed() + mixRatio2 * color2.getRed() + mixRatio3 * color3.getRed()),
+                (byte)(mixRatio1 * color1.getGreen() + mixRatio2 * color2.getGreen() + mixRatio3 * color3.getGreen()),
+                (byte)(mixRatio1 * color1.getBlue() + mixRatio2 * color2.getBlue() + mixRatio3 * color3.getBlue()),
+                255);
+    }*/
 
     /* Call this whenever ANY is passed to generateColor()
          */
@@ -197,6 +233,7 @@ public class Palette {
         algs[0] = PaletteAlgorithm.ANY;
         algs[1] = PaletteAlgorithm.RANDOM;
         algs[2] = PaletteAlgorithm.BTCH_IM_FABULOUS;
+        algs[3] = PaletteAlgorithm.GRADIENT;
         return algs;
     }
 
