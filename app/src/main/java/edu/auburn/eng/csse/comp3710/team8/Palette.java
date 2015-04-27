@@ -37,6 +37,7 @@ public class Palette {
 
     /* Palette-specific data */
     protected String name;
+    protected String algorithmUsed;
     protected int[] colors; // Array implementation supports arbitrary number of colors
 
     /* Constructor. Accepts an array of color "seeds", which will populate the color array
@@ -45,6 +46,7 @@ public class Palette {
      */
     protected Palette(int[] colorSeeds, String algorithm) {
         name = DEFAULT_NAME + COUNTER++;
+        algorithmUsed = algorithm;
         colors = new int[numColors];
         if (algorithm == null) { // Just read in seed colors, no generation
             for (int i = 0; i < colorSeeds.length; i++) {
@@ -132,11 +134,17 @@ public class Palette {
         int x = canvas.getWidth();
         int y = canvas.getHeight();
         Paint paint = new Paint();
+        paint.setAntiAlias(true); paint.setFilterBitmap(true);
         paint.setStyle(Paint.Style.FILL);
         for (int i = 0; i < numColors; i++) {
+            // Draw outline
+            paint.setColor(Color.DKGRAY);
+            canvas.drawCircle(((i+1)*x)/(numColors+1), y/2, RENDER_RADIUS+3, paint);
+            // Draw color
             paint.setColor(colors[i]);
             Log.i("render()", "Draw circle " + i + " Color: " + Integer.toHexString(colors[i]));
             canvas.drawCircle(((i+1)*x)/(numColors+1), y/2, RENDER_RADIUS, paint);
+
         }
         return bmp;
     }
@@ -160,7 +168,7 @@ public class Palette {
             for (int i = 0; i < colorsIn.length; i++) {
                 base += (colorsIn[i] & 0x00FF0000);
             }
-            return (((rng.nextInt(base)+0x00770000) & 0xFFFF55FF) | 0xFF000077);
+            return ((((rng.nextInt(base)+0x00770000) & 0xFFFF55FF)+ 0x00040404) | 0xFF000077);
         }
         else if (algorithm.equals(PaletteAlgorithm.GRADIENT)) {  // Set colors manually for testing purposes
             //for (int i = 0; )
