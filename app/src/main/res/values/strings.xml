@@ -3,17 +3,15 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_pic_ya_palette">PicYaPaletteActivity</string>
+    <string name="title_activity_pic_ya_palette">Pick Ya Palette</string>
 
     <string name="team_8_info_string">Team 8\nSam Bartlett\nLucas Brooks\nPatrick Stewart\n\nAuburn University COMP3710 Spring 2015</string>
     <string name="favorites_title">Favorite Palettes</string>
 
 <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_splash">SplashActivity</string>
-    <string name="title_activity_image_chooser">ImageChooserActivity</string>
-    <string name="title_activity_favorite_palettes">FavoritePalettesActivity</string>
-    <string name="title_activity_generated_palettes">GeneratedPalettesActivity</string>
-    <string name="title_activity_palette_details">PaletteDetailsActivity</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_image_chooser">Pick an Image</string>
+    <string name="title_activity_favorite_palettes">Favorite Palettes</string>
+    <string name="title_activity_generated_palettes">Generated Palettes</string>
+    <string name="title_activity_palette_details">Palette Details</string>
+    <string name="title_activity_settings">Settings</string>
 </resources>
