@@ -19,7 +19,7 @@ public class ImageProcessor {
         int green = Color.green(pixel);
 
         int color = (0xFF << 24) | (red << 16) | (green << 8) | (blue);
-        color -= (0x00040404); // DARKEN THE COLOR SLIGHTLY. EXPERIMENTAL
+        color += (0x000F0F0F); // DARKEN THE COLOR SLIGHTLY. EXPERIMENTAL
         return color;
     }
 

@@ -70,7 +70,8 @@ public class PaletteAdapter extends BaseAdapter {
         display.getSize(size);
 
         // Update Views with corresponding information
-        holder.paletteName.setText(palettesList[position].getName());
+        holder.paletteName.setText(palettesList[position].getName() + "\n"
+                                    + palettesList[position].getAlgorithmUsed());
         Bitmap bmp = palettesList[position].render(size.x, size.y);
         holder.paletteRender.setImageBitmap(bmp);
 

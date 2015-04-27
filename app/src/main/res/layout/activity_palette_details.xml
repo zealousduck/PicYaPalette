@@ -15,6 +15,13 @@
         android:layout_gravity="center_horizontal"
         android:src="@drawable/splashimagetemp" />
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/text_details_algorithm"
+        android:gravity="center_horizontal" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"

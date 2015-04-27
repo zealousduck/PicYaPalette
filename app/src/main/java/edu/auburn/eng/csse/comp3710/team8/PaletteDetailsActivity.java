@@ -23,6 +23,7 @@ public class PaletteDetailsActivity extends Activity {
 
     private ImageView mPaletteRender;
     private Button    mFavoriteButton;
+    private TextView  mAlgorithm;
 
     private PaletteStorageHelper psh;
 
@@ -54,12 +55,19 @@ public class PaletteDetailsActivity extends Activity {
                 getIntent().getExtras().getBundle(PaletteAdapter.PALETTE_KEY));
         paletteStgs = palette.getDetailedStrings();
 
+        // Display palette render
         mPaletteRender = (ImageView)findViewById(R.id.image_palette_detail);
         Bitmap bmp = palette.render(2*size.x, 2*size.y); // Constants to enlarge image
         if (bmp == null) {
             Log.i("PaletteDetailsActivity", "bmp nulL!");
         }
         else mPaletteRender.setImageBitmap(bmp);
+
+        //Display palette render
+        mAlgorithm = (TextView)findViewById(R.id.text_details_algorithm);
+        mAlgorithm.setText(palette.getAlgorithmUsed() + " Palette");
+
+        // Display palette color codes
         if (palette.numColors <= 3) {   // Center the text views for less than 3 colors
             for (int i = 0; i < paletteStgs.length; i++) {
                 TextView temp = (TextView)findViewById(textViews[i+1]);

@@ -29,6 +29,7 @@ public class Palette {
     /* Bundle key data */
     public static final String BUNDLE_NAME = "PALETTE_NAME_KEY";
     public static final String BUNDLE_ARRAY = "PALETTE_INT[]_KEY";
+    public static final String BUNDLE_ALGORITHM = "PALETTE_ALG_KEY";
 
     /* Information for all Palettes to use */
     protected static int COUNTER = 0; // Used for numbering palettes for default names
@@ -73,6 +74,7 @@ public class Palette {
         if (paletteBundle != null) {
             name = paletteBundle.getString(BUNDLE_NAME);
             colors = paletteBundle.getIntArray(BUNDLE_ARRAY);
+            algorithmUsed = paletteBundle.getString(BUNDLE_ALGORITHM);
         }
     }
 
@@ -83,6 +85,7 @@ public class Palette {
         Bundle b = new Bundle();
         b.putString(BUNDLE_NAME, name);
         b.putIntArray(BUNDLE_ARRAY, colors);
+        b.putString(BUNDLE_ALGORITHM, algorithmUsed);
         return b;
     }
 
@@ -90,6 +93,9 @@ public class Palette {
     public int[] getColors() {
         return colors;
     }
+
+    /* Returns the algorithm used to generate this palette */
+    public String getAlgorithmUsed() { return algorithmUsed; }
 
     /* Sets the Palette's name (for saving purposes) */
     public void setName(String nameIn) {
