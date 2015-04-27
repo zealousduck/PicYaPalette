@@ -64,10 +64,39 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Generation Preferences"
+            android:id="@+id/text_generation_preference" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_generation_preference" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Changes"
+        android:onClick="savePreferences"
+        android:id="@+id/button_save_changes" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="DELETE FAVORITES"
-        android:id="@+id/button_delete_all" />
+        android:textColor="#EE0000"
+        android:onClick="deleteFavorites"
+        android:id="@+id/button_delete_all"
+        android:layout_gravity="bottom" />
 
 </LinearLayout>

@@ -16,9 +16,11 @@ public class GeneratedPalettesActivity extends Activity {
     private static int NUM_PALETTES = 10;       // Settings?
     private static String ALGORITHM = Palette.PaletteAlgorithm.ANY; // Set via settings?
     private static final String OUTSTATE_KEY = "GEN_PALETTE#";
+    private static String BRIGHT_PREFERENCE = Palette.PaletteAlgorithm.PREF_NONE;
 
     private int baseColors[];
     private Palette[] palettes;
+
 
     private ListView mList;
     private PaletteAdapter mAdapter;
@@ -103,6 +105,7 @@ public class GeneratedPalettesActivity extends Activity {
      * Rerolls our generated palettes without needing to get a new picture!
      */
     public void reroll(View view) {
+        readSettings();
         final ProgressDialog pd =
                 ProgressDialog.show(this,"Processing...", "Hold on...",true,false);
         // Start thread to populate list of palettes!
@@ -131,6 +134,8 @@ public class GeneratedPalettesActivity extends Activity {
         SharedPreferences preferences = getSharedPreferences(SettingsActivity.PREF_FILE_NAME, MODE_PRIVATE);
         NUM_PALETTES = preferences.getInt(SettingsActivity.NUM_PAL_PREF, 10);
         ALGORITHM = preferences.getString(SettingsActivity.ALGORITHM_PREF, Palette.PaletteAlgorithm.ANY);
+        BRIGHT_PREFERENCE = preferences.getString(SettingsActivity.GEN_BRIGHT_PREF, Palette.PaletteAlgorithm.PREF_NONE);
+        Palette.setBrightPreference(BRIGHT_PREFERENCE);
     }
 
 }

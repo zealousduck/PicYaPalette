@@ -24,6 +24,11 @@ public class Palette {
         public static final String GRADIENT = "Gradient";
 
         private static final int numAlgorithms = 3;
+
+        /* Constants for generation preferences */
+        public static final String PREF_DARK = "Dark";
+        public static final String PREF_NONE = "None";
+        public static final String PREF_LIGHT = "Light";
     }
 
     /* Bundle key data */
@@ -35,6 +40,8 @@ public class Palette {
     protected static int COUNTER = 0; // Used for numbering palettes for default names
     protected static final String DEFAULT_NAME = "Palette #";
     protected static int numColors = 3;
+    protected static int brightPreference = 0;
+    protected static final int brightFactor = 0x35; // Colors ~20% brighter/darker
 
     /* Palette-specific data */
     protected String name;
@@ -161,35 +168,66 @@ public class Palette {
      * Make sure to OR our results with 0xFF000000 in order to nullify transparency!
      */
     public static int generateColor(int[] colorsIn, String algorithm) {
+        //setBrightPreference(brightness);
         Random rng = new Random();
+        int color = 0;
         if (algorithm.equals(PaletteAlgorithm.COMPLEMENTARY)) {
             return Color.RED;
         }
         else if (algorithm.equals(PaletteAlgorithm.RANDOM)) {
             // Return a random number in the range 0 to 2^24
-            return (rng.nextInt(0x01000000) | 0xFF000000);
+            color = (rng.nextInt(0x01000000) | 0xFF000000);
         }
         else if (algorithm.equals(PaletteAlgorithm.BTCH_IM_FABULOUS)) {
             int base = 0;
             for (int i = 0; i < colorsIn.length; i++) {
                 base += (colorsIn[i] & 0x00FF0000);
             }
-            return ((((rng.nextInt(base)+0x00770000) & 0xFFFF55FF)+ 0x00040404) | 0xFF000077);
+            color = ((((rng.nextInt(base)+0x00770000) & 0xFFFF55FF)+ 0x00040404) | 0xFF000077);
         }
         else if (algorithm.equals(PaletteAlgorithm.GRADIENT)) {  // Set colors manually for testing purposes
             //for (int i = 0; )
             colorsIn[0] = 0xFF2D397E;
             colorsIn[1] = 0xFFFFFFFF;
             colorsIn[2] = 0xFFE47F13;
-            return 0xFFE47F13;
+            color = 0xFFE47F13;
         }
         else if (algorithm.equals(PaletteAlgorithm.DEFAULT)) {  // Set colors manually for testing purposes
             colorsIn[0] = 0xFF2D397E;
             colorsIn[1] = 0xFFFFFFFF;
             colorsIn[2] = 0xFFE47F13;
-            return 0xFFE47F13;
+            color = 0xFFE47F13;
         }
-        else return 0;
+
+        // Safely adjust colors according to brightness preference!
+        int red = Color.red(color);
+        int blue = Color.blue(color);
+        int green = Color.green(color);
+        if (brightPreference != 0) { // Skip this math if we don't use it...
+            int tempColor = (red + brightFactor * brightPreference);
+            if (tempColor <= 0xFF && tempColor >= 0) {
+                red = tempColor;
+            } else {
+                if (tempColor > 0xFF) red = 0xFF;
+                else red = 0;
+            }
+            tempColor = (green + brightFactor * brightPreference);
+            if (tempColor <= 0xFF && tempColor >= 0) {
+                green = tempColor;
+            } else {
+                if (tempColor > 0xFF) green = 0xFF;
+                else green = 0;
+            }
+            tempColor = (blue + brightFactor * brightPreference);
+            if (tempColor <= 0xFF && tempColor >= 0) {
+                blue = tempColor;
+            } else {
+                if (tempColor > 0xFF) blue = 0xFF;
+                else blue = 0;
+            }
+        }
+        // Return final result!
+        return (0xFF << 24) | (red << 16) | (green << 8) | (blue);
     }
 
    /* public static Color RandomMix(Color color1, Color color2, Color color3,
@@ -232,6 +270,9 @@ public class Palette {
             case 1:
                 algorithm = PaletteAlgorithm.BTCH_IM_FABULOUS;
                 break;
+            case 2:
+                algorithm = PaletteAlgorithm.GRADIENT;
+                break;
             default:
                 algorithm = PaletteAlgorithm.DEFAULT;
         }
@@ -249,6 +290,32 @@ public class Palette {
         algs[2] = PaletteAlgorithm.BTCH_IM_FABULOUS;
         algs[3] = PaletteAlgorithm.GRADIENT;
         return algs;
+    }
+
+    /* Used for preference spinner.
+     */
+    public static String[] getGenerationPreferences() {
+        String[] prefs = new String[3];
+        prefs[0] = PaletteAlgorithm.PREF_NONE;
+        prefs[1] = PaletteAlgorithm.PREF_LIGHT;
+        prefs[2] = PaletteAlgorithm.PREF_DARK;
+        return prefs;
+    }
+
+    /* Sets the brightness skew of the palette algorithms!
+     */
+    public static void setBrightPreference(String pref) {
+        if (pref.equals(PaletteAlgorithm.PREF_DARK)) {
+            brightPreference = -1;
+        }
+        else if (pref.equals(PaletteAlgorithm.PREF_NONE)) {
+            brightPreference = 0;
+        }
+        else if (pref.equals(PaletteAlgorithm.PREF_LIGHT)) {
+            brightPreference = 1;
+        }
+        else
+            brightPreference = 0;
     }
 
 }
