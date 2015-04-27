@@ -6,6 +6,7 @@
     <string name="title_activity_pic_ya_palette">PicYaPaletteActivity</string>
 
     <string name="team_8_info_string">Team 8\nSam Bartlett\nLucas Brooks\nPatrick Stewart\n\nAuburn University COMP3710 Spring 2015</string>
+    <string name="favorites_title">Favorite Palettes</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
