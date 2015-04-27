@@ -54,14 +54,12 @@ public class PaletteStorageHelper {
     }
 
     /*
-     *      Removes the palette from the databse
+     *      Removes the palette from the database
      */
     public boolean remove(Palette p) {
         String temp = colorsToString(p);
-        open();
         database.delete(DBManager.TABLE_PALETTES, DBManager.COLUMN_COLORS
                 + " = " + temp, null);
-        close();
         return true; // Return true for success
     }
 
@@ -70,11 +68,9 @@ public class PaletteStorageHelper {
      */
     public boolean isSaved(Palette p) {
         String temp = colorsToString(p);
-        open();
         Cursor cursor = database.rawQuery("SELECT " + DBManager.COLUMN_COLORS
                 + " FROM " + DBManager.TABLE_PALETTES + " WHERE "
                 + DBManager.COLUMN_COLORS + " = '" + temp + "'", null);
-        close();
         if(cursor.getCount() > 0) return true; // Return true for success
         return false;
 
