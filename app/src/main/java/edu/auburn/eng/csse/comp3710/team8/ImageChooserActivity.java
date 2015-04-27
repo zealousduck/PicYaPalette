@@ -3,6 +3,7 @@ package edu.auburn.eng.csse.comp3710.team8;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -30,6 +31,9 @@ public class ImageChooserActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_chooser);
 
+        // Open preferences
+        final SharedPreferences prefs = getSharedPreferences(SettingsActivity.PREF_FILE_NAME, MODE_PRIVATE);
+
         // Hook up Buttons
         mTakePic =      (Button)findViewById(R.id.button_take);
         mTakePic.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +56,8 @@ public class ImageChooserActivity extends Activity {
                                 R.drawable.blueberries);
                         if (bmp != null) {
                             int[] colors = new int[1];
-                            colors[0] = ImageProcessor.getColorInt(bmp);
+                            colors[0] = ImageProcessor.getColorInt(bmp,
+                                    prefs.getString(SettingsActivity.LIGHT_PREF, ImageProcessor.NORMAL));
                             i.putExtra(COLOR_KEY, colors);
                             Log.i("mTakePic", "Color:" + colors[0]);
                         } else {
@@ -95,6 +100,11 @@ public class ImageChooserActivity extends Activity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

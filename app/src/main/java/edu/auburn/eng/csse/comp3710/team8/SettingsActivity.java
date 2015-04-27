@@ -13,10 +13,12 @@ public class SettingsActivity extends Activity {
     public static final String PREF_FILE_NAME = "appPreferences";
     public static final String ALGORITHM_PREF = "Algorithm_Preference_Key";
     public static final String NUM_PAL_PREF = "Number_Palettes_Preference_Key";
+    public static final String LIGHT_PREF = "Light_Preference_Key";
 
     private Button mDelete;
     private Spinner mAlgorithms;
     private Spinner mNumPalettes;
+    private Spinner mLightConditions;
 
     private Integer[] numOptions;
 
@@ -48,6 +50,15 @@ public class SettingsActivity extends Activity {
         numAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mNumPalettes.setAdapter(numAdapter);
 
+        mLightConditions = (Spinner)findViewById(R.id.spinner_light_conditions);
+        String[] light = ImageProcessor.getLightOptions();
+        ArrayAdapter<String> lightAdapter = new ArrayAdapter<String>(
+                SettingsActivity.this,
+                android.R.layout.simple_spinner_item,
+                light);
+        lightAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mLightConditions.setAdapter(lightAdapter);
+
     }
 
     @Override
@@ -57,6 +68,7 @@ public class SettingsActivity extends Activity {
         SharedPreferences.Editor editor = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE).edit();
         editor.putString(ALGORITHM_PREF, Palette.getAlgorithmChoices()[mAlgorithms.getSelectedItemPosition()]);
         editor.putInt(NUM_PAL_PREF, numOptions[mNumPalettes.getSelectedItemPosition()]);
+        editor.putString(LIGHT_PREF, ImageProcessor.getLightOptions()[mLightConditions.getSelectedItemPosition()]);
         editor.commit();
     }
 

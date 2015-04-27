@@ -133,7 +133,4 @@ public class GeneratedPalettesActivity extends Activity {
         ALGORITHM = preferences.getString(SettingsActivity.ALGORITHM_PREF, Palette.PaletteAlgorithm.ANY);
     }
 
-    public void setAlgorithm(String algorithmIn) {
-        // Allow user to set algorithm being used (called from settings?)
-    }
 }
