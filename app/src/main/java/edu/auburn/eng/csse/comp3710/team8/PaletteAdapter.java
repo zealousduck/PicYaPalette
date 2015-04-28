@@ -23,6 +23,7 @@ public class PaletteAdapter extends BaseAdapter {
 
     private         Context         context;
     private         Palette[]       palettesList;
+    private         Bitmap[]        bmpsList;
     private static  LayoutInflater  inflater = null;
 
     /* Constructor. Accepts a context and an array of Palettes.
@@ -30,6 +31,16 @@ public class PaletteAdapter extends BaseAdapter {
     public PaletteAdapter(Activity activityIn, Palette[] palettesIn) {
         this.context =      activityIn;
         this.palettesList = palettesIn;
+        // Populate bmpsList ahead of time, prevent heap overflows!
+        // Get screen size info to pass to render() !
+        WindowManager wm =  (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        Display display =   wm.getDefaultDisplay();
+        Point size =        new Point();
+        display.getSize(size);
+        bmpsList = new Bitmap[palettesList.length];
+        for (int i = 0; i < palettesList.length; i++) {
+            bmpsList[i] = palettesList[i].render(size.x, size.y);
+        }
         inflater =          (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -53,6 +64,7 @@ public class PaletteAdapter extends BaseAdapter {
     public class Holder {
         TextView    paletteName;
         ImageView   paletteRender;
+        Bitmap      bmp;
     }
 
     @Override
@@ -63,17 +75,18 @@ public class PaletteAdapter extends BaseAdapter {
         holder.paletteName =    (TextView) rowView.findViewById(R.id.palette_name);
         holder.paletteRender =  (ImageView) rowView.findViewById(R.id.palette_render);
 
+        /*
         // Get screen size info to pass to render() !
         WindowManager wm =  (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
         Display display =   wm.getDefaultDisplay();
         Point size =        new Point();
         display.getSize(size);
-
+        */
         // Update Views with corresponding information
         holder.paletteName.setText(palettesList[position].getName() + "\n"
                                     + palettesList[position].getAlgorithmUsed());
-        Bitmap bmp = palettesList[position].render(size.x, size.y);
-        holder.paletteRender.setImageBitmap(bmp);
+        holder.bmp = bmpsList[position];
+        holder.paletteRender.setImageBitmap(holder.bmp);
 
         // Handle selection of List items
         rowView.setOnClickListener(new View.OnClickListener() {
