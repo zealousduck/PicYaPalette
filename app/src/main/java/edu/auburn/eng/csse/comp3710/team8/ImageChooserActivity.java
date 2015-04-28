@@ -4,16 +4,18 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.Button;
-import android.hardware.Camera;
 import android.view.SurfaceHolder;
 
 import java.util.Random;
@@ -25,8 +27,52 @@ public class ImageChooserActivity extends Activity {
     private Button mFavorites;
     private Button mSettings;
 
-    private Camera mCamera;
     public final static String COLOR_KEY = "COLOR";
+    private Bitmap bmp;
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+//    private void dispatchTakePictureIntent() {
+//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//        }
+//    }
+
+    static final int RESULT_LOAD_IMG = 2;
+    String imgDecodableString;
+
+    public void loadImagefromGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        if (galleryIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            bmp = (Bitmap) extras.get("data");
+        }
+
+        if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK
+                && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            // Move to first row
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            imgDecodableString = cursor.getString(columnIndex);
+            cursor.close();
+            bmp = BitmapFactory.decodeFile(imgDecodableString);
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +81,7 @@ public class ImageChooserActivity extends Activity {
     }
 
     public void takeAPicture(View view) {
-        // Handle taking a picture!
-        // http://developer.android.com/reference/android/hardware/Camera.html
-        //mCamera = Camera.open();
-        //SurfaceHolder holder =
+
 
         final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
         // Analyze image in new thread!
@@ -48,8 +91,10 @@ public class ImageChooserActivity extends Activity {
             @Override
             public void run() {
                 // Process blueberries for now...
-                Bitmap bmp = BitmapFactory.decodeResource(ImageChooserActivity.this.getResources(),
-                        R.drawable.blueberries);
+                if (bmp == null) {
+                    bmp = BitmapFactory.decodeResource(ImageChooserActivity.this.getResources(),
+                            R.drawable.blueberries);
+                }
                 if (bmp != null) {
                     int[] colors = new int[1];
                     SharedPreferences prefs = getSharedPreferences(SettingsActivity.PREF_FILE_NAME, MODE_PRIVATE);
@@ -71,6 +116,37 @@ public class ImageChooserActivity extends Activity {
     public void chooseAPicture(View view) {
         // Moved from Listener implementation to onClick implementation!
         // Handle choosing a picture from the photo library
+        loadImagefromGallery();
+
+        final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
+        // Analyze image in new thread!
+        final ProgressDialog pd =
+                ProgressDialog.show(ImageChooserActivity.this,"Processing...", "Hold on...",true,false);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // Process blueberries for now...
+                if (bmp == null) {
+                    bmp = BitmapFactory.decodeResource(ImageChooserActivity.this.getResources(),
+                            R.drawable.blueberries);
+                }
+                if (bmp != null) {
+                    int[] colors = new int[1];
+                    SharedPreferences prefs = getSharedPreferences(SettingsActivity.PREF_FILE_NAME, MODE_PRIVATE);
+                    colors[0] = ImageProcessor.getColorInt(bmp,
+                            prefs.getString(SettingsActivity.LIGHT_PREF, ImageProcessor.NORMAL));
+                    i.putExtra(COLOR_KEY, colors);
+                    Log.i("mTakePic", "Color:" + colors[0]);
+                } else {
+                    Log.i("mTakePic", "bitmap null!");
+                }
+                pd.dismiss();
+            }
+        }).run();
+
+        // Pass result of image processing to GeneratedPalettesActivity, through bundle
+        ImageChooserActivity.this.startActivity(i);
+
     }
 
     public void picForMe(View view) {
