@@ -102,7 +102,7 @@ public class PaletteDetailsActivity extends Activity {
             public void onClick(View v) {
                 if (saved) {
                     // Remove palette
-                    //psh.remove(palette);
+                    psh.remove(palette);
                     Toast toast = Toast.makeText(PaletteDetailsActivity.this,
                                   "Palette Removed from Favorites",
                                   Toast.LENGTH_SHORT);
@@ -134,7 +134,7 @@ public class PaletteDetailsActivity extends Activity {
                             if (tempName != null && !tempName.equals("")){
                                 palette.setName(tempName);
                             }
-                            //result = psh.save(palette);
+                            result = psh.save(palette);
                             saved = true;
                             mFavoriteButton.setText(UNSAVE_TEXT);
                             Toast toast;
