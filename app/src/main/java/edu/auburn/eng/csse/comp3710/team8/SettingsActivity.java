@@ -44,7 +44,7 @@ public class SettingsActivity extends Activity {
         mAlgorithms.setAdapter(algorithmAdapter);
 
         mNumPalettes = (Spinner)findViewById(R.id.spinner_num_palettes);
-        numOptions = new Integer[20];
+        numOptions = new Integer[10];
         for (int i = 0; i < numOptions.length; i++) {
             numOptions[i] = 5*(i+1);
         }
