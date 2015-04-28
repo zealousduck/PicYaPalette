@@ -1,157 +1,184 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
     android:orientation="vertical"
     tools:context="edu.auburn.eng.csse.comp3710.team8.SettingsActivity">
 
-    <ScrollView
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView"
-        android:layout_weight="1">
+        android:textSize="30sp"
+        android:text="Settings"
+        android:id="@+id/title_settings"
+        android:layout_gravity="center"
+        android:background="#A0A0A0"
+        android:gravity="center_horizontal"
+        android:textColor="#F2F2F2"
+        android:singleLine="false"
+        android:padding="8dp"
+        android:elevation="3sp"/>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Algorithm Used"
-                    android:id="@+id/textView"
-                    android:layout_weight="1"
-                    android:layout_gravity="center_vertical" />
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/ic_menu_help"
-                    android:gravity="end"
-                    android:id="@+id/help_algorithm"
-                    android:onClick="helpAlgorithm"/>
-
-            </LinearLayout>
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinner_algorithm" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Palettes per Roll"
-                    android:id="@+id/text_num_palettes"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1" />
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/ic_menu_help"
-                    android:gravity="end"
-                    android:id="@+id/help_num_palettes"
-                    android:layout_gravity="center_vertical"
-                    android:onClick="helpNumPerRoll"/>
-
-            </LinearLayout>
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinner_num_palettes" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Light Conditions"
-                    android:id="@+id/text_light_conditions"
-                    android:layout_weight="1"
-                    android:layout_gravity="center_vertical" />
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/ic_menu_help"
-                    android:gravity="end"
-                    android:id="@+id/help_light_conditions"
-                    android:onClick="helpLightConditions"/>
-
-            </LinearLayout>
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinner_light_conditions" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Generation Preferences"
-                    android:id="@+id/text_generation_preference"
-                    android:layout_weight="1"
-                    android:layout_gravity="center_vertical" />
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/ic_menu_help"
-                    android:gravity="end"
-                    android:id="@+id/help_gen_preferences"
-                    android:onClick="helpGenPrefs"/>
-
-            </LinearLayout>
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinner_generation_preference" />
-
-        </LinearLayout>
-    </ScrollView>
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Save Changes"
-        android:onClick="savePreferences"
-        android:id="@+id/button_save_changes" />
-
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="DELETE FAVORITES"
-        android:textColor="#EE0000"
-        android:onClick="deleteFavorites"
-        android:id="@+id/button_delete_all"
-        android:layout_gravity="bottom" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="0dp"
+        android:paddingBottom="@dimen/activity_vertical_margin">
 
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Algorithm Used"
+                        android:id="@+id/textView"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@android:drawable/ic_menu_help"
+                        android:gravity="end"
+                        android:id="@+id/help_algorithm"
+                        android:onClick="helpAlgorithm"/>
+
+                </LinearLayout>
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner_algorithm" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Palettes per Roll"
+                        android:id="@+id/text_num_palettes"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@android:drawable/ic_menu_help"
+                        android:gravity="end"
+                        android:id="@+id/help_num_palettes"
+                        android:layout_gravity="center_vertical"
+                        android:onClick="helpNumPerRoll"/>
+
+                </LinearLayout>
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner_num_palettes" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Light Conditions"
+                        android:id="@+id/text_light_conditions"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@android:drawable/ic_menu_help"
+                        android:gravity="end"
+                        android:id="@+id/help_light_conditions"
+                        android:onClick="helpLightConditions"/>
+
+                </LinearLayout>
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner_light_conditions" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Generation Preferences"
+                        android:id="@+id/text_generation_preference"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@android:drawable/ic_menu_help"
+                        android:gravity="end"
+                        android:id="@+id/help_gen_preferences"
+                        android:onClick="helpGenPrefs"/>
+
+                </LinearLayout>
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner_generation_preference" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Changes"
+            android:onClick="savePreferences"
+            android:id="@+id/button_save_changes" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DELETE FAVORITES"
+            android:textColor="#EE0000"
+            android:onClick="deleteFavorites"
+            android:id="@+id/button_delete_all"
+            android:layout_gravity="bottom" />
+
+    </LinearLayout>
 </LinearLayout>

@@ -32,9 +32,6 @@ public class GeneratedPalettesActivity extends Activity {
         setContentView(R.layout.activity_generated_palettes);
         readSettings(); // Check shared preferences for generation settings
 
-        mAlgorithm = (TextView)findViewById(R.id.text_algorithm_used);
-        mAlgorithm.setText("Algorithm used: " + ALGORITHM);
-
         baseColors = new int[Palette.getNumColors()];
         Intent intent = getIntent();
         baseColors = intent.getIntArrayExtra(ImageChooserActivity.COLOR_KEY);
