@@ -150,7 +150,7 @@ public class Palette {
         Paint paint = new Paint();
         paint.setAntiAlias(true); paint.setFilterBitmap(true);
         paint.setStyle(Paint.Style.FILL);
-        for (int i = 0; i < numColors; i++) {
+        for (int i = numColors-1; i >= 0; i--) {
             // Draw outline
             paint.setColor(Color.DKGRAY);
             canvas.drawCircle(((i+1)*x)/(numColors+1), y/2, RENDER_RADIUS+3, paint);
