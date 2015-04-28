@@ -70,7 +70,7 @@ public class PaletteDetailsActivity extends Activity {
 
         //Display palette render
         mAlgorithm = (TextView)findViewById(R.id.text_details_algorithm);
-        mAlgorithm.setText(palette.getAlgorithmUsed() + " Palette");
+        mAlgorithm.setText(palette.getName() + "\n" + palette.getAlgorithmUsed() + " Palette");
 
         // Display palette color codes
         if (palette.numColors <= 3) {   // Center the text views for less than 3 colors
