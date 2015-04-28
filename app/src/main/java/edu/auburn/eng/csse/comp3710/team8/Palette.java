@@ -22,8 +22,9 @@ public class Palette {
         public static final String RANDOM = "Random";
         public static final String BTCH_IM_FABULOUS = "Fabulous";
         public static final String GRADIENT = "Gradient";
+        public static final String DOMINANT = "Dominant";
 
-        private static final int numAlgorithms = 3;
+        private static final int numAlgorithms = 4;
 
         /* Constants for generation preferences */
         public static final String PREF_DARK = "Dark";
@@ -127,9 +128,9 @@ public class Palette {
         for (int i = 0; i < numColors; i++) {
             String stg = "";
             stg += "0x" + Integer.toHexString(colors[i]).substring(2).toUpperCase() + "\n"
-                +    "R: " + Color.red(colors[i]) + "\n"
-                +    "G: " + Color.green(colors[i]) + "\n"
-                +    "B: " + Color.blue(colors[i]) + "\n";
+                    +    "R: " + Color.red(colors[i]) + "\n"
+                    +    "G: " + Color.green(colors[i]) + "\n"
+                    +    "B: " + Color.blue(colors[i]) + "\n";
             stgs[i] = stg;
         }
         return stgs;
@@ -169,30 +170,54 @@ public class Palette {
      */
     public static int generateColor(int[] colorsIn, String algorithm) {
         //setBrightPreference(brightness);
+        int red, green, blue;
+        int color, lastColor = 0;
+        for (int i = 0; i < colorsIn.length; i++) {
+            if (colorsIn[i] != 0) lastColor = i;
+        }
         Random rng = new Random();
-        int color = 0;
+        color = 0;
         if (algorithm.equals(PaletteAlgorithm.COMPLEMENTARY)) {
             return Color.RED;
-        }
-        else if (algorithm.equals(PaletteAlgorithm.RANDOM)) {
+        } else if (algorithm.equals(PaletteAlgorithm.RANDOM)) {
             // Return a random number in the range 0 to 2^24
             color = (rng.nextInt(0x01000000) | 0xFF000000);
-        }
-        else if (algorithm.equals(PaletteAlgorithm.BTCH_IM_FABULOUS)) {
+        } else if (algorithm.equals(PaletteAlgorithm.BTCH_IM_FABULOUS)) {
             int base = 0;
             for (int i = 0; i < colorsIn.length; i++) {
                 base += (colorsIn[i] & 0x00FF0000);
             }
-            color = ((((rng.nextInt(base)+0x00770000) & 0xFFFF55FF)+ 0x00040404) | 0xFF000077);
-        }
-        else if (algorithm.equals(PaletteAlgorithm.GRADIENT)) {  // Set colors manually for testing purposes
+            color = ((((rng.nextInt(base) + 0x00770000) & 0xFFFF55FF) + 0x00040404) | 0xFF000077);
+        } else if (algorithm.equals(PaletteAlgorithm.GRADIENT)) {  // Set colors manually for testing purposes
             //for (int i = 0; )
             colorsIn[0] = 0xFF2D397E;
             colorsIn[1] = 0xFFFFFFFF;
             colorsIn[2] = 0xFFE47F13;
             color = 0xFFE47F13;
-        }
-        else if (algorithm.equals(PaletteAlgorithm.DEFAULT)) {  // Set colors manually for testing purposes
+        } else if (algorithm.equals(PaletteAlgorithm.DOMINANT)) {
+            int dominantId = 0;
+            int dominant = 0;
+            for (int i = 0; i < 3; i++) {
+                if (((colorsIn[0] >> 8 * i) & 0xFF) > dominant) {
+                    dominantId = i;   // 0 -> Blue, 1 -> Green, 2 -> Red
+                    dominant = (colorsIn[0] >> 8 * i) & 0x000000FF;
+                    Log.i("DOMINANT", "dominant = " + i);
+                }
+            }
+            switch (dominantId) { // Preserve the dominant, roll for others
+                case 0: // BLUE
+                    color = (0xFF << 24) | (rng.nextInt(0x100) << 16) | (rng.nextInt(0x100) << 8) | (dominant);
+                    break;
+                case 1: // GREEN
+                    color = (0xFF << 24) | (rng.nextInt(0x100) << 16) | (dominant << 8) | (rng.nextInt(0x100));
+                    break;
+                case 2: // RED
+                    color = (0xFF << 24) | (dominant << 16) | (rng.nextInt(0x100) << 8) | (rng.nextInt(0x100));
+                    break;
+                default: // Error, shouldn't happen...
+                    color = 0;
+            }
+        } else if (algorithm.equals(PaletteAlgorithm.DEFAULT)) {  // Set colors manually for testing purposes
             colorsIn[0] = 0xFF2D397E;
             colorsIn[1] = 0xFFFFFFFF;
             colorsIn[2] = 0xFFE47F13;
@@ -200,9 +225,9 @@ public class Palette {
         }
 
         // Safely adjust colors according to brightness preference!
-        int red = Color.red(color);
-        int blue = Color.blue(color);
-        int green = Color.green(color);
+        red = Color.red(color);
+        blue = Color.blue(color);
+        green = Color.green(color);
         if (brightPreference != 0) { // Skip this math if we don't use it...
             int tempColor = (red + brightFactor * brightPreference);
             if (tempColor <= 0xFF && tempColor >= 0) {
@@ -226,8 +251,16 @@ public class Palette {
                 else blue = 0;
             }
         }
-        // Return final result!
-        return (0xFF << 24) | (red << 16) | (green << 8) | (blue);
+        /*
+        // Prevent colors being too similar...?
+        if (red - Color.red(colorsIn[lastColor]) < 0x15)     red = (red - 0x15) % 0xFF;
+        if (green - Color.green(colorsIn[lastColor]) < 0x15) green = (green - 0x15) % 0xFF;
+        if (blue - Color.blue(colorsIn[lastColor]) < 0x15)   blue = ...
+        */
+
+        color = (0xFF << 24) | (red << 16) | (green << 8) | (blue);
+
+        return color;
     }
 
    /* public static Color RandomMix(Color color1, Color color2, Color color3,
@@ -273,6 +306,9 @@ public class Palette {
             case 2:
                 algorithm = PaletteAlgorithm.GRADIENT;
                 break;
+            case 3:
+                algorithm = PaletteAlgorithm.DOMINANT;
+                break;
             default:
                 algorithm = PaletteAlgorithm.DEFAULT;
         }
@@ -289,6 +325,7 @@ public class Palette {
         algs[1] = PaletteAlgorithm.RANDOM;
         algs[2] = PaletteAlgorithm.BTCH_IM_FABULOUS;
         algs[3] = PaletteAlgorithm.GRADIENT;
+        algs[4] = PaletteAlgorithm.DOMINANT;
         return algs;
     }
 
