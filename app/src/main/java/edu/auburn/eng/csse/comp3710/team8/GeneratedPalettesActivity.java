@@ -60,12 +60,13 @@ public class GeneratedPalettesActivity extends Activity {
                             palettes[i] = new Palette(baseColors, ALGORITHM);
                         }
                     }
+                    mAdapter = new PaletteAdapter(GeneratedPalettesActivity.this, palettes);
                     pd.dismiss();
                 }
             }).run();
         }
         mList = (ListView)findViewById(R.id.list_generated);
-        mAdapter = new PaletteAdapter(GeneratedPalettesActivity.this, palettes);
+        //mAdapter = new PaletteAdapter(GeneratedPalettesActivity.this, palettes);
         mList.setAdapter(mAdapter);
     }
 
@@ -121,11 +122,11 @@ public class GeneratedPalettesActivity extends Activity {
                         palettes[i] = new Palette(baseColors, ALGORITHM);
                     }
                 }
+                mAdapter = new PaletteAdapter(GeneratedPalettesActivity.this, palettes);
                 pd.dismiss();
             }
         }).run();
-
-        mAdapter = new PaletteAdapter(this, palettes);
+        //mAdapter = new PaletteAdapter(this, palettes);
         mList.setAdapter(mAdapter);
     }
 
