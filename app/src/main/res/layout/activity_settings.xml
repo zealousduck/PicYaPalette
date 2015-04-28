@@ -73,6 +73,14 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/spinner_algorithm" />
 
+                <!-- Vertical Separator! -->
+                <View
+                    android:background="#D2D2D2"
+                    android:layout_width = "fill_parent"
+                    android:layout_height="1dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"/>
+
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
@@ -103,6 +111,14 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/spinner_num_palettes" />
 
+                <!-- Vertical Separator! -->
+                <View
+                    android:background="#D2D2D2"
+                    android:layout_width = "fill_parent"
+                    android:layout_height="1dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"/>
+
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
@@ -132,6 +148,14 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/spinner_light_conditions" />
 
+                <!-- Vertical Separator! -->
+                <View
+                    android:background="#D2D2D2"
+                    android:layout_width = "fill_parent"
+                    android:layout_height="1dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"/>
+
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
@@ -160,6 +184,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/spinner_generation_preference" />
+
+                <!-- Vertical Separator! -->
+                <View
+                    android:background="#D2D2D2"
+                    android:layout_width = "fill_parent"
+                    android:layout_height="1dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"/>
 
             </LinearLayout>
         </ScrollView>
