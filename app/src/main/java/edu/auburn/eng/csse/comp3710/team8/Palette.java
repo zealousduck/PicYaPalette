@@ -43,6 +43,7 @@ public class Palette {
     protected static int numColors = 3;
     protected static int brightPreference = 0;
     protected static final int brightFactor = 0x35; // Colors ~20% brighter/darker
+    protected static final double saturationFactor = 0.2;
 
     /* Palette-specific data */
     protected String name;
@@ -179,22 +180,26 @@ public class Palette {
         color = 0;
         if (algorithm.equals(PaletteAlgorithm.COMPLEMENTARY)) {
             return Color.RED;
-        } else if (algorithm.equals(PaletteAlgorithm.RANDOM)) {
+        }
+        else if (algorithm.equals(PaletteAlgorithm.RANDOM)) {
             // Return a random number in the range 0 to 2^24
             color = (rng.nextInt(0x01000000) | 0xFF000000);
-        } else if (algorithm.equals(PaletteAlgorithm.BTCH_IM_FABULOUS)) {
+        }
+        else if (algorithm.equals(PaletteAlgorithm.BTCH_IM_FABULOUS)) {
             int base = 0;
             for (int i = 0; i < colorsIn.length; i++) {
                 base += (colorsIn[i] & 0x00FF0000);
             }
             color = ((((rng.nextInt(base) + 0x00770000) & 0xFFFF55FF) + 0x00040404) | 0xFF000077);
-        } else if (algorithm.equals(PaletteAlgorithm.GRADIENT)) {  // Set colors manually for testing purposes
+        }
+        else if (algorithm.equals(PaletteAlgorithm.GRADIENT)) {  // Set colors manually for testing purposes
             //for (int i = 0; )
             colorsIn[0] = 0xFF2D397E;
             colorsIn[1] = 0xFFFFFFFF;
             colorsIn[2] = 0xFFE47F13;
             color = 0xFFE47F13;
-        } else if (algorithm.equals(PaletteAlgorithm.DOMINANT)) {
+        }
+        else if (algorithm.equals(PaletteAlgorithm.DOMINANT)) {
             int dominantId = 0;
             int dominant = 0;
             for (int i = 0; i < 3; i++) {
@@ -217,7 +222,8 @@ public class Palette {
                 default: // Error, shouldn't happen...
                     color = 0;
             }
-        } else if (algorithm.equals(PaletteAlgorithm.DEFAULT)) {  // Set colors manually for testing purposes
+        }
+        else if (algorithm.equals(PaletteAlgorithm.DEFAULT)) {  // Set colors manually for testing purposes
             colorsIn[0] = 0xFF2D397E;
             colorsIn[1] = 0xFFFFFFFF;
             colorsIn[2] = 0xFFE47F13;
@@ -228,6 +234,12 @@ public class Palette {
         red = Color.red(color);
         blue = Color.blue(color);
         green = Color.green(color);
+        float hsv[] = new float[3];
+        Color.RGBToHSV(red,green,blue,hsv);
+        hsv[1] *= (1 + brightPreference * saturationFactor);
+        color = Color.HSVToColor(hsv);
+        return color;
+        /*
         if (brightPreference != 0) { // Skip this math if we don't use it...
             int tempColor = (red + brightFactor * brightPreference);
             if (tempColor <= 0xFF && tempColor >= 0) {
@@ -251,16 +263,14 @@ public class Palette {
                 else blue = 0;
             }
         }
+        */
         /*
         // Prevent colors being too similar...?
         if (red - Color.red(colorsIn[lastColor]) < 0x15)     red = (red - 0x15) % 0xFF;
         if (green - Color.green(colorsIn[lastColor]) < 0x15) green = (green - 0x15) % 0xFF;
         if (blue - Color.blue(colorsIn[lastColor]) < 0x15)   blue = ...
         */
-
-        color = (0xFF << 24) | (red << 16) | (green << 8) | (blue);
-
-        return color;
+        //color = (0xFF << 24) | (red << 16) | (green << 8) | (blue);
     }
 
    /* public static Color RandomMix(Color color1, Color color2, Color color3,

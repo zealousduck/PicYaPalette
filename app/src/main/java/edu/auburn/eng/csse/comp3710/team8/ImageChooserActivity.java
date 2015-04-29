@@ -32,12 +32,12 @@ public class ImageChooserActivity extends Activity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
-//    private void dispatchTakePictureIntent() {
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//        }
-//    }
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
 
     static final int RESULT_LOAD_IMG = 2;
     String imgDecodableString;
@@ -110,8 +110,7 @@ public class ImageChooserActivity extends Activity {
     }
 
     public void takeAPicture(View view) {
-
-
+        dispatchTakePictureIntent();
     }
 
     public void chooseAPicture(View view) {
