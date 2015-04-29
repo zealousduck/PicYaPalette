@@ -12,12 +12,14 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.Random;
 
 public class ImageChooserActivity extends Activity {
 
     public final static String COLOR_KEY = "COLOR";
+    public final static String SUCCESS_KEY = "SUCCESS!";
     private Bitmap bmp;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -26,6 +28,8 @@ public class ImageChooserActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
+
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             bmp = (Bitmap) extras.get("data");
@@ -45,19 +49,18 @@ public class ImageChooserActivity extends Activity {
             cursor.close();
             bmp = BitmapFactory.decodeFile(imgDecodableString);
         }
-
-        final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
+        // Verify that an image has been successfully acquired!
+        if (bmp == null) {
+            i.putExtra(SUCCESS_KEY, 0);
+        } else {
+            i.putExtra(SUCCESS_KEY, 200);
+        }
         // Analyze image in new thread!
         final ProgressDialog pd =
                 ProgressDialog.show(ImageChooserActivity.this,"Processing...", "Hold on...",true,false);
         new Thread(new Runnable() {
             @Override
             public void run() {
-                // Process blueberries for now...
-                if (bmp == null) {
-                    bmp = BitmapFactory.decodeResource(ImageChooserActivity.this.getResources(),
-                            R.drawable.blueberries);
-                }
                 if (bmp != null) {
                     int[] colors = new int[1];
                     SharedPreferences prefs = getSharedPreferences(SettingsActivity.PREF_FILE_NAME, MODE_PRIVATE);
@@ -71,8 +74,17 @@ public class ImageChooserActivity extends Activity {
                 pd.dismiss();
             }
         }).run();
+        bmp = null;
         // Pass result of image processing to GeneratedPalettesActivity, through bundle
-        ImageChooserActivity.this.startActivity(i);
+        if ((i.getIntExtra(SUCCESS_KEY, 0) == 200)) {
+            ImageChooserActivity.this.startActivity(i);
+        }
+        else { // Let the user know something went wrong!
+            Toast toast = Toast.makeText(ImageChooserActivity.this,
+                    "Failed to get Picture",
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     @Override
