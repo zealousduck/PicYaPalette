@@ -38,7 +38,7 @@ public class SettingsActivity extends Activity {
         String[] algs = Palette.getAlgorithmChoices();
         ArrayAdapter<String> algorithmAdapter = new ArrayAdapter<String>(
                 SettingsActivity.this,
-                android.R.layout.simple_spinner_item,
+                R.layout.large_spinner_item,
                 algs);
         algorithmAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAlgorithms.setAdapter(algorithmAdapter);
@@ -50,7 +50,7 @@ public class SettingsActivity extends Activity {
         }
         ArrayAdapter<Integer> numAdapter = new ArrayAdapter<Integer>(
                 SettingsActivity.this,
-                android.R.layout.simple_spinner_item,
+                R.layout.large_spinner_item,
                 numOptions);
         numAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mNumPalettes.setAdapter(numAdapter);
@@ -59,7 +59,7 @@ public class SettingsActivity extends Activity {
         String[] light = ImageProcessor.getLightOptions();
         ArrayAdapter<String> lightAdapter = new ArrayAdapter<String>(
                 SettingsActivity.this,
-                android.R.layout.simple_spinner_item,
+                R.layout.large_spinner_item,
                 light);
         lightAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mLightConditions.setAdapter(lightAdapter);
@@ -68,7 +68,7 @@ public class SettingsActivity extends Activity {
         String[] genPrefs = Palette.getGenerationPreferences();
         ArrayAdapter<String> genPrefAdapter = new ArrayAdapter<String>(
                 SettingsActivity.this,
-                android.R.layout.simple_spinner_item,
+                R.layout.large_spinner_item,
                 genPrefs);
         lightAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mGenPreferences.setAdapter(genPrefAdapter);

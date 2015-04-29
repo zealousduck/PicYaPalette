@@ -47,7 +47,9 @@
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -58,11 +60,12 @@
                         android:layout_weight="1"
                         android:layout_gravity="center_vertical" />
 
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@android:drawable/ic_menu_help"
+                    <ImageView
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:src="@drawable/ic_help"
                         android:gravity="end"
+                        android:clickable="true"
                         android:id="@+id/help_algorithm"
                         android:onClick="helpAlgorithm"/>
 
@@ -71,20 +74,21 @@
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/spinner_algorithm" />
+                    android:id="@+id/spinner_algorithm"
+                    android:paddingBottom="4dp"/>
 
                 <!-- Vertical Separator! -->
                 <View
                     android:background="#D2D2D2"
                     android:layout_width = "fill_parent"
-                    android:layout_height="1dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"/>
+                    android:layout_height="1dp"/>
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -95,11 +99,12 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1" />
 
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@android:drawable/ic_menu_help"
+                    <ImageView
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:src="@drawable/ic_help"
                         android:gravity="end"
+                        android:clickable="true"
                         android:id="@+id/help_num_palettes"
                         android:layout_gravity="center_vertical"
                         android:onClick="helpNumPerRoll"/>
@@ -109,20 +114,21 @@
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/spinner_num_palettes" />
+                    android:id="@+id/spinner_num_palettes"
+                    android:paddingBottom="4dp"/>
 
                 <!-- Vertical Separator! -->
                 <View
                     android:background="#D2D2D2"
                     android:layout_width = "fill_parent"
-                    android:layout_height="1dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"/>
+                    android:layout_height="1dp"/>
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -133,11 +139,12 @@
                         android:layout_weight="1"
                         android:layout_gravity="center_vertical" />
 
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@android:drawable/ic_menu_help"
+                    <ImageView
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:src="@drawable/ic_help"
                         android:gravity="end"
+                        android:clickable="true"
                         android:id="@+id/help_light_conditions"
                         android:onClick="helpLightConditions"/>
 
@@ -146,20 +153,20 @@
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/spinner_light_conditions" />
+                    android:id="@+id/spinner_light_conditions"
+                    android:paddingBottom="4dp"/>
 
                 <!-- Vertical Separator! -->
                 <View
                     android:background="#D2D2D2"
                     android:layout_width = "fill_parent"
-                    android:layout_height="1dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"/>
+                    android:layout_height="1dp"/>
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -170,11 +177,12 @@
                         android:layout_weight="1"
                         android:layout_gravity="center_vertical" />
 
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@android:drawable/ic_menu_help"
+                    <ImageView
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:src="@drawable/ic_help"
                         android:gravity="end"
+                        android:clickable="true"
                         android:id="@+id/help_gen_preferences"
                         android:onClick="helpGenPrefs"/>
 
@@ -183,15 +191,14 @@
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/spinner_generation_preference" />
+                    android:id="@+id/spinner_generation_preference"
+                    android:paddingBottom="4dp"/>
 
                 <!-- Vertical Separator! -->
                 <View
                     android:background="#D2D2D2"
                     android:layout_width = "fill_parent"
-                    android:layout_height="1dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"/>
+                    android:layout_height="1dp"/>
 
             </LinearLayout>
         </ScrollView>
