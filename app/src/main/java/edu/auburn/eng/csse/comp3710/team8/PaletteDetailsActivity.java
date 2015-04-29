@@ -89,7 +89,6 @@ public class PaletteDetailsActivity extends Activity {
         psh = new PaletteStorageHelper(PaletteDetailsActivity.this);
         psh.open();
         saved = psh.isSaved(palette);
-        psh.close();
         mFavoriteButton = (Button)findViewById(R.id.button_save);
         if (saved) {
             mFavoriteButton.setText(UNSAVE_TEXT);
@@ -137,6 +136,7 @@ public class PaletteDetailsActivity extends Activity {
                             result = psh.save(palette);
                             saved = true;
                             mFavoriteButton.setText(UNSAVE_TEXT);
+                            mAlgorithm.setText(palette.getName() + "\n" + palette.getAlgorithmUsed() + " Palette");
                             Toast toast;
                             if (result == PaletteStorageHelper.SUCCESS) {
                                 toast = Toast.makeText(PaletteDetailsActivity.this,
