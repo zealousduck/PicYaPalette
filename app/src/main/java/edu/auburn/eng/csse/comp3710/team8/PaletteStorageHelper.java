@@ -61,7 +61,6 @@ public class PaletteStorageHelper {
         open();
         database.delete(DBManager.TABLE_PALETTES, DBManager.COLUMN_COLORS
                 + " = " + temp, null);
-        close();
         return true; // Return true for success
     }
 
@@ -75,10 +74,8 @@ public class PaletteStorageHelper {
                 + " FROM " + DBManager.TABLE_PALETTES + " WHERE "
                 + DBManager.COLUMN_COLORS + " = '" + temp + "'", null);
         if(cursor.getCount() > 0) {
-            close();
             return true; // Return true for success
         }
-        close();
         return false;
 
     }
@@ -94,12 +91,11 @@ public class PaletteStorageHelper {
         Palette[] result = new Palette[cursor.getCount()];
         cursor.moveToFirst();
         int i = 0;
-        while (!cursor.isAfterLast()) {
+        while (!cursor.isAfterLast() && i < result.length) {
             Palette p = cursorToPalette(cursor);
             result[i] = p;
             i++;
         }
-        close();
         return result;
     }
 

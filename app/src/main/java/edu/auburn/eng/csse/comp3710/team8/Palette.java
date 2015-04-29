@@ -234,12 +234,12 @@ public class Palette {
         red = Color.red(color);
         blue = Color.blue(color);
         green = Color.green(color);
+        /* SATURATION MODIFICATIONS
         float hsv[] = new float[3];
         Color.RGBToHSV(red,green,blue,hsv);
         hsv[1] *= (1 + brightPreference * saturationFactor);
         color = Color.HSVToColor(hsv);
-        return color;
-        /*
+        */
         if (brightPreference != 0) { // Skip this math if we don't use it...
             int tempColor = (red + brightFactor * brightPreference);
             if (tempColor <= 0xFF && tempColor >= 0) {
@@ -263,14 +263,14 @@ public class Palette {
                 else blue = 0;
             }
         }
-        */
         /*
         // Prevent colors being too similar...?
         if (red - Color.red(colorsIn[lastColor]) < 0x15)     red = (red - 0x15) % 0xFF;
         if (green - Color.green(colorsIn[lastColor]) < 0x15) green = (green - 0x15) % 0xFF;
         if (blue - Color.blue(colorsIn[lastColor]) < 0x15)   blue = ...
         */
-        //color = (0xFF << 24) | (red << 16) | (green << 8) | (blue);
+        color = (0xFF << 24) | (red << 16) | (green << 8) | (blue);
+        return color;
     }
 
    /* public static Color RandomMix(Color color1, Color color2, Color color3,

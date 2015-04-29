@@ -22,6 +22,8 @@ public class ImageProcessor {
 
     private static int lightConditions = 0; // Default Normal conditions
     private static int correctionFactor = 0x0B;
+    protected static final double saturationFactor = 0.20;
+    protected static final double valueFactor = 0.30;
 
     public static int getColorInt(Bitmap bmp, String light) {
         Bitmap onePixelBmp = Bitmap.createScaledBitmap(bmp, 1, 1, true);
@@ -29,9 +31,15 @@ public class ImageProcessor {
         int red = Color.red(pixel);
         int blue = Color.blue(pixel);
         int green = Color.green(pixel);
-
+        float[] hsv = new float[3];
+        // Color correction based on light conditions!
         setLightConditions(light);
+        Color.RGBToHSV(red,green,blue,hsv);
+        hsv[1] *= (1 + saturationFactor * Math.abs(lightConditions));
+        hsv[2] *= (1 + valueFactor * lightConditions);
+        int color = Color.HSVToColor(hsv);
         // Safely adjust colors with respect to Light conditions!
+        /*
         if ((red + correctionFactor * lightConditions) <= 0xFF) {
             red += correctionFactor * lightConditions;
         } else {
@@ -47,9 +55,9 @@ public class ImageProcessor {
         } else {
             blue = 0xFF;
         }
+        // Build color! */
+        //int color = (0xFF << 24) | (red << 16) | (green << 8) | (blue);
 
-        // Build color!
-        int color = (0xFF << 24) | (red << 16) | (green << 8) | (blue);
         return color;
     }
 

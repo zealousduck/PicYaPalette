@@ -45,7 +45,8 @@
             android:text="Reroll Palettes"
             android:id="@+id/button_reroll"
             android:onClick="reroll"
-            android:elevation="3sp" />
+            android:elevation="3sp"
+            android:layout_gravity="bottom" />
 
 
     </LinearLayout>
