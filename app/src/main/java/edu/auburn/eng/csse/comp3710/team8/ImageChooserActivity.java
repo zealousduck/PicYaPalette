@@ -58,7 +58,7 @@ public class ImageChooserActivity extends Activity {
         }
 
         if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK
-                && null != data) {
+                && data != null) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
             Cursor cursor = getContentResolver().query(selectedImage,
@@ -72,6 +72,35 @@ public class ImageChooserActivity extends Activity {
             bmp = BitmapFactory.decodeFile(imgDecodableString);
 
         }
+
+        final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
+        // Analyze image in new thread!
+        final ProgressDialog pd =
+                ProgressDialog.show(ImageChooserActivity.this,"Processing...", "Hold on...",true,false);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // Process blueberries for now...
+                if (bmp == null) {
+                    bmp = BitmapFactory.decodeResource(ImageChooserActivity.this.getResources(),
+                            R.drawable.blueberries);
+                }
+                if (bmp != null) {
+                    int[] colors = new int[1];
+                    SharedPreferences prefs = getSharedPreferences(SettingsActivity.PREF_FILE_NAME, MODE_PRIVATE);
+                    colors[0] = ImageProcessor.getColorInt(bmp,
+                            prefs.getString(SettingsActivity.LIGHT_PREF, ImageProcessor.NORMAL));
+                    i.putExtra(COLOR_KEY, colors);
+                    Log.i("mTakePic", "Color:" + colors[0]);
+                } else {
+                    Log.i("mTakePic", "bitmap null!");
+                }
+                pd.dismiss();
+            }
+        }).run();
+
+        // Pass result of image processing to GeneratedPalettesActivity, through bundle
+        ImageChooserActivity.this.startActivity(i);
     }
 
     @Override
@@ -83,70 +112,12 @@ public class ImageChooserActivity extends Activity {
     public void takeAPicture(View view) {
 
 
-        final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
-        // Analyze image in new thread!
-        final ProgressDialog pd =
-                ProgressDialog.show(ImageChooserActivity.this,"Processing...", "Hold on...",true,false);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // Process blueberries for now...
-                if (bmp == null) {
-                    bmp = BitmapFactory.decodeResource(ImageChooserActivity.this.getResources(),
-                            R.drawable.blueberries);
-                }
-                if (bmp != null) {
-                    int[] colors = new int[1];
-                    SharedPreferences prefs = getSharedPreferences(SettingsActivity.PREF_FILE_NAME, MODE_PRIVATE);
-                    colors[0] = ImageProcessor.getColorInt(bmp,
-                            prefs.getString(SettingsActivity.LIGHT_PREF, ImageProcessor.NORMAL));
-                    i.putExtra(COLOR_KEY, colors);
-                    Log.i("mTakePic", "Color:" + colors[0]);
-                } else {
-                    Log.i("mTakePic", "bitmap null!");
-                }
-                pd.dismiss();
-            }
-        }).run();
-
-        // Pass result of image processing to GeneratedPalettesActivity, through bundle
-        ImageChooserActivity.this.startActivity(i);
     }
 
     public void chooseAPicture(View view) {
         // Moved from Listener implementation to onClick implementation!
         // Handle choosing a picture from the photo library
         loadImagefromGallery();
-
-        final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
-        // Analyze image in new thread!
-        final ProgressDialog pd =
-                ProgressDialog.show(ImageChooserActivity.this,"Processing...", "Hold on...",true,false);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // Process blueberries for now...
-                if (bmp == null) {
-                    bmp = BitmapFactory.decodeResource(ImageChooserActivity.this.getResources(),
-                            R.drawable.blueberries);
-                }
-                if (bmp != null) {
-                    int[] colors = new int[1];
-                    SharedPreferences prefs = getSharedPreferences(SettingsActivity.PREF_FILE_NAME, MODE_PRIVATE);
-                    colors[0] = ImageProcessor.getColorInt(bmp,
-                            prefs.getString(SettingsActivity.LIGHT_PREF, ImageProcessor.NORMAL));
-                    i.putExtra(COLOR_KEY, colors);
-                    Log.i("mTakePic", "Color:" + colors[0]);
-                } else {
-                    Log.i("mTakePic", "bitmap null!");
-                }
-                pd.dismiss();
-            }
-        }).run();
-
-        // Pass result of image processing to GeneratedPalettesActivity, through bundle
-        ImageChooserActivity.this.startActivity(i);
-
     }
 
     public void picForMe(View view) {
