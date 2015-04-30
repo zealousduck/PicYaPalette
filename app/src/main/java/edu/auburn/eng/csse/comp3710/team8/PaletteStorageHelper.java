@@ -18,7 +18,7 @@ public class PaletteStorageHelper {
 
     private SQLiteDatabase database;
     private DBManager dBManager;
-    private String[] allColumns = { DBManager.COLUMN_ID, DBManager.COLUMN_NAME, DBManager.COLUMN_COLORS};
+    private String[] allColumns = { DBManager.COLUMN_ID, DBManager.COLUMN_NAME, DBManager.COLUMN_COLORS, DBManager.COLUMN_ALGORITHM};
     public static final int SUCCESS = 0;
     public static final int DUPLICATE = 1;
     public static final int FAILURE = 2;
@@ -48,6 +48,7 @@ public class PaletteStorageHelper {
         String temp = colorsToString(p);
         if(!isSaved(p)) {
             values.put(DBManager.COLUMN_COLORS, temp);
+            values.put(DBManager.COLUMN_ALGORITHM, p.getAlgorithmUsed());
             Long insertId = database.insert(DBManager.TABLE_PALETTES, null, values);
             if (insertId != null) {
                 return SUCCESS;
@@ -123,7 +124,7 @@ public class PaletteStorageHelper {
         int[] colors = new int[colorTemp.length];
         for(int i = 0; i < colorTemp.length; i++) colors[i] = Integer.parseInt(colorTemp[i]);
         String name = cursor.getString(1);
-        Palette p = new Palette(colors, null);
+        Palette p = new Palette(colors, cursor.getString(3));
         p.setName(name);
         return p;
     }

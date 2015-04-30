@@ -1,14 +1,19 @@
 package edu.auburn.eng.csse.comp3710.team8;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class GeneratedPalettesActivity extends Activity {
@@ -25,6 +30,8 @@ public class GeneratedPalettesActivity extends Activity {
     private ListView mList;
     private PaletteAdapter mAdapter;
     private TextView mAlgorithm;
+
+    private Spinner mAlgorithms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +71,28 @@ public class GeneratedPalettesActivity extends Activity {
         }
         mList = (ListView)findViewById(R.id.list_generated);
         //mAdapter = new PaletteAdapter(GeneratedPalettesActivity.this, palettes);
+
         mList.setAdapter(mAdapter);
+
+        mAlgorithms = (Spinner)findViewById(R.id.spinner_algorithm);
+        String[] algs = Palette.getAlgorithmChoices();
+        ArrayAdapter<String> algorithmAdapter = new ArrayAdapter<String>(
+                GeneratedPalettesActivity.this,
+                R.layout.large_spinner_item,
+                algs);
+        algorithmAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mAlgorithms.setAdapter(algorithmAdapter);
+        mAlgorithms.setSelection(algorithmAdapter.getPosition(ALGORITHM));
+        mAlgorithms.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                reroll(parentView);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {}
+        });
+
     }
 
     @Override
@@ -110,6 +138,7 @@ public class GeneratedPalettesActivity extends Activity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                ALGORITHM = Palette.getAlgorithmChoices()[mAlgorithms.getSelectedItemPosition()];
                 palettes = new Palette[NUM_PALETTES];
                 for (int i = 0; i < NUM_PALETTES; i++) {
                     if (ALGORITHM.equals(Palette.PaletteAlgorithm.ANY)) {
@@ -134,6 +163,22 @@ public class GeneratedPalettesActivity extends Activity {
         ALGORITHM = preferences.getString(SettingsActivity.ALGORITHM_PREF, Palette.PaletteAlgorithm.ANY);
         BRIGHT_PREFERENCE = preferences.getString(SettingsActivity.GEN_BRIGHT_PREF, Palette.PaletteAlgorithm.PREF_NONE);
         Palette.setBrightPreference(BRIGHT_PREFERENCE);
+    }
+
+    public void helpAlgorithm(View view) {
+        final String msg = "Pick a different palette generating algorithm! Choosing 'Any' will allow palettes to be created by a variety of the available algorithms.";
+        AlertDialog.Builder builder = new AlertDialog.Builder(GeneratedPalettesActivity.this,
+                AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+        builder.setIcon(android.R.drawable.ic_dialog_info);
+        builder.setTitle("Algorithm Used:");
+        builder.setMessage(msg);
+        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
 }

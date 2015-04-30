@@ -40,6 +40,8 @@ public class SettingsActivity extends Activity {
                 algs);
         algorithmAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAlgorithms.setAdapter(algorithmAdapter);
+        String algorithm = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE).getString(ALGORITHM_PREF, "any");
+        mAlgorithms.setSelection(algorithmAdapter.getPosition(algorithm));
 
         mNumPalettes = (Spinner)findViewById(R.id.spinner_num_palettes);
         numOptions = new Integer[10];
@@ -124,7 +126,7 @@ public class SettingsActivity extends Activity {
     }
 
     public void helpAlgorithm(View view) {
-        final String msg = "This setting controls which algorithm the app uses to generate color palettes. Choosing 'Any' will allow palettes to be created by a variety of the available algorithms.";
+        final String msg = "This setting controls which algorithm the app uses to generate color palettes by default. Choosing 'Any' will allow palettes to be created by a variety of the available algorithms.";
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,
                 AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         builder.setIcon(android.R.drawable.ic_dialog_info);

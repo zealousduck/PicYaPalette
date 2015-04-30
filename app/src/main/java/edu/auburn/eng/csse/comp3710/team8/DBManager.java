@@ -15,13 +15,14 @@ public class DBManager extends SQLiteOpenHelper{
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_COLORS = "colors";
     public static final String COLUMN_NAME = "name";
-    private static final int DATABASE_VERSION = 3;
+    public static final String COLUMN_ALGORITHM = "algorithm";
+    private static final int DATABASE_VERSION = 4;
 
     // Database creation sql statement
     private static final String DATABASE_CREATE = "create table "
             + TABLE_PALETTES + "(" + COLUMN_ID
             + " integer primary key autoincrement, " + COLUMN_NAME
-            + " text not null, " + COLUMN_COLORS + " text not null);";
+            + " text not null, " + COLUMN_COLORS + " text not null, " + COLUMN_ALGORITHM + " text not null);";
 
     public DBManager(Context context)
     {
