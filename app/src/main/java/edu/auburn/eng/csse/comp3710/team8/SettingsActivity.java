@@ -32,8 +32,6 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        mDelete = (Button)findViewById(R.id.button_delete_all);
-
         mAlgorithms = (Spinner)findViewById(R.id.spinner_algorithm);
         String[] algs = Palette.getAlgorithmChoices();
         ArrayAdapter<String> algorithmAdapter = new ArrayAdapter<String>(
@@ -73,39 +71,6 @@ public class SettingsActivity extends Activity {
         lightAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mGenPreferences.setAdapter(genPrefAdapter);
 
-        /*
-        mDelete = (Button)findViewById(R.id.button_delete_all);
-        mDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create a pop-up dialog!
-                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,
-                        AlertDialog.THEME_DEVICE_DEFAULT_DARK);
-                builder.setIcon(android.R.drawable.ic_dialog_alert);
-                builder.setTitle("Delete All Favorites?");
-                builder.setMessage("This action cannot be undone.");
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.setPositiveButton("Delete All", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Completely clear database!
-
-                        Toast toast = Toast.makeText(SettingsActivity.this,
-                                "Favorites Deleted",
-                                Toast.LENGTH_SHORT);
-                        toast.show();
-                        dialog.dismiss();
-                    }
-                });
-                builder.show();
-            }
-        });
-        */
     }
 
     public void savePreferences(View view) {

@@ -4,23 +4,24 @@
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
-    android:paddingBottom="16dp"
+    android:paddingBottom="0dp"
     android:orientation="vertical"
-    tools:context="edu.auburn.eng.csse.comp3710.team8.GeneratedPalettesActivity">
+    tools:context="edu.auburn.eng.csse.comp3710.team8.GeneratedPalettesActivity"
+    android:background="@color/background">
 
-    <TextView
+<TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:text="Generated Palettes"
         android:id="@+id/title_generated"
         android:layout_gravity="center"
-        android:background="#A0A0A0"
+        android:background="@color/theme_color"
         android:gravity="center_horizontal"
-        android:textColor="#F2F2F2"
+        android:textColor="@color/text_color"
         android:singleLine="false"
         android:padding="8dp"
-        android:elevation="3sp"/>
+        android:elevation="6sp"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -29,28 +30,49 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="0dp"
-        android:paddingBottom="0dp">
+        android:paddingBottom="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="0dp">
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:id="@+id/list_generated"
-            android:layout_gravity="center"
-            android:layout_weight="1" />
-
-        <Button
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:text="Reroll Palettes"
-            android:id="@+id/button_reroll"
-            android:onClick="reroll"
-            android:elevation="3sp"
-            android:layout_gravity="bottom" />
-
+            android:id="@+id/list_generated"
+            android:layout_gravity="center" />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/accent_color"
+        android:onClick="reroll"
+        android:layout_gravity="center"
+        android:paddingBottom="12dp"
+        android:paddingTop="8dp"
+        android:gravity="center">
 
+        <ImageView
+            android:layout_width="@dimen/button_ic_size"
+            android:layout_height="@dimen/button_ic_size"
+            android:src="@drawable/ic_reroll"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reroll Palettes"
+            android:textSize="@dimen/button_text_size"
+            android:textColor="@color/text_color"
+            android:layout_gravity="center" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -7,30 +7,32 @@
     android:paddingTop="0dp"
     android:paddingBottom="0dp"
     android:orientation="vertical"
-    tools:context="edu.auburn.eng.csse.comp3710.team8.SettingsActivity">
+    tools:context="edu.auburn.eng.csse.comp3710.team8.SettingsActivity"
+    android:background="@color/background">
 
-    <TextView
+<TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:text="Settings"
         android:id="@+id/title_settings"
         android:layout_gravity="center"
-        android:background="#A0A0A0"
+        android:background="@color/theme_color"
         android:gravity="center_horizontal"
-        android:textColor="#F2F2F2"
+        android:textColor="@color/text_color"
         android:singleLine="false"
         android:padding="8dp"
-        android:elevation="3sp"/>
+        android:elevation="6sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="0dp"
-        android:paddingBottom="@dimen/activity_vertical_margin">
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:layout_weight="1">
 
         <ScrollView
             android:layout_width="fill_parent"
@@ -226,21 +228,72 @@
             </LinearLayout>
         </ScrollView>
 
-        <Button
-            android:layout_width="fill_parent"
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/accent_color"
+        android:onClick="savePreferences"
+        android:layout_gravity="center"
+        android:paddingBottom="12dp"
+        android:paddingTop="8dp"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="@dimen/button_ic_size"
+            android:layout_height="@dimen/button_ic_size"
+            android:src="@drawable/ic_save_settings"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save Changes"
-            android:onClick="savePreferences"
-            android:id="@+id/button_save_changes" />
+            android:textSize="@dimen/button_text_size"
+            android:textColor="@color/text_color"
+            android:layout_gravity="center" />
+    </LinearLayout>
 
-        <Button
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/accent_color"
+        android:elevation="16sp"
+        android:onClick="deleteFavorites"
+        android:layout_gravity="center"
+        android:paddingBottom="12dp"
+        android:paddingTop="8dp"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="@dimen/button_ic_size"
+            android:layout_height="@dimen/button_ic_size"
+            android:src="@drawable/ic_delete_all"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DELETE FAVORITES"
-            android:textColor="#EE0000"
-            android:onClick="deleteFavorites"
-            android:id="@+id/button_delete_all"
-            android:layout_gravity="bottom" />
-
+            android:text="Delete Favorites"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/button_text_size"
+            android:layout_gravity="center" />
     </LinearLayout>
 </LinearLayout>

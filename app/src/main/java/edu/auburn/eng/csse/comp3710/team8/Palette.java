@@ -190,7 +190,7 @@ public class Palette {
             for (int i = 0; i < colorsIn.length; i++) {
                 base += (colorsIn[i] & 0x00FF0000);
             }
-            color = ((((rng.nextInt(base) + 0x00770000) & 0xFFFF55FF) + 0x00040404) | 0xFF000077);
+            color = ((((rng.nextInt(base+1) + 0x00770000) & 0xFFFF55FF) + 0x00040404) | 0xFF000077);
         }
         else if (algorithm.equals(PaletteAlgorithm.GRADIENT)) {  // Set colors manually for testing purposes
             //for (int i = 0; )

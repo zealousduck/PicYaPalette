@@ -8,7 +8,8 @@
     android:paddingBottom="0dp"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context="edu.auburn.eng.csse.comp3710.team8.ImageChooserActivity">
+    tools:context="edu.auburn.eng.csse.comp3710.team8.ImageChooserActivity"
+    android:background="@color/background">
 
     <TextView
         android:layout_width="fill_parent"
@@ -17,60 +18,184 @@
         android:text="Pick Ya Palette"
         android:id="@+id/title_home"
         android:layout_gravity="center"
-        android:background="#A0A0A0"
+        android:background="@color/theme_color"
         android:gravity="center_horizontal"
-        android:textColor="#F2F2F2"
+        android:textColor="@color/text_color"
         android:singleLine="false"
         android:padding="8dp"
-        android:elevation="3sp"/>
+        android:layout_marginBottom="8dp"
+        android:elevation="6sp"/>
+
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin">
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Take a Pic"
-            android:onClick="takeAPicture"
-            android:id="@+id/button_take"
-            android:layout_gravity="center_horizontal" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Choose a Pic"
-            android:onClick="chooseAPicture"
-            android:id="@+id/button_choose"
-            android:layout_gravity="center_horizontal" />
-
-        <Button
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Pic for Me"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/round_button"
+            android:onClick="takeAPicture"
+            android:layout_gravity="center"
+            android:paddingBottom="12dp"
+            android:paddingTop="8dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/button_ic_size"
+                android:layout_height="@dimen/button_ic_size"
+                android:src="@drawable/ic_take_picture"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Take a Picture"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/button_text_size"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/round_button"
+            android:onClick="chooseAPicture"
+            android:layout_gravity="center"
+            android:paddingBottom="12dp"
+            android:paddingTop="8dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/button_ic_size"
+                android:layout_height="@dimen/button_ic_size"
+                android:src="@drawable/ic_library_picture"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose a Picture"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/button_text_size"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/round_button"
             android:onClick="picForMe"
-            android:id="@+id/button_pic_for_me" />
+            android:layout_gravity="center"
+            android:paddingBottom="12dp"
+            android:paddingTop="8dp"
+            android:gravity="center">
 
-        <Button
-            android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="@dimen/button_ic_size"
+                android:layout_height="@dimen/button_ic_size"
+                android:src="@drawable/ic_inspire"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inspiration"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/button_text_size"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Favorites"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/round_button"
             android:onClick="openFavorites"
-            android:id="@+id/button_favorites"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center"
+            android:paddingBottom="12dp"
+            android:paddingTop="8dp"
+            android:gravity="center">
 
-        <Button
-            android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="@dimen/button_ic_size"
+                android:layout_height="@dimen/button_ic_size"
+                android:src="@drawable/ic_favorite"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Favorites"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/button_text_size"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Settings"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/round_button"
             android:onClick="openSettings"
-            android:id="@+id/button_settings"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center"
+            android:paddingBottom="12dp"
+            android:paddingTop="8dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/button_ic_size"
+                android:layout_height="@dimen/button_ic_size"
+                android:src="@drawable/ic_settings"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/button_text_size"
+                android:layout_gravity="center" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
