@@ -83,7 +83,6 @@ public class PaletteDetailsActivity extends Activity {
         }
 
         psh = new PaletteStorageHelper(PaletteDetailsActivity.this);
-        psh.open();
         saved = psh.isSaved(palette);
         mFavoriteButton = (TextView)findViewById(R.id.button_save);
         if (saved) {

@@ -110,7 +110,8 @@ public class SettingsActivity extends Activity {
         builder.setPositiveButton("Delete All", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Completely clear database!
+                PaletteStorageHelper psh = new PaletteStorageHelper(SettingsActivity.this);
+                psh.removeAll();  // Completely clear database!
 
                 Toast toast = Toast.makeText(SettingsActivity.this,
                         "Favorites Deleted",

@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.SQLException;
 import android.content.ContentValues;
+import android.util.Log;
 
 /**
  * NOTES: Okay so I really don't have any good suggestions for exactly how this class will
@@ -24,6 +25,7 @@ public class PaletteStorageHelper {
 
     public PaletteStorageHelper(Context context) {
         dBManager = new DBManager(context);
+        open();
     }
 
     public void open() throws SQLException {
@@ -42,12 +44,14 @@ public class PaletteStorageHelper {
      */
     public int save(Palette p) {
         ContentValues values = new ContentValues();
-        values.put("name", p.getName());
+        values.put(DBManager.COLUMN_NAME, p.getName());
         String temp = colorsToString(p);
         if(!isSaved(p)) {
-            values.put("colors", temp);
+            values.put(DBManager.COLUMN_COLORS, temp);
             Long insertId = database.insert(DBManager.TABLE_PALETTES, null, values);
-            if (insertId != null) return SUCCESS;
+            if (insertId != null) {
+                return SUCCESS;
+            }
             else return FAILURE;
         }
         return DUPLICATE;
@@ -58,9 +62,16 @@ public class PaletteStorageHelper {
      */
     public boolean remove(Palette p) {
         String temp = colorsToString(p);
-        open();
-        database.delete(DBManager.TABLE_PALETTES, DBManager.COLUMN_COLORS
-                + " = " + temp, null);
+        String[] args = {temp};
+        database.delete(DBManager.TABLE_PALETTES, DBManager.COLUMN_COLORS + "=?", args);
+        return true; // Return true for success
+    }
+
+
+    public boolean removeAll() {
+        database.delete(DBManager.TABLE_PALETTES, null, null);
+        Palette[] all = getAllPalettes();
+        Log.i("DEBUG", Integer.toString(all.length) + " left");
         return true; // Return true for success
     }
 
@@ -69,7 +80,6 @@ public class PaletteStorageHelper {
      */
     public boolean isSaved(Palette p) {
         String temp = colorsToString(p);
-        open();
         Cursor cursor = database.rawQuery("SELECT " + DBManager.COLUMN_COLORS
                 + " FROM " + DBManager.TABLE_PALETTES + " WHERE "
                 + DBManager.COLUMN_COLORS + " = '" + temp + "'", null);
@@ -85,7 +95,6 @@ public class PaletteStorageHelper {
      * the ListView.
      */
     public Palette[] getAllPalettes() {
-        open();
         Cursor cursor = database.query(DBManager.TABLE_PALETTES,
                 allColumns, null, null, null, null, null);
         Palette[] result = new Palette[cursor.getCount()];
@@ -95,6 +104,7 @@ public class PaletteStorageHelper {
             Palette p = cursorToPalette(cursor);
             result[i] = p;
             i++;
+            cursor.moveToNext();
         }
         return result;
     }
