@@ -245,8 +245,8 @@
             android:background="@color/accent_color"
             android:onClick="savePreferences"
             android:layout_gravity="center"
-            android:paddingBottom="12dp"
-            android:paddingTop="8dp"
+            android:paddingBottom="9dp"
+            android:paddingTop="5dp"
             android:gravity="center"
             android:layout_weight="1">
 
@@ -279,8 +279,8 @@
             android:elevation="0dp"
             android:onClick="deleteFavorites"
             android:layout_gravity="center"
-            android:paddingBottom="12dp"
-            android:paddingTop="8dp"
+            android:paddingBottom="9dp"
+            android:paddingTop="5dp"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_marginLeft="1dp">

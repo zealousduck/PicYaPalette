@@ -54,7 +54,7 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="3dp"
+        android:paddingTop="0dp"
         android:paddingBottom="3dp"
         android:layout_marginBottom="1dp"
         android:background="@color/theme_color">
@@ -65,8 +65,8 @@
             android:orientation="vertical"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
             android:layout_weight="7">
             <TextView
                 android:layout_width="wrap_content"
@@ -84,8 +84,8 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="@dimen/help_ic_size"
-            android:layout_height="@dimen/help_ic_size"
+            android:layout_width="@dimen/button_ic_size"
+            android:layout_height="@dimen/button_ic_size"
             android:src="@drawable/ic_random"
             android:gravity="end"
             android:clickable="true"

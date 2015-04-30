@@ -130,7 +130,7 @@ public class Palette {
         String stgs[] = new String[numColors];
         for (int i = 0; i < numColors; i++) {
             String stg = "";
-            stg += "0x" + Integer.toHexString(colors[i]).substring(2).toUpperCase() + "\n"
+            stg += "#" + Integer.toHexString(colors[i]).substring(2).toUpperCase() + "\n"
                     +    "R: " + Color.red(colors[i]) + "\n"
                     +    "G: " + Color.green(colors[i]) + "\n"
                     +    "B: " + Color.blue(colors[i]) + "\n";
@@ -208,7 +208,6 @@ public class Palette {
                 if (((colorsIn[0] >> 8 * i) & 0xFF) > dominant) {
                     dominantId = i;   // 0 -> Blue, 1 -> Green, 2 -> Red
                     dominant = (colorsIn[0] >> 8 * i) & 0x000000FF;
-                    Log.i("DOMINANT", "dominant = " + i);
                 }
             }
             switch (dominantId) { // Preserve the dominant, roll for others

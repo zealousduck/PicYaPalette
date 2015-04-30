@@ -59,8 +59,8 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="9dp"
             android:layout_marginBottom="0dp"
             android:background="@color/theme_color"
             android:layout_weight="1">
@@ -73,8 +73,8 @@
                 android:layout_marginLeft="24dp" />
 
             <ImageView
-                android:layout_width="@dimen/help_ic_size"
-                android:layout_height="@dimen/help_ic_size"
+                android:layout_width="@dimen/button_ic_size"
+                android:layout_height="@dimen/button_ic_size"
                 android:src="@drawable/ic_random"
                 android:gravity="end"
                 android:clickable="true"
@@ -97,10 +97,10 @@
             android:background="@color/accent_color"
             android:onClick="reroll"
             android:layout_gravity="center"
-            android:paddingBottom="12dp"
-            android:paddingTop="8dp"
             android:gravity="center"
-            android:layout_weight="1">
+            android:layout_weight="2"
+            android:paddingTop="5dp"
+            android:paddingBottom="9dp">
 
             <ImageView
                 android:layout_width="@dimen/button_ic_size"

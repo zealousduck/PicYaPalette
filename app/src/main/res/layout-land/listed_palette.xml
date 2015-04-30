@@ -10,9 +10,11 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
         android:layout_toLeftOf="@id/palette_render"
         android:id="@+id/palette_name"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentLeft="true"
+        android:gravity="center_vertical" />
 
 </RelativeLayout>

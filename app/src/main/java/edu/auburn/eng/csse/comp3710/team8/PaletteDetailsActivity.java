@@ -60,7 +60,7 @@ public class PaletteDetailsActivity extends Activity {
 
         // Display palette render
         mPaletteRender = (ImageView)findViewById(R.id.image_palette_detail);
-        Bitmap bmp = palette.render(2*size.x, 2*size.y); // Constants to enlarge image
+        Bitmap bmp = palette.render(size.x+(2*size.x/5), 2*size.y); // Constants to enlarge image
         if (bmp == null) {
             Log.i("PaletteDetailsActivity", "bmp nulL!");
         }
