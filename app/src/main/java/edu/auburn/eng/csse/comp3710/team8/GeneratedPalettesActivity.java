@@ -169,7 +169,7 @@ public class GeneratedPalettesActivity extends Activity {
         final String msg = "Pick a different palette generating algorithm! Choosing 'Any' will allow palettes to be created by a variety of the available algorithms.";
         AlertDialog.Builder builder = new AlertDialog.Builder(GeneratedPalettesActivity.this,
                 AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
-        builder.setIcon(android.R.drawable.ic_dialog_info);
+        builder.setIcon(R.drawable.ic_help);
         builder.setTitle("Algorithm Used:");
         builder.setMessage(msg);
         builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {

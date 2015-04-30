@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <!-- http://stackoverflow.com/questions/16161448/how-to-make-layout-with-rounded-corners -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
+
+    <solid android:color="@color/theme_color"/>
+    <stroke android:width="50dip" android:color="@color/theme_color" />
+    <corners android:radius="120dip"/>
+    <padding android:left="20dip" android:top="14dip" android:right="20dip" android:bottom="14dip" />
+</shape>

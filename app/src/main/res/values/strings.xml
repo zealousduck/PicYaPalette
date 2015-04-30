@@ -6,6 +6,8 @@
     <string name="title_activity_pic_ya_palette">Pick Ya Palette</string>
 
     <string name="team_8_info_string">Team 8\nSam Bartlett\nLucas Brooks\nPatrick Stewart\n\nAuburn University COMP3710 Spring 2015</string>
+    <string name="team_8_info_land1">Team 8\nSam Bartlett\nLucas Brooks\nPatrick Stewart</string>
+    <string name="team_8_info_land2">\nAuburn University\nCOMP3710 Spring 2015</string>
     <string name="favorites_title">Favorite Palettes</string>
 
 <!-- TODO: Remove or change this placeholder text -->

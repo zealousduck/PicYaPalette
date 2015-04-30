@@ -57,7 +57,7 @@ public class SettingsActivity extends Activity {
         mNumPalettes.setAdapter(numAdapter);
         int numPalettes = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE).getInt(NUM_PAL_PREF, 5);
         Log.i("DEBUG", Integer.toString(numPalettes));
-        mNumPalettes.setSelection(numPalettes / 5);
+        mNumPalettes.setSelection((numPalettes / 5)-1);
 
         mLightConditions = (Spinner)findViewById(R.id.spinner_light_conditions);
         String[] light = ImageProcessor.getLightOptions();
@@ -137,7 +137,7 @@ public class SettingsActivity extends Activity {
         final String msg = "This setting controls which algorithm the app uses to generate color palettes by default. Choosing 'Any' will allow palettes to be created by a variety of the available algorithms.";
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,
                 AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
-        builder.setIcon(android.R.drawable.ic_dialog_info);
+        builder.setIcon(R.drawable.ic_help);
         builder.setTitle("Algorithm Used:");
         builder.setMessage(msg);
         builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
@@ -153,7 +153,7 @@ public class SettingsActivity extends Activity {
         final String msg = "This setting controls how many palettes are generated at a time. High values may result in degraded performance.";
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,
                 AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
-        builder.setIcon(android.R.drawable.ic_dialog_info);
+        builder.setIcon(R.drawable.ic_help);
         builder.setTitle("Palettes per Roll:");
         builder.setMessage(msg);
         builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
@@ -169,7 +169,7 @@ public class SettingsActivity extends Activity {
         final String msg = "This setting designates how bright or dark the light was when a picture is taken. The app will do brightness correction based on this setting.";
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,
                 AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
-        builder.setIcon(android.R.drawable.ic_dialog_info);
+        builder.setIcon(R.drawable.ic_help);
         builder.setTitle("Light Conditions:");
         builder.setMessage(msg);
         builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
@@ -185,7 +185,7 @@ public class SettingsActivity extends Activity {
         final String msg = "This setting controls the lightness preference of the algorithm. Generated colors will tend to be lighter or darker based on this setting.";
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,
                 AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
-        builder.setIcon(android.R.drawable.ic_dialog_info);
+        builder.setIcon(R.drawable.ic_help);
         builder.setTitle("Generation Preferences:");
         builder.setMessage(msg);
         builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {

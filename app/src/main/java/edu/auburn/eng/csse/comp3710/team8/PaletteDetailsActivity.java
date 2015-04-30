@@ -1,5 +1,6 @@
 package edu.auburn.eng.csse.comp3710.team8;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,6 +13,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -112,6 +114,7 @@ public class PaletteDetailsActivity extends Activity {
             AlertDialog.Builder builder = new AlertDialog.Builder(PaletteDetailsActivity.this,
                     AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
             builder.setView(input);
+            builder.setIcon(R.drawable.ic_help);
             builder.setTitle("Enter a name for the Palette:");
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override

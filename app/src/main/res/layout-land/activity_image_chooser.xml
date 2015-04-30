@@ -1,0 +1,223 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="24dp"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context="edu.auburn.eng.csse.comp3710.team8.ImageChooserActivity"
+    android:background="@color/background">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="Pick Ya Palette"
+        android:id="@+id/title_home"
+        android:layout_gravity="center"
+        android:background="@color/theme_color"
+        android:gravity="center_horizontal"
+        android:textColor="@color/text_color"
+        android:singleLine="false"
+        android:padding="8dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="6sp"/>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="0dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/round_button_land"
+                android:onClick="takeAPicture"
+                android:layout_gravity="center"
+                android:paddingBottom="12dp"
+                android:paddingTop="8dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/button_ic_size"
+                    android:layout_height="@dimen/button_ic_size"
+                    android:src="@drawable/ic_take_picture"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Take a Picture"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/button_text_size"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/round_button_land"
+                android:onClick="chooseAPicture"
+                android:layout_gravity="center"
+                android:paddingBottom="12dp"
+                android:paddingTop="8dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/button_ic_size"
+                    android:layout_height="@dimen/button_ic_size"
+                    android:src="@drawable/ic_library_picture"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Choose a Picture"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/button_text_size"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/round_button_land"
+                android:onClick="picForMe"
+                android:layout_gravity="center"
+                android:paddingBottom="12dp"
+                android:paddingTop="8dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/button_ic_size"
+                    android:layout_height="@dimen/button_ic_size"
+                    android:src="@drawable/ic_inspire"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Inspiration"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/button_text_size"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="0dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/round_button_land"
+                android:onClick="openFavorites"
+                android:layout_gravity="center"
+                android:paddingBottom="12dp"
+                android:paddingTop="8dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/button_ic_size"
+                    android:layout_height="@dimen/button_ic_size"
+                    android:src="@drawable/ic_favorite"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Favorites"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/button_text_size"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/round_button_land"
+                android:onClick="openSettings"
+                android:layout_gravity="center"
+                android:paddingBottom="12dp"
+                android:paddingTop="8dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/button_ic_size"
+                    android:layout_height="@dimen/button_ic_size"
+                    android:src="@drawable/ic_settings"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Settings"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/button_text_size"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
