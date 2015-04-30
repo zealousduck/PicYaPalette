@@ -111,7 +111,7 @@ public class PaletteDetailsActivity extends Activity {
             input.setInputType(InputType.TYPE_CLASS_TEXT);
             input.setHint("Palette Name Here");
             AlertDialog.Builder builder = new AlertDialog.Builder(PaletteDetailsActivity.this,
-                    AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+                    AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
             builder.setView(input);
             builder.setTitle("Enter a name for the Palette:");
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
