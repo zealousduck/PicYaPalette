@@ -11,31 +11,23 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SurfaceHolder;
 import android.view.View;
-import android.widget.Button;
-import android.view.SurfaceHolder;
+import android.widget.Toast;
 
 import java.util.Random;
 
 public class ImageChooserActivity extends Activity {
 
-    private Button mTakePic;
-    private Button mChoosePic;
-    private Button mFavorites;
-    private Button mSettings;
-
     public final static String COLOR_KEY = "COLOR";
+    public final static String SUCCESS_KEY = "SUCCESS!";
     private Bitmap bmp;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
-
     static final int RESULT_LOAD_IMG = 2;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             bmp = (Bitmap) extras.get("data");
@@ -54,10 +46,13 @@ public class ImageChooserActivity extends Activity {
             String imgDecodableString = cursor.getString(columnIndex);
             cursor.close();
             bmp = BitmapFactory.decodeFile(imgDecodableString);
-
         }
-
-        final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
+        // Verify that an image has been successfully acquired!
+        if (bmp == null) {
+            i.putExtra(SUCCESS_KEY, 0);
+        } else {
+            i.putExtra(SUCCESS_KEY, 200);
+        }
         // Analyze image in new thread!
         final ProgressDialog pd =
                 ProgressDialog.show(ImageChooserActivity.this,"Processing...", "Hold on...",true,false);
@@ -82,9 +77,17 @@ public class ImageChooserActivity extends Activity {
                 pd.dismiss();
             }
         }).run();
-
+        bmp = null;
         // Pass result of image processing to GeneratedPalettesActivity, through bundle
-        ImageChooserActivity.this.startActivity(i);
+        if ((i.getIntExtra(SUCCESS_KEY, 0) == 200)) {
+            ImageChooserActivity.this.startActivity(i);
+        }
+        else { // Let the user know something went wrong!
+            Toast toast = Toast.makeText(ImageChooserActivity.this,
+                    "Failed to get Picture",
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     @Override
@@ -109,7 +112,6 @@ public class ImageChooserActivity extends Activity {
     }
 
     public void picForMe(View view) {
-        // Moved from Listener implementation to onClick implementation!
         // generate palettes for a random color!
         final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
         // Analyze image in new thread!
@@ -132,36 +134,14 @@ public class ImageChooserActivity extends Activity {
     }
 
     public void openFavorites(View view) {
-        // Moved from Listener implementation to onClick implementation!
+
         Intent i = new Intent(ImageChooserActivity.this, FavoritePalettesActivity.class);
         startActivity(i);
     }
 
     public void openSettings(View view) {
-        // Moved from Listener implementation to onClick implementation!
+
         Intent i = new Intent(ImageChooserActivity.this, SettingsActivity.class);
         startActivity(i);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_image_chooser, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }
