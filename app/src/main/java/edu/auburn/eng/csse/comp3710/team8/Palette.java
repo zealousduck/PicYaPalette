@@ -248,12 +248,23 @@ public class Palette {
             green = Color.green(color);
             float hsv[] = new float[3]; //[0] = Hue, [1] = Saturation, [2] = Value/Luminance
             Color.RGBToHSV(red,green,blue,hsv);
+            Float varier = (float) 0.2;
             if (colorsIn[1] == 0) { //if you doin the second color in da palette
-                hsv[0] = hsv[0] + 120;
+                hsv[0] = (hsv[0] + 100 + rng.nextInt(40)) % 360 ; //puts next hue in range of current + 120 +/- 20
+                hsv[1] = (hsv[1] - (rng.nextFloat() % varier) + (rng.nextFloat() % varier)); //randomizes saturation
+                hsv[2] = hsv[2] - (rng.nextFloat() % varier) + (rng.nextFloat() % varier);
             }
             else { //if you doin the third color in da palette
-                hsv[0] = hsv[0] + 240;
+                hsv[0] = (hsv[0] + 220 + rng.nextInt(40)) % 360 ; //puts next hue in range of current + 240 +/- 20
+                hsv[1] = (hsv[1] - (rng.nextFloat() % varier) + (rng.nextFloat() % varier));
+                hsv[2] = hsv[2] - (rng.nextFloat() % varier) + (rng.nextFloat() % varier);
             }
+//            if (colorsIn[1] == 0) { //if you doin the second color in da palette
+//                hsv[0] = (hsv[0] + 120 + rng.nextInt(100)) % 360 ;
+//            }
+//            else { //if you doin the third color in da palette
+//                hsv[0] = (hsv[0] + 240 + rng.nextInt(100)) % 360 ;
+//            }
             color = Color.HSVToColor(hsv);
         }
         else if (algorithm.equals(PaletteAlgorithm.DEFAULT)) {  // Set colors manually for testing purposes

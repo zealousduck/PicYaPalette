@@ -97,7 +97,7 @@ public class SettingsActivity extends Activity {
         // Handle the deletion of all favorites!
         // Warn the user in a dialog that this cannot be undone!
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,
-                AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+                AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         builder.setIcon(android.R.drawable.ic_dialog_alert);
         builder.setTitle("Delete All Favorites?");
         builder.setMessage("This action cannot be undone.");
@@ -126,7 +126,7 @@ public class SettingsActivity extends Activity {
     public void helpAlgorithm(View view) {
         final String msg = "This setting controls which algorithm the app uses to generate color palettes. Choosing 'Any' will allow palettes to be created by a variety of the available algorithms.";
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,
-                AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+                AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         builder.setIcon(android.R.drawable.ic_dialog_info);
         builder.setTitle("Algorithm Used:");
         builder.setMessage(msg);
@@ -142,7 +142,7 @@ public class SettingsActivity extends Activity {
     public void helpNumPerRoll(View view) {
         final String msg = "This setting controls how many palettes are generated at a time. High values may result in degraded performance.";
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,
-                AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+                AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         builder.setIcon(android.R.drawable.ic_dialog_info);
         builder.setTitle("Palettes per Roll:");
         builder.setMessage(msg);
@@ -158,7 +158,7 @@ public class SettingsActivity extends Activity {
     public void helpLightConditions(View view) {
         final String msg = "This setting designates how bright or dark the light was when a picture is taken. The app will do brightness correction based on this setting.";
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,
-                AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+                AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         builder.setIcon(android.R.drawable.ic_dialog_info);
         builder.setTitle("Light Conditions:");
         builder.setMessage(msg);
@@ -174,7 +174,7 @@ public class SettingsActivity extends Activity {
     public void helpGenPrefs(View view) {
         final String msg = "This setting controls the lightness preference of the algorithm. Generated colors will tend to be lighter or darker based on this setting.";
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,
-                AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+                AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         builder.setIcon(android.R.drawable.ic_dialog_info);
         builder.setTitle("Generation Preferences:");
         builder.setMessage(msg);
