@@ -1,0 +1,53 @@
+@startuml
+
+class User {
+
+}
+
+class Palette {
+colors
+}
+
+class PalettesView {
+
+}
+
+class Menu {
+cameraButton
+galleryButton
+randomButton
+favoritesButton
+settingsButton
+}
+
+class Camera {
+
+}
+
+class Gallery {
+
+}
+
+class Favorites {
+
+}
+
+class Settings {
+
+}
+
+User "1" -- "1" Menu: chooses option >
+User "1" -- "1" Settings: sets settings with >
+User "1" -- "1" Camera: takes picture with >
+User "1" -- "1" Gallery: chooses picture with >
+User -- Favorites
+Camera "1" -- "1" PalettesView: leads into >
+Gallery "1" -- "1" PalettesView: leads into >
+PalettesView "1" *- "n" Palette: displays >
+Favorites "1" *-- "n" Palette: displays >
+
+
+hide empty members
+hide methods
+
+@enduml

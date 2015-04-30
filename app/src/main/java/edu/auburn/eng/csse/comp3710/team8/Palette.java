@@ -248,7 +248,7 @@ public class Palette {
             green = Color.green(color);
             float hsv[] = new float[3]; //[0] = Hue, [1] = Saturation, [2] = Value/Luminance
             Color.RGBToHSV(red,green,blue,hsv);
-            Float varier = (float) 0.2;
+            float varier = (float) 0.2;
             if (colorsIn[1] == 0) { //if you doin the second color in da palette
                 hsv[0] = (hsv[0] + 100 + rng.nextInt(40)) % 360 ; //puts next hue in range of current + 120 +/- 20
                 hsv[1] = (hsv[1] - (rng.nextFloat() % varier) + (rng.nextFloat() % varier)); //randomizes saturation
