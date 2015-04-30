@@ -55,12 +55,18 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingTop="6dp"
-        android:paddingBottom="6dp">
+        android:paddingBottom="6dp"
+        android:layout_marginBottom="1dp"
+        android:background="@color/theme_color">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             android:layout_weight="7">
             <TextView
                 android:layout_width="wrap_content"
@@ -68,6 +74,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Algorithm Used"
                 android:id="@+id/textView"
+                android:textColor="@color/text_color"
                 android:layout_gravity="center_vertical" />
 
             <Spinner
@@ -79,7 +86,7 @@
         <ImageView
             android:layout_width="@dimen/help_ic_size"
             android:layout_height="@dimen/help_ic_size"
-            android:src="@drawable/ic_help"
+            android:src="@drawable/ic_random"
             android:gravity="end"
             android:clickable="true"
             android:id="@+id/help_algorithm"

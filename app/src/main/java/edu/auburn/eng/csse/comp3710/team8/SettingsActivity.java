@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -54,6 +55,9 @@ public class SettingsActivity extends Activity {
                 numOptions);
         numAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mNumPalettes.setAdapter(numAdapter);
+        int numPalettes = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE).getInt(NUM_PAL_PREF, 5);
+        Log.i("DEBUG", Integer.toString(numPalettes));
+        mNumPalettes.setSelection(numPalettes / 5);
 
         mLightConditions = (Spinner)findViewById(R.id.spinner_light_conditions);
         String[] light = ImageProcessor.getLightOptions();
@@ -63,6 +67,8 @@ public class SettingsActivity extends Activity {
                 light);
         lightAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mLightConditions.setAdapter(lightAdapter);
+        String lightConditions = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE).getString(LIGHT_PREF, "Normal");
+        mLightConditions.setSelection(algorithmAdapter.getPosition(lightConditions));
 
         mGenPreferences = (Spinner)findViewById(R.id.spinner_generation_preference);
         String[] genPrefs = Palette.getGenerationPreferences();
@@ -72,6 +78,8 @@ public class SettingsActivity extends Activity {
                 genPrefs);
         lightAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mGenPreferences.setAdapter(genPrefAdapter);
+        String genPreferences = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE).getString(GEN_BRIGHT_PREF, "None");
+        mGenPreferences.setSelection(algorithmAdapter.getPosition(genPreferences));
 
     }
 

@@ -78,7 +78,7 @@ public class GeneratedPalettesActivity extends Activity {
         String[] algs = Palette.getAlgorithmChoices();
         ArrayAdapter<String> algorithmAdapter = new ArrayAdapter<String>(
                 GeneratedPalettesActivity.this,
-                R.layout.large_spinner_item,
+                R.layout.white_text_spinner,
                 algs);
         algorithmAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAlgorithms.setAdapter(algorithmAdapter);
