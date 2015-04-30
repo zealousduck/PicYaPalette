@@ -1,0 +1,5 @@
+@startuml
+User -> System: Select "Favorites"
+System --> User: Display saved favorites screen
+
+@enduml

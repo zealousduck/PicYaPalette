@@ -1,0 +1,11 @@
+@startuml
+User -> System: Select "Settings"
+System --> User: Display Settings screen
+
+User -> System: Select a setting to change
+System-->User: Display options for selected setting
+User -> System: Select new option for setting
+User -> System: Select "Save Settings"
+System --> User: Display Settings screen
+
+@enduml

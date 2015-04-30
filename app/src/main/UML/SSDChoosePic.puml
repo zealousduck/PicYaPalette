@@ -1,0 +1,7 @@
+@startuml
+User -> System: Select "Choose a Pic"
+System --> User: Show gallery of images already on device
+
+User -> System: Choose picture
+System --> User: Display generated palettes screen
+@enduml
