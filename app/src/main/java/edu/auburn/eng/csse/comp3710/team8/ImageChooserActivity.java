@@ -134,13 +134,11 @@ public class ImageChooserActivity extends Activity {
     }
 
     public void openFavorites(View view) {
-
         Intent i = new Intent(ImageChooserActivity.this, FavoritePalettesActivity.class);
         startActivity(i);
     }
 
     public void openSettings(View view) {
-
         Intent i = new Intent(ImageChooserActivity.this, SettingsActivity.class);
         startActivity(i);
     }
