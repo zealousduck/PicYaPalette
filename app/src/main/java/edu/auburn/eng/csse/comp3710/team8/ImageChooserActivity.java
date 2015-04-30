@@ -24,12 +24,10 @@ public class ImageChooserActivity extends Activity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int RESULT_LOAD_IMG = 2;
-    String imgDecodableString;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
-
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             bmp = (Bitmap) extras.get("data");
@@ -45,7 +43,7 @@ public class ImageChooserActivity extends Activity {
             cursor.moveToFirst();
 
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            imgDecodableString = cursor.getString(columnIndex);
+            String imgDecodableString = cursor.getString(columnIndex);
             cursor.close();
             bmp = BitmapFactory.decodeFile(imgDecodableString);
         }
@@ -61,6 +59,11 @@ public class ImageChooserActivity extends Activity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                // Process blueberries for now...
+                if (bmp == null) {
+                    bmp = BitmapFactory.decodeResource(ImageChooserActivity.this.getResources(),
+                            R.drawable.blueberries);
+                }
                 if (bmp != null) {
                     int[] colors = new int[1];
                     SharedPreferences prefs = getSharedPreferences(SettingsActivity.PREF_FILE_NAME, MODE_PRIVATE);
@@ -139,5 +142,4 @@ public class ImageChooserActivity extends Activity {
         Intent i = new Intent(ImageChooserActivity.this, SettingsActivity.class);
         startActivity(i);
     }
-
 }

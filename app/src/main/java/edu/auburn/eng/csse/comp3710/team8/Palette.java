@@ -23,8 +23,10 @@ public class Palette {
         public static final String BTCH_IM_FABULOUS = "Fabulous";
         public static final String GRADIENT = "Gradient";
         public static final String DOMINANT = "Dominant";
+        public static final String VALUE_CHANGE = "ValueChanger";
+        public static final String HUE_CHANGE = "HueChanger";
 
-        private static final int numAlgorithms = 4;
+        private static final int numAlgorithms = 6;
 
         /* Constants for generation preferences */
         public static final String PREF_DARK = "Dark";
@@ -223,6 +225,48 @@ public class Palette {
                     color = 0;
             }
         }
+        else if (algorithm.equals(PaletteAlgorithm.VALUE_CHANGE)) {
+            color = colorsIn[0];
+            red = Color.red(color);
+            blue = Color.blue(color);
+            green = Color.green(color);
+            float hsv[] = new float[3]; //[0] = Hue, [1] = Saturation, [2] = Value/Luminance
+            Color.RGBToHSV(red,green,blue,hsv);
+            if (colorsIn[1] == 0) { //if you doin the second color in da palette
+                hsv[2] = (rng.nextFloat());
+            }
+            else { //if you doin the third color in da palette
+                hsv[2] = 1 - (hsv[2] / 2) + rng.nextFloat()*rng.nextFloat();
+//                hsv[2] = hsv[2] + rng.nextFloat()*rng.nextFloat();
+            }
+            color = Color.HSVToColor(hsv);
+        }
+        else if (algorithm.equals(PaletteAlgorithm.HUE_CHANGE)) {
+            color = colorsIn[0];
+            red = Color.red(color);
+            blue = Color.blue(color);
+            green = Color.green(color);
+            float hsv[] = new float[3]; //[0] = Hue, [1] = Saturation, [2] = Value/Luminance
+            Color.RGBToHSV(red,green,blue,hsv);
+            Float varier = (float) 0.2;
+            if (colorsIn[1] == 0) { //if you doin the second color in da palette
+                hsv[0] = (hsv[0] + 100 + rng.nextInt(40)) % 360 ; //puts next hue in range of current + 120 +/- 20
+                hsv[1] = (hsv[1] - (rng.nextFloat() % varier) + (rng.nextFloat() % varier)); //randomizes saturation
+                hsv[2] = hsv[2] - (rng.nextFloat() % varier) + (rng.nextFloat() % varier);
+            }
+            else { //if you doin the third color in da palette
+                hsv[0] = (hsv[0] + 220 + rng.nextInt(40)) % 360 ; //puts next hue in range of current + 240 +/- 20
+                hsv[1] = (hsv[1] - (rng.nextFloat() % varier) + (rng.nextFloat() % varier));
+                hsv[2] = hsv[2] - (rng.nextFloat() % varier) + (rng.nextFloat() % varier);
+            }
+//            if (colorsIn[1] == 0) { //if you doin the second color in da palette
+//                hsv[0] = (hsv[0] + 120 + rng.nextInt(100)) % 360 ;
+//            }
+//            else { //if you doin the third color in da palette
+//                hsv[0] = (hsv[0] + 240 + rng.nextInt(100)) % 360 ;
+//            }
+            color = Color.HSVToColor(hsv);
+        }
         else if (algorithm.equals(PaletteAlgorithm.DEFAULT)) {  // Set colors manually for testing purposes
             colorsIn[0] = 0xFF2D397E;
             colorsIn[1] = 0xFFFFFFFF;
@@ -319,6 +363,12 @@ public class Palette {
             case 3:
                 algorithm = PaletteAlgorithm.DOMINANT;
                 break;
+            case 4:
+                algorithm = PaletteAlgorithm.VALUE_CHANGE;
+                break;
+            case 5:
+                algorithm = PaletteAlgorithm.HUE_CHANGE;
+                break;
             default:
                 algorithm = PaletteAlgorithm.DEFAULT;
         }
@@ -336,6 +386,8 @@ public class Palette {
         algs[2] = PaletteAlgorithm.BTCH_IM_FABULOUS;
         algs[3] = PaletteAlgorithm.GRADIENT;
         algs[4] = PaletteAlgorithm.DOMINANT;
+        algs[5] = PaletteAlgorithm.VALUE_CHANGE;
+        algs[6] = PaletteAlgorithm.HUE_CHANGE;
         return algs;
     }
 
