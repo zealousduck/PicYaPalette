@@ -1,0 +1,9 @@
+@startuml
+User -> System: Select "Take a Pic"
+System --> User: Display camera functionality
+
+User -> System: Take picture
+System --> User: Display picture taken
+User -> System: Submit picture
+System --> User: Display generated palettes screen
+@enduml

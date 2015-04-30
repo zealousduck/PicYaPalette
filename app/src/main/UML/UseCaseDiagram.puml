@@ -1,0 +1,13 @@
+@startuml
+
+User --> (Take Pic)
+User --> (Choose Pic)
+User --> (Random Palette)
+User --> (View Favorites)
+User --> (Change Settings)
+
+(Take Pic) --> (View Palettes) : include
+(Choose Pic) --> (View Palettes) : include
+(Random Palette) --> (View Palettes) : include
+
+@enduml

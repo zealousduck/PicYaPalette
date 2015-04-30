@@ -1,0 +1,4 @@
+@startuml
+User -> System: Select "Random Palette"
+System --> User: Display generated palettes screen
+@enduml
