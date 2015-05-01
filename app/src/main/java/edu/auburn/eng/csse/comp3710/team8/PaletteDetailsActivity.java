@@ -71,13 +71,18 @@ public class PaletteDetailsActivity extends Activity {
 
         // Display palette render
         mPaletteRender = (ImageView)findViewById(R.id.image_palette_detail);
-        Bitmap bmp = palette.render(size.x+(2*size.x/5), 2*size.y); // Constants to enlarge image
+        Bitmap bmp;
+        if (size.x < size.y) { // Portrait Mode
+            bmp = palette.render(size.x + (8 * size.x / 20), size.y + (5 * size.y / 20)); // Constants to enlarge image
+        } else {                // Landscape Mode
+            bmp = palette.render( size.y + (18 * size.y / 20), size.x + (9 * size.x / 20)); // Constants to enlarge image
+        }
         if (bmp == null) {
             Log.i("PaletteDetailsActivity", "bmp nulL!");
         }
         else mPaletteRender.setImageBitmap(bmp);
 
-        //Display palette render
+        // Display palette name
         mAlgorithm = (TextView)findViewById(R.id.text_details_algorithm);
         mAlgorithm.setText(palette.getName() + "\n" + palette.getAlgorithmUsed() + " Palette");
 
@@ -94,7 +99,6 @@ public class PaletteDetailsActivity extends Activity {
                 temp.setText(paletteStgs[i]);
             }
         }
-
     }
 
     public void saveToFavorites(View view) {

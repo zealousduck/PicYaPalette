@@ -39,9 +39,13 @@ public class PaletteAdapter extends BaseAdapter {
         display.getSize(size);
         bmpsList = new Bitmap[palettesList.length];
         for (int i = 0; i < palettesList.length; i++) {
-            bmpsList[i] = palettesList[i].render(size.x, size.y);
+            if (size.x < size.y) {
+                bmpsList[i] = palettesList[i].render(size.x, size.y - (2 * size.y / 10));
+            } else {
+                bmpsList[i] = palettesList[i].render(size.y + (2 * size.y / 10), size.x - (size.x / 10));
+            }
         }
-        inflater =          (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override

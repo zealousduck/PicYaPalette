@@ -108,7 +108,7 @@ public class SettingsActivity extends Activity {
         // Warn the user in a dialog that this cannot be undone!
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,
                 AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
-        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        builder.setIcon(R.drawable.ic_help);
         builder.setTitle("Delete All Favorites?");
         builder.setMessage("This action cannot be undone.");
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

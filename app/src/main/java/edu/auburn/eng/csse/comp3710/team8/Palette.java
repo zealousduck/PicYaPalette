@@ -142,9 +142,9 @@ public class Palette {
     /* Renders the palette to a Bitmap. Size scales based on screen dimensions.
      */
     public Bitmap render(int screenWidth, int screenHeight) {
-        final int RENDER_WIDTH = 7*screenWidth/16;
-        final int RENDER_HEIGHT = screenHeight/8;
-        final int RENDER_RADIUS = RENDER_HEIGHT/(numColors);
+        final int RENDER_WIDTH = 9*screenWidth/16;
+        final int RENDER_HEIGHT = screenHeight/6;
+        final int RENDER_RADIUS = (RENDER_HEIGHT + 2*RENDER_HEIGHT/10)/(numColors);
         // Return an image of the palette!
         Bitmap bmp = (Bitmap.createBitmap(RENDER_WIDTH, RENDER_HEIGHT, Bitmap.Config.ARGB_8888));
         Canvas canvas = new Canvas(bmp);
