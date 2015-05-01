@@ -40,7 +40,7 @@ User "1" -- "1" Menu: chooses option >
 User "1" -- "1" Settings: sets settings with >
 User "1" -- "1" Camera: takes picture with >
 User "1" -- "1" Gallery: chooses picture with >
-User -- Favorites
+User "1" -- "1" Favorites
 Camera "1" -- "1" PalettesView: leads into >
 Gallery "1" -- "1" PalettesView: leads into >
 PalettesView "1" *- "n" Palette: displays >

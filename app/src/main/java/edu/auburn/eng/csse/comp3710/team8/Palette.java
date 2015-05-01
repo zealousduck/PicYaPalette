@@ -232,11 +232,10 @@ public class Palette {
             float hsv[] = new float[3]; //[0] = Hue, [1] = Saturation, [2] = Value/Luminance
             Color.RGBToHSV(red,green,blue,hsv);
             if (colorsIn[1] == 0) { //if you doin the second color in da palette
-                hsv[2] = (rng.nextFloat());
+                hsv[2] = rng.nextFloat();
             }
             else { //if you doin the third color in da palette
                 hsv[2] = 1 - (hsv[2] / 2) + rng.nextFloat()*rng.nextFloat();
-//                hsv[2] = hsv[2] + rng.nextFloat()*rng.nextFloat();
             }
             color = Color.HSVToColor(hsv);
         }
@@ -249,12 +248,18 @@ public class Palette {
             Color.RGBToHSV(red,green,blue,hsv);
             float varier = (float) 0.2;
             if (colorsIn[1] == 0) { //if you doin the second color in da palette
-                hsv[0] = (hsv[0] + 100 + rng.nextInt(40)) % 360 ; //puts next hue in range of current + 120 +/- 20
+//                if (rng.nextInt(2) > 0)
+                    hsv[0] = (hsv[0] + 100 + rng.nextInt(40)) % 360 ; //puts next hue in range of current + 120 +/- 20
+//                else
+//                    hsv[0] = (hsv[0] + 40 + rng.nextInt(40)) % 360 ; //puts next hue in range of current + 60 +/- 20
                 hsv[1] = (hsv[1] - (rng.nextFloat() % varier) + (rng.nextFloat() % varier)); //randomizes saturation
                 hsv[2] = hsv[2] - (rng.nextFloat() % varier) + (rng.nextFloat() % varier);
             }
             else { //if you doin the third color in da palette
-                hsv[0] = (hsv[0] + 220 + rng.nextInt(40)) % 360 ; //puts next hue in range of current + 240 +/- 20
+//                if (rng.nextInt(2) > 0)
+                    hsv[0] = (hsv[0] + 220 + rng.nextInt(40)) % 360 ; //puts next hue in range of current + 240 +/- 20
+//                else
+//                    hsv[0] = (hsv[0] + 160 + rng.nextInt(40)) % 360 ; //puts next hue in range of current + 180 +/- 20
                 hsv[1] = (hsv[1] - (rng.nextFloat() % varier) + (rng.nextFloat() % varier));
                 hsv[2] = hsv[2] - (rng.nextFloat() % varier) + (rng.nextFloat() % varier);
             }

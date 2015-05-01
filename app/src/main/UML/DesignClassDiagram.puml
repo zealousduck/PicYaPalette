@@ -1,0 +1,195 @@
+@startuml
+
+class DBManager {
+    DATABASE_NAME : String
+    TABLE_PALETTES : String
+    COLUMN_ID : String
+    COLUMN_COLORS : String
+    COLUMN_NAME : String
+    COLUMN_ALGORITHM : String
+    DATABASE_VERSION : int
+    DATABASE_CREATE : String
+    DBManager(Context)
+    onCreate(SQLiteDatabase)
+    onUpgrade(SQLiteDatabase, int, int)
+}
+
+class FavoritePalettesActivity {
+    mList : ListView
+    onCreate(Bundle)
+    onResume()
+    refresh()
+}
+
+FavoritePalettesActivity "1 " *--> "1 "PaletteStorageHelper
+FavoritePalettesActivity "1 " *--> "1 "PaletteAdapter
+FavoritePalettesActivity "1" -- "1" PaletteDetailsActivity : starts >
+
+class GeneratedPalettesActivity {
+    NUM_PALETTES : int
+    ALGORITHM : String
+    OUTSTATE_KEY : String
+    BRIGHT_PREFERENCE : String
+    baseColors : int[]
+    extras : Bundle
+    mList : ListView
+    mAlgorithm : TextView
+    mAlgorithms : Spinner
+    onCreate(Bundle)
+    onResume()
+    onRestoreInstanceState(Bundle)
+    onSaveInstanceState(Bundle)
+    reroll(View)
+    readSettings()
+    helpAlgorithm(View)
+}
+
+GeneratedPalettesActivity "1" ----> "0..*" Palette
+GeneratedPalettesActivity "1" --> "1" PaletteAdapter
+GeneratedPalettesActivity "1" -- "1" PaletteDetailsActivity : starts >
+
+class ImageChooserActivity {
+    COLOR_KEY : String
+    SUCCESS_KEY : String
+    bmp : Bitmap
+    REQUEST_IMAGE_CAPTURE : int
+    RESULT_LOAD_IMG : int
+    onActivityResult(int, int, Intent)
+    onCreate(Bundle)
+    takeAPicture(View)
+    chooseAPicture(View)
+    picForMe(View)
+    openFavorites(View)
+    openSettings(View)
+}
+
+ImageChooserActivity "1" -- "1" FavoritePalettesActivity : starts >
+ImageChooserActivity "1" -- "1" GeneratedPalettesActivity : starts >
+ImageChooserActivity "1" -- "1" SettingsActivity : starts >
+ImageChooserActivity "1" - "1" ImageProcessor : uses >
+
+class ImageProcessor {
+    V_LOW_LIGHT : String
+    LOW_LIGHT : String
+    NORMAL : String
+    BRIGHT : String
+    V_BRIGHT : String
+    lightConditions : int
+    correctionFactor : int
+    saturationFactor : double
+    valueFactor : double
+    getColorInt(Bitmap, String)
+    getLightOptions()
+    setLightConditions(String)
+}
+
+class Palette {
+    BUNDLE_NAME : String
+    BUNDLE_ARRAY : String
+    BUNDLE_ALGORITHM : String
+    COUNTER : int
+    DEFAULT_NAME : String
+    numColors : int
+    brightPreference : int
+    brightFactor : int
+    saturationFactor : double
+    name : String
+    algorithmUsed : String
+    colors : int[]
+    getColors()
+    getAlgorithmUsed()
+    setName(String)
+    getName()
+    getNumColors()
+    getDetailedStrings()
+    render(int, int)
+    generateColor(int[], String)
+    any()
+    getAlgorithmChoices()
+    getGenerationPreferences()
+    setBrightPreference(String)
+}
+
+class PaletteAdapter {
+    PALETTE_KEY : String
+    context : String
+    bmpsList : Bitmap[]
+    inflater : LayoutInflater
+    PaletteAdapter(Activity, Palette[])
+    getCount()
+    getItem(int)
+    getItemId(int)
+    Holder holder
+    getView(int, View, ViewGroup)
+}
+
+PaletteAdapter "1" --> "0..*" Palette
+
+class PaletteDetailsActivity {
+    NUM_TEXT_VIEWS : int
+    SAVE_TEXT : String
+    UNSAVE_TEXT : String
+    mPaletteRender : ImageView
+    mFavoriteButton : TextView
+    mAlgorithm : TextView
+    paletteStgs : String[]
+    textViews : int[]
+    saved : boolean
+    onCreate(Bundle)
+    saveToFavorites(View)
+}
+
+PaletteDetailsActivity "1" --> "1" Palette
+PaletteDetailsActivity "1" -> "1" PaletteStorageHelper
+
+class PaletteStorageHelper {
+    database : SQLiteDatabase
+    allColumns : String[]
+    SUCCESS : int
+    DUPLICATE : int
+    FAILURE : int
+    PaletteStorageHelper(Context)
+    open()
+    close()
+    save(Palette)
+    remove(Palette)
+    removeAll()
+    isSaved(Palette)
+    getAllPalettes()
+    colorsToString(Palette)
+    cursorToPalette(Cursor)
+}
+
+PaletteStorageHelper "1" --> "1" DBManager
+
+class PicYaPaletteActivity {
+    SPLASH_TIMER : int
+    onCreate(Bundle)
+    onStop()
+}
+
+PicYaPaletteActivity "1" -- "1" ImageChooserActivity : starts >
+class SettingsActivity {
+    PREF_FILE_NAME : String
+    ALGORITHM_PREF : String
+    NUM_PAL_PREF : String
+    LIGHT_PREF : String
+    GEN_BRIGHT_PREF : String
+    mAlgorithms : Spinner
+    mNumPalettes : Spinner
+    mLightConditions : Spinner
+    mGenPreferences : Spinner
+    numOptions : Integer[]
+    onCreate(Bundle)
+    savePreferences(View)
+    onStop()
+    deleteFavorites(View)
+    helpAlgorithm(View)
+    helpNumPerRoll(View)
+    helpLightConditions(View)
+    helpGenPrefs(View)
+}
+
+
+
+@enduml
