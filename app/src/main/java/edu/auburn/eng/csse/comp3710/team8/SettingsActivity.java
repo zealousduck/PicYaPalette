@@ -68,7 +68,7 @@ public class SettingsActivity extends Activity {
         lightAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mLightConditions.setAdapter(lightAdapter);
         String lightConditions = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE).getString(LIGHT_PREF, "Normal");
-        mLightConditions.setSelection(algorithmAdapter.getPosition(lightConditions));
+        mLightConditions.setSelection(lightAdapter.getPosition(lightConditions));
 
         mGenPreferences = (Spinner)findViewById(R.id.spinner_generation_preference);
         String[] genPrefs = Palette.getGenerationPreferences();
@@ -76,10 +76,10 @@ public class SettingsActivity extends Activity {
                 SettingsActivity.this,
                 R.layout.large_spinner_item,
                 genPrefs);
-        lightAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genPrefAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mGenPreferences.setAdapter(genPrefAdapter);
         String genPreferences = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE).getString(GEN_BRIGHT_PREF, "None");
-        mGenPreferences.setSelection(algorithmAdapter.getPosition(genPreferences));
+        mGenPreferences.setSelection(genPrefAdapter.getPosition(genPreferences));
 
     }
 

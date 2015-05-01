@@ -46,39 +46,8 @@ public class GeneratedPalettesActivity extends Activity {
         baseColors = intent.getIntArrayExtra(ImageChooserActivity.COLOR_KEY);
 
         Log.i("onCreate", "onCreate");
-        /*
-        if(palettes != null) {
-            Log.i("onCreate", "palettes null!");
-            palettes = new Palette[NUM_PALETTES];
-            for (int i = 0; i < NUM_PALETTES; i++) {
-                palettes[i] = new Palette(savedInstanceState.getBundle(OUTSTATE_KEY+i));
-            }
-        }
-        else{
-            final ProgressDialog pd =
-                    ProgressDialog.show(this, "Processing...", "Hold on...", true, false);
-            // Start thread to populate list of palettes!
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    palettes = new Palette[NUM_PALETTES];
-                    for (int i = 0; i < NUM_PALETTES; i++) {
-                        if (ALGORITHM.equals(Palette.PaletteAlgorithm.ANY)) {
-                            palettes[i] = new Palette(baseColors, Palette.any());
-                        } else {
-                            palettes[i] = new Palette(baseColors, ALGORITHM);
-                        }
-                    }
-                    mAdapter = new PaletteAdapter(GeneratedPalettesActivity.this, palettes);
-                    pd.dismiss();
-                }
-            }).run();
-        }
-        */
+        
         mList = (ListView)findViewById(R.id.list_generated);
-        //mAdapter = new PaletteAdapter(GeneratedPalettesActivity.this, palettes);
-
-        //mList.setAdapter(mAdapter);
 
         mAlgorithms = (Spinner)findViewById(R.id.spinner_algorithm);
         String[] algs = Palette.getAlgorithmChoices();
