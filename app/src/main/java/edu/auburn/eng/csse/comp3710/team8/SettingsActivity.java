@@ -5,11 +5,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -20,7 +17,6 @@ public class SettingsActivity extends Activity {
     public static final String LIGHT_PREF = "Light_Preference_Key";
     public static final String GEN_BRIGHT_PREF = "Generation_Brightness_Key";
 
-    private Button mDelete;
     private Spinner mAlgorithms;
     private Spinner mNumPalettes;
     private Spinner mLightConditions;
@@ -33,6 +29,7 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        // Algorithms Options
         mAlgorithms = (Spinner)findViewById(R.id.spinner_algorithm);
         String[] algs = Palette.getAlgorithmChoices();
         ArrayAdapter<String> algorithmAdapter = new ArrayAdapter<String>(
@@ -44,6 +41,7 @@ public class SettingsActivity extends Activity {
         String algorithm = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE).getString(ALGORITHM_PREF, "any");
         mAlgorithms.setSelection(algorithmAdapter.getPosition(algorithm));
 
+        // Palettes per Roll Options
         mNumPalettes = (Spinner)findViewById(R.id.spinner_num_palettes);
         numOptions = new Integer[10];
         for (int i = 0; i < numOptions.length; i++) {
@@ -56,9 +54,9 @@ public class SettingsActivity extends Activity {
         numAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mNumPalettes.setAdapter(numAdapter);
         int numPalettes = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE).getInt(NUM_PAL_PREF, 5);
-        Log.i("DEBUG", Integer.toString(numPalettes));
         mNumPalettes.setSelection((numPalettes / 5)-1);
 
+        // Light Conditions Options
         mLightConditions = (Spinner)findViewById(R.id.spinner_light_conditions);
         String[] light = ImageProcessor.getLightOptions();
         ArrayAdapter<String> lightAdapter = new ArrayAdapter<String>(
@@ -70,6 +68,7 @@ public class SettingsActivity extends Activity {
         String lightConditions = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE).getString(LIGHT_PREF, "Normal");
         mLightConditions.setSelection(lightAdapter.getPosition(lightConditions));
 
+        // Generation Preferences Options
         mGenPreferences = (Spinner)findViewById(R.id.spinner_generation_preference);
         String[] genPrefs = Palette.getGenerationPreferences();
         ArrayAdapter<String> genPrefAdapter = new ArrayAdapter<String>(
@@ -83,6 +82,7 @@ public class SettingsActivity extends Activity {
 
     }
 
+    // Save Button onClick
     public void savePreferences(View view) {
         SharedPreferences.Editor editor = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE).edit();
         editor.putString(ALGORITHM_PREF, Palette.getAlgorithmChoices()[mAlgorithms.getSelectedItemPosition()]);
@@ -97,12 +97,7 @@ public class SettingsActivity extends Activity {
         toast.show();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-    }
-
+    // Delete Button onClick
     public void deleteFavorites(View view) {
         // Handle the deletion of all favorites!
         // Warn the user in a dialog that this cannot be undone!
@@ -133,6 +128,7 @@ public class SettingsActivity extends Activity {
         builder.show();
     }
 
+    // Display Help for Algorithms onClick
     public void helpAlgorithm(View view) {
         final String msg = "This setting controls which algorithm the app uses to generate color palettes by default. Choosing 'Any' will allow palettes to be created by a variety of the available algorithms.";
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,
@@ -149,6 +145,7 @@ public class SettingsActivity extends Activity {
         builder.show();
     }
 
+    // Display Help for Palettes per Roll onClick
     public void helpNumPerRoll(View view) {
         final String msg = "This setting controls how many palettes are generated at a time. High values may result in degraded performance.";
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,
@@ -165,6 +162,7 @@ public class SettingsActivity extends Activity {
         builder.show();
     }
 
+    // Display Help for Light Conditions onClick
     public void helpLightConditions(View view) {
         final String msg = "This setting designates how bright or dark the light was when a picture is taken. The app will do brightness correction based on this setting.";
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,
@@ -181,6 +179,7 @@ public class SettingsActivity extends Activity {
         builder.show();
     }
 
+    // Display Help for Generation Preferences onClick
     public void helpGenPrefs(View view) {
         final String msg = "This setting controls the lightness preference of the algorithm. Generated colors will tend to be lighter or darker based on this setting.";
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this,

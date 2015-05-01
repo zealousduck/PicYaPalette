@@ -79,13 +79,6 @@ public class PaletteAdapter extends BaseAdapter {
         holder.paletteName =    (TextView) rowView.findViewById(R.id.palette_name);
         holder.paletteRender =  (ImageView) rowView.findViewById(R.id.palette_render);
 
-        /*
-        // Get screen size info to pass to render() !
-        WindowManager wm =  (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-        Display display =   wm.getDefaultDisplay();
-        Point size =        new Point();
-        display.getSize(size);
-        */
         // Update Views with corresponding information
         holder.paletteName.setText(palettesList[position].getName() + "\n"
                                     + palettesList[position].getAlgorithmUsed());

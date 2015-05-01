@@ -1,9 +1,7 @@
 package edu.auburn.eng.csse.comp3710.team8;
 
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.media.audiofx.BassBoost;
 import android.util.Log;
 
 /**
@@ -21,7 +19,6 @@ public class ImageProcessor {
     public static final String V_BRIGHT = "Very Bright";
 
     private static int lightConditions = 0; // Default Normal conditions
-    private static int correctionFactor = 0x0B;
     protected static final double saturationFactor = 0.20;
     protected static final double valueFactor = 0.30;
 
@@ -38,26 +35,6 @@ public class ImageProcessor {
         hsv[1] *= (1 + saturationFactor * Math.abs(lightConditions));
         hsv[2] *= (1 + valueFactor * lightConditions);
         int color = Color.HSVToColor(hsv);
-        // Safely adjust colors with respect to Light conditions!
-        /*
-        if ((red + correctionFactor * lightConditions) <= 0xFF) {
-            red += correctionFactor * lightConditions;
-        } else {
-            red = 0xFF;
-        }
-        if ((green + correctionFactor * lightConditions) <= 0xFF) {
-            green += correctionFactor * lightConditions;
-        } else {
-            green = 0xFF;
-        }
-        if ((blue + correctionFactor * lightConditions) <= 0xFF) {
-            blue += correctionFactor * lightConditions;
-        } else {
-            blue = 0xFF;
-        }
-        // Build color! */
-        //int color = (0xFF << 24) | (red << 16) | (green << 8) | (blue);
-
         return color;
     }
 

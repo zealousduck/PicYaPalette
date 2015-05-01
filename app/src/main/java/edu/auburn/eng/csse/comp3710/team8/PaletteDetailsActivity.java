@@ -1,6 +1,5 @@
 package edu.auburn.eng.csse.comp3710.team8;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,7 +12,6 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +21,7 @@ public class PaletteDetailsActivity extends Activity {
     public static final int NUM_TEXT_VIEWS = 5;
     private static final String SAVE_TEXT = "Save Palette to Favorites";
     private static final String UNSAVE_TEXT = "Remove Palette from Favorites";
+    private static final String UPDATED_NAME_KEY = "Palette_Name_Updated";
 
     private ImageView mPaletteRender;
     private TextView  mFavoriteButton;
@@ -34,11 +33,15 @@ public class PaletteDetailsActivity extends Activity {
     private String  paletteStgs[];
     private int     textViews[];
     private boolean saved;
+    private Bundle extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_palette_details);
+        if (savedInstanceState != null) {
+            extras = savedInstanceState;
+        } else extras = new Bundle();
 
         // Necessary for render() !
         WindowManager wm = (WindowManager)getSystemService(WINDOW_SERVICE);
@@ -84,7 +87,7 @@ public class PaletteDetailsActivity extends Activity {
 
         // Display palette name
         mAlgorithm = (TextView)findViewById(R.id.text_details_algorithm);
-        mAlgorithm.setText(palette.getName() + "\n" + palette.getAlgorithmUsed() + " Palette");
+        extras.putString(UPDATED_NAME_KEY, palette.getName() + "\n" + palette.getAlgorithmUsed() + " Palette");
 
         // Display palette color codes
         if (palette.numColors <= 3) {   // Center the text views for less than 3 colors
@@ -101,6 +104,36 @@ public class PaletteDetailsActivity extends Activity {
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        extras.putString(UPDATED_NAME_KEY, palette.getName() + "\n" + palette.getAlgorithmUsed() + " Palette");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAlgorithm.setText(extras.getString(UPDATED_NAME_KEY));
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedState) {
+        super.onRestoreInstanceState(savedState);
+        Log.i("onRestoreInstanceState", "r");
+        if (savedState != null) {
+            extras.putString(UPDATED_NAME_KEY, savedState.getString(UPDATED_NAME_KEY));
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        Log.i("onSaveInstanceState", "s");
+        if (outState != null) {
+            outState.putString(UPDATED_NAME_KEY, palette.getName() + "\n" + palette.getAlgorithmUsed() + " Palette");
+        }
+    }
+
+    // Save to Favorites onClick
     public void saveToFavorites(View view) {
         if (saved) {
             // Remove palette

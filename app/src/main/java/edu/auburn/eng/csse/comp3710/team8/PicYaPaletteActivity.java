@@ -26,11 +26,4 @@ public class PicYaPaletteActivity extends Activity {
         }, SPLASH_TIMER);
 
     }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        this.finish();
-    }
-
 }

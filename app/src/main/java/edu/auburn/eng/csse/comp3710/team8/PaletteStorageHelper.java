@@ -32,15 +32,12 @@ public class PaletteStorageHelper {
         database = dBManager.getWritableDatabase();
     }
 
-
     public void close() {
         dBManager.close();
     }
 
     /*
-    *
-    * Saves the palette and returns a code
-    *
+     * Saves the palette and returns a code
      */
     public int save(Palette p) {
         ContentValues values = new ContentValues();
@@ -59,7 +56,7 @@ public class PaletteStorageHelper {
     }
 
     /*
-     *      Removes the palette from the databse
+     * Removes the palette from the database.
      */
     public boolean remove(Palette p) {
         String temp = colorsToString(p);
@@ -128,10 +125,5 @@ public class PaletteStorageHelper {
         p.setName(name);
         return p;
     }
-
-    /* Again, this is just a rough outline for this interface. I've given my input as a sort
-     * of hypothetical, but if you end up needing to make some changes it won't be a big deal.
-     * However you can make it work is good for me. -- Patrick
-     */
 
 }

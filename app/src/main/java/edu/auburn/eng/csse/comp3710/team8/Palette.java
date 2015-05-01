@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
 
 import java.util.Random;
 
@@ -17,16 +16,14 @@ public class Palette {
     public final class PaletteAlgorithm {
         public static final String ANY = "Any"; // Allows user to use any of the algorithms
         public static final String DEFAULT = "Default";
-        public static final String COMPLEMENTARY = "Complementary";
         /* Actual algorithms: */
         public static final String RANDOM = "Random";
         public static final String BTCH_IM_FABULOUS = "Fabulous";
-        public static final String GRADIENT = "Gradient";
         public static final String DOMINANT = "Dominant";
         public static final String VALUE_CHANGE = "ValueChanger";
         public static final String HUE_CHANGE = "HueChanger";
 
-        private static final int numAlgorithms = 6;
+        private static final int numAlgorithms = 5;
 
         /* Constants for generation preferences */
         public static final String PREF_DARK = "Dark";
@@ -159,7 +156,6 @@ public class Palette {
             canvas.drawCircle(((i+1)*x)/(numColors+1), y/2, RENDER_RADIUS+3, paint);
             // Draw color
             paint.setColor(colors[i]);
-            //Log.i("render()", "Draw circle " + i + " Color: " + Integer.toHexString(colors[i]));
             canvas.drawCircle(((i+1)*x)/(numColors+1), y/2, RENDER_RADIUS, paint);
 
         }
@@ -172,7 +168,6 @@ public class Palette {
      * Make sure to OR our results with 0xFF000000 in order to nullify transparency!
      */
     public static int generateColor(int[] colorsIn, String algorithm) {
-        //setBrightPreference(brightness);
         int red, green, blue;
         int color, lastColor = 0;
         for (int i = 0; i < colorsIn.length; i++) {
@@ -180,13 +175,13 @@ public class Palette {
         }
         Random rng = new Random();
         color = 0;
-        if (algorithm.equals(PaletteAlgorithm.COMPLEMENTARY)) {
-            return Color.RED;
-        }
-        else if (algorithm.equals(PaletteAlgorithm.RANDOM)) {
+
+        // Select your algorithm!
+        if (algorithm.equals(PaletteAlgorithm.RANDOM)) {
             // Return a random number in the range 0 to 2^24
             color = (rng.nextInt(0x01000000) | 0xFF000000);
         }
+
         else if (algorithm.equals(PaletteAlgorithm.BTCH_IM_FABULOUS)) {
             int base = 0;
             for (int i = 0; i < colorsIn.length; i++) {
@@ -194,13 +189,7 @@ public class Palette {
             }
             color = ((((rng.nextInt(base+1) + 0x00770000) & 0xFFFF55FF) + 0x00040404) | 0xFF000077);
         }
-        else if (algorithm.equals(PaletteAlgorithm.GRADIENT)) {  // Set colors manually for testing purposes
-            //for (int i = 0; )
-            colorsIn[0] = 0xFF2D397E;
-            colorsIn[1] = 0xFFFFFFFF;
-            colorsIn[2] = 0xFFE47F13;
-            color = 0xFFE47F13;
-        }
+
         else if (algorithm.equals(PaletteAlgorithm.DOMINANT)) {
             int dominantId = 0;
             int dominant = 0;
@@ -224,6 +213,7 @@ public class Palette {
                     color = 0;
             }
         }
+
         else if (algorithm.equals(PaletteAlgorithm.VALUE_CHANGE)) {
             color = colorsIn[0];
             red = Color.red(color);
@@ -239,6 +229,7 @@ public class Palette {
             }
             color = Color.HSVToColor(hsv);
         }
+
         else if (algorithm.equals(PaletteAlgorithm.HUE_CHANGE)) {
             color = colorsIn[0];
             red = Color.red(color);
@@ -271,6 +262,7 @@ public class Palette {
 //            }
             color = Color.HSVToColor(hsv);
         }
+
         else if (algorithm.equals(PaletteAlgorithm.DEFAULT)) {  // Set colors manually for testing purposes
             colorsIn[0] = 0xFF2D397E;
             colorsIn[1] = 0xFFFFFFFF;
@@ -311,12 +303,7 @@ public class Palette {
                 else blue = 0;
             }
         }
-        /*
-        // Prevent colors being too similar...?
-        if (red - Color.red(colorsIn[lastColor]) < 0x15)     red = (red - 0x15) % 0xFF;
-        if (green - Color.green(colorsIn[lastColor]) < 0x15) green = (green - 0x15) % 0xFF;
-        if (blue - Color.blue(colorsIn[lastColor]) < 0x15)   blue = ...
-        */
+        // FUTURE FEATURE: Prevent colors from being too similar?
         color = (0xFF << 24) | (red << 16) | (green << 8) | (blue);
         return color;
     }
@@ -362,15 +349,12 @@ public class Palette {
                 algorithm = PaletteAlgorithm.BTCH_IM_FABULOUS;
                 break;
             case 2:
-                algorithm = PaletteAlgorithm.GRADIENT;
-                break;
-            case 3:
                 algorithm = PaletteAlgorithm.DOMINANT;
                 break;
-            case 4:
+            case 3:
                 algorithm = PaletteAlgorithm.VALUE_CHANGE;
                 break;
-            case 5:
+            case 4:
                 algorithm = PaletteAlgorithm.HUE_CHANGE;
                 break;
             default:
@@ -388,10 +372,9 @@ public class Palette {
         algs[0] = PaletteAlgorithm.ANY;
         algs[1] = PaletteAlgorithm.RANDOM;
         algs[2] = PaletteAlgorithm.BTCH_IM_FABULOUS;
-        algs[3] = PaletteAlgorithm.GRADIENT;
-        algs[4] = PaletteAlgorithm.DOMINANT;
-        algs[5] = PaletteAlgorithm.VALUE_CHANGE;
-        algs[6] = PaletteAlgorithm.HUE_CHANGE;
+        algs[3] = PaletteAlgorithm.DOMINANT;
+        algs[4] = PaletteAlgorithm.VALUE_CHANGE;
+        algs[5] = PaletteAlgorithm.HUE_CHANGE;
         return algs;
     }
 

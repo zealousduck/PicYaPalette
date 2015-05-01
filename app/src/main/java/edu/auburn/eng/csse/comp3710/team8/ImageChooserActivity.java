@@ -96,6 +96,7 @@ public class ImageChooserActivity extends Activity {
         setContentView(R.layout.activity_image_chooser);
     }
 
+    // Take a Picture onClick
     public void takeAPicture(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -103,6 +104,7 @@ public class ImageChooserActivity extends Activity {
         }
     }
 
+    // Choose a Picture onClick
     public void chooseAPicture(View view) {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -111,6 +113,7 @@ public class ImageChooserActivity extends Activity {
         }
     }
 
+    // Inspiration onClick
     public void picForMe(View view) {
         // generate palettes for a random color!
         final Intent i = new Intent(ImageChooserActivity.this, GeneratedPalettesActivity.class);
@@ -133,11 +136,13 @@ public class ImageChooserActivity extends Activity {
         ImageChooserActivity.this.startActivity(i);
     }
 
+    // Favorites onClick
     public void openFavorites(View view) {
         Intent i = new Intent(ImageChooserActivity.this, FavoritePalettesActivity.class);
         startActivity(i);
     }
 
+    // Settings onClick
     public void openSettings(View view) {
         Intent i = new Intent(ImageChooserActivity.this, SettingsActivity.class);
         startActivity(i);
