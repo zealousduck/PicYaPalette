@@ -37,7 +37,9 @@ public class GeneratedPalettesActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generated_palettes);
         readSettings(); // Check shared preferences for generation settings
-        extras = savedInstanceState;
+        if (savedInstanceState != null) {
+            extras = savedInstanceState;
+        } else extras = new Bundle();   // extras to save telephony!
 
         baseColors = new int[Palette.getNumColors()];
         Intent intent = getIntent();
@@ -70,6 +72,7 @@ public class GeneratedPalettesActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i("onResume", "o");
         if(extras != null && palettes != null) {
             Log.i("onResume", "palettes not null!");
             palettes = new Palette[NUM_PALETTES];
@@ -102,9 +105,20 @@ public class GeneratedPalettesActivity extends Activity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("onPause", "x");
+        if (extras != null) {
+            for (int i = 0; i < NUM_PALETTES; i++) {
+                extras.putBundle(OUTSTATE_KEY + i, palettes[i].getPaletteBundle());
+            }
+        }
+    }
+
+    @Override
     protected void onRestoreInstanceState(Bundle savedState) {
         super.onRestoreInstanceState(savedState);
-        Log.i("onRestoreInstanceState", "");
+        Log.i("onRestoreInstanceState", "r");
         if (savedState != null) {
             Log.i("onRestoreInstanceState", "state not null!");
             palettes = new Palette[NUM_PALETTES];
@@ -117,7 +131,7 @@ public class GeneratedPalettesActivity extends Activity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.i("onSaveInstanceState", "");
+        Log.i("onSaveInstanceState", "s");
         if (outState != null) {
             Log.i("onSaveInstanceState", "outState not null!");
             for (int i = 0; i < NUM_PALETTES; i++) {

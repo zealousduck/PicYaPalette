@@ -371,7 +371,7 @@ public class Palette {
             default:
                 algorithm = PaletteAlgorithm.DEFAULT;
         }
-        Log.i("any()", algorithm);
+        //Log.i("any()", algorithm);
         return algorithm;
     }
 
