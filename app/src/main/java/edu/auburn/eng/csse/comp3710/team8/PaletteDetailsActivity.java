@@ -58,6 +58,17 @@ public class PaletteDetailsActivity extends Activity {
                 getIntent().getExtras().getBundle(PaletteAdapter.PALETTE_KEY));
         paletteStgs = palette.getDetailedStrings();
 
+        psh = new PaletteStorageHelper(PaletteDetailsActivity.this);
+        saved = psh.isSaved(palette);
+        mFavoriteButton = (TextView)findViewById(R.id.button_save);
+        if (saved) {
+            mFavoriteButton.setText(UNSAVE_TEXT);
+            //palette.setName("Duplicate");
+        }
+        else {
+            mFavoriteButton.setText(SAVE_TEXT);
+        }
+
         // Display palette render
         mPaletteRender = (ImageView)findViewById(R.id.image_palette_detail);
         Bitmap bmp = palette.render(size.x+(2*size.x/5), 2*size.y); // Constants to enlarge image
@@ -82,16 +93,6 @@ public class PaletteDetailsActivity extends Activity {
                 TextView temp = (TextView)findViewById(textViews[i]);
                 temp.setText(paletteStgs[i]);
             }
-        }
-
-        psh = new PaletteStorageHelper(PaletteDetailsActivity.this);
-        saved = psh.isSaved(palette);
-        mFavoriteButton = (TextView)findViewById(R.id.button_save);
-        if (saved) {
-            mFavoriteButton.setText(UNSAVE_TEXT);
-        }
-        else {
-            mFavoriteButton.setText(SAVE_TEXT);
         }
 
     }

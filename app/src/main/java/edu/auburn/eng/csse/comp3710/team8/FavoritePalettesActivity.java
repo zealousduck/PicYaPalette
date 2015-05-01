@@ -23,4 +23,15 @@ public class FavoritePalettesActivity extends Activity {
         mList.setAdapter(mAdapter);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refresh();
+    }
+
+    private void refresh() {
+        mAdapter = new PaletteAdapter(FavoritePalettesActivity.this, psh.getAllPalettes());
+        mList.setAdapter(mAdapter);
+    }
+
 }
