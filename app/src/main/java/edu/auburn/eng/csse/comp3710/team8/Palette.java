@@ -159,7 +159,7 @@ public class Palette {
             canvas.drawCircle(((i+1)*x)/(numColors+1), y/2, RENDER_RADIUS+3, paint);
             // Draw color
             paint.setColor(colors[i]);
-            Log.i("render()", "Draw circle " + i + " Color: " + Integer.toHexString(colors[i]));
+            //Log.i("render()", "Draw circle " + i + " Color: " + Integer.toHexString(colors[i]));
             canvas.drawCircle(((i+1)*x)/(numColors+1), y/2, RENDER_RADIUS, paint);
 
         }

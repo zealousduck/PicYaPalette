@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +26,7 @@ public class GeneratedPalettesActivity extends Activity {
 
     private int baseColors[];
     private Palette[] palettes;
-
+    private Bundle extras;
 
     private ListView mList;
     private PaletteAdapter mAdapter;
@@ -38,12 +39,16 @@ public class GeneratedPalettesActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generated_palettes);
         readSettings(); // Check shared preferences for generation settings
+        extras = savedInstanceState;
 
         baseColors = new int[Palette.getNumColors()];
         Intent intent = getIntent();
         baseColors = intent.getIntArrayExtra(ImageChooserActivity.COLOR_KEY);
 
-        if(savedInstanceState != null) {
+        Log.i("onCreate", "onCreate");
+        /*
+        if(palettes != null) {
+            Log.i("onCreate", "palettes null!");
             palettes = new Palette[NUM_PALETTES];
             for (int i = 0; i < NUM_PALETTES; i++) {
                 palettes[i] = new Palette(savedInstanceState.getBundle(OUTSTATE_KEY+i));
@@ -69,10 +74,11 @@ public class GeneratedPalettesActivity extends Activity {
                 }
             }).run();
         }
+        */
         mList = (ListView)findViewById(R.id.list_generated);
         //mAdapter = new PaletteAdapter(GeneratedPalettesActivity.this, palettes);
 
-        mList.setAdapter(mAdapter);
+        //mList.setAdapter(mAdapter);
 
         mAlgorithms = (Spinner)findViewById(R.id.spinner_algorithm);
         String[] algs = Palette.getAlgorithmChoices();
@@ -86,19 +92,67 @@ public class GeneratedPalettesActivity extends Activity {
         mAlgorithms.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                reroll(parentView);
+                //reroll(parentView);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {}
         });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(extras != null && palettes != null) {
+            Log.i("onResume", "palettes not null!");
+            palettes = new Palette[NUM_PALETTES];
+            for (int i = 0; i < NUM_PALETTES; i++) {
+                palettes[i] = new Palette(extras.getBundle(OUTSTATE_KEY+i));
+            }
+            mAdapter = new PaletteAdapter(GeneratedPalettesActivity.this, palettes);
+        }
+        else {
+            final ProgressDialog pd =
+                    ProgressDialog.show(this, "Processing...", "Hold on...", true, false);
+            // Start thread to populate list of palettes!
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    palettes = new Palette[NUM_PALETTES];
+                    for (int i = 0; i < NUM_PALETTES; i++) {
+                        if (ALGORITHM.equals(Palette.PaletteAlgorithm.ANY)) {
+                            palettes[i] = new Palette(baseColors, Palette.any());
+                        } else {
+                            palettes[i] = new Palette(baseColors, ALGORITHM);
+                        }
+                    }
+                    mAdapter = new PaletteAdapter(GeneratedPalettesActivity.this, palettes);
+                    pd.dismiss();
+                }
+            }).run();
+        }
+        mList.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedState) {
+        super.onRestoreInstanceState(savedState);
+        Log.i("onRestoreInstanceState", "");
+        if (savedState != null) {
+            Log.i("onRestoreInstanceState", "state not null!");
+            palettes = new Palette[NUM_PALETTES];
+            for (int i = 0; i < NUM_PALETTES; i++) {
+                palettes[i] = new Palette(savedState.getBundle(OUTSTATE_KEY+i));
+            }
+        }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        Log.i("onSaveInstanceState", "");
         if (outState != null) {
+            Log.i("onSaveInstanceState", "outState not null!");
             for (int i = 0; i < NUM_PALETTES; i++) {
                 outState.putBundle(OUTSTATE_KEY + i, palettes[i].getPaletteBundle());
             }
