@@ -1,0 +1,40 @@
+@startuml
+
+
+[-> PicYaPaletteActivity: onCreate
+activate PicYaPaletteActivity
+
+create ImageChooserActivity
+PicYaPaletteActivity -> ImageChooserActivity:  startActivity
+
+activate ImageChooserActivity
+deactivate PicYaPaletteActivity
+
+ImageChooserActivity -> ImageChooserActivity: openFavorites
+activate ImageChooserActivity
+
+create FavoritePalettesActivity
+ImageChooserActivity -> FavoritePalettesActivity: startActivity
+deactivate ImageChooserActivity
+deactivate ImageChooserActivity
+activate FavoritePalettesActivity
+
+loop for all saved palettes
+create Palette
+FavoritePalettesActivity -> Palette: construct
+activate Palette
+
+loop for all colors
+Palette -> Palette: generateColor
+end
+deactivate Palette
+Palette --> FavoritePalettesActivity: render
+end
+
+FavoritePalettesActivity --> ImageChooserActivity
+deactivate FavoritePalettesActivity
+activate ImageChooserActivity
+<--ImageChooserActivity
+deactivate ImageChooserActivity
+
+@enduml

@@ -16,7 +16,7 @@
     <string name="delete_all">Delete Favorites</string>
     <string name="default_alg">Default Algorithm:</string>
     <string name="alg_used">Algorithm Used:</string>
-    <string name="pal_per_roll">Paletts per Roll:</string>
+    <string name="pal_per_roll">Palettes per Roll:</string>
     <string name="light_conditions">Light Conditions:</string>
     <string name="gen_prefs">Generation Preferences:</string>
 

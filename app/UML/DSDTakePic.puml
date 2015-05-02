@@ -1,0 +1,50 @@
+@startuml
+
+
+[-> PicYaPaletteActivity: onCreate
+activate PicYaPaletteActivity
+
+create ImageChooserActivity
+PicYaPaletteActivity -> ImageChooserActivity:  startActivity
+
+activate ImageChooserActivity
+deactivate PicYaPaletteActivity
+
+ImageChooserActivity -> ImageChooserActivity: takeAPicture
+activate ImageChooserActivity
+create Camera
+ImageChooserActivity -> Camera: startActivityForResult
+activate Camera
+Camera -->ImageChooserActivity: return bmp
+deactivate Camera
+
+
+
+deactivate ImageChooserActivity
+ImageChooserActivity -> ImageChooserActivity: onActivityResult
+activate ImageChooserActivity
+create GeneratedPalettesActivity
+ImageChooserActivity -> GeneratedPalettesActivity: startActivity
+deactivate ImageChooserActivity
+deactivate ImageChooserActivity
+activate GeneratedPalettesActivity
+
+loop for all palettes
+create Palette
+GeneratedPalettesActivity -> Palette: construct
+activate Palette
+
+loop for all colors
+Palette -> Palette: generateColor
+end
+deactivate Palette
+Palette --> GeneratedPalettesActivity: render
+end
+
+GeneratedPalettesActivity --> ImageChooserActivity
+deactivate GeneratedPalettesActivity
+activate ImageChooserActivity
+<--ImageChooserActivity
+deactivate ImageChooserActivity
+
+@enduml
