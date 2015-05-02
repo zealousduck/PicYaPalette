@@ -36,7 +36,7 @@
 
         <ImageView
             android:layout_width="fill_parent"
-            android:layout_height="210dp"
+            android:layout_height="245dp"
             android:id="@+id/image_palette_detail"
             android:layout_alignParentTop="true"
             android:layout_gravity="center_horizontal"

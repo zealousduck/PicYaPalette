@@ -27,7 +27,7 @@ public class GeneratedPalettesActivity extends Activity {
     private Bundle extras;
 
     private ListView mList;
-    private PaletteAdapter mAdapter;
+    private static PaletteAdapter mAdapter; // static for memory constraints
     private TextView mAlgorithm;
 
     private Spinner mAlgorithms;

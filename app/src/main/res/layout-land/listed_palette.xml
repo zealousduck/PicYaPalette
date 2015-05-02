@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_toLeftOf="@id/palette_render"
+        android:textSize="18sp"
         android:layout_centerVertical="true"
         android:id="@+id/palette_name"
         android:layout_alignParentLeft="true"/>
