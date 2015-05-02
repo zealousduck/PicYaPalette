@@ -43,7 +43,7 @@ public class SettingsActivity extends Activity {
 
         // Palettes per Roll Options
         mNumPalettes = (Spinner)findViewById(R.id.spinner_num_palettes);
-        numOptions = new Integer[10];
+        numOptions = new Integer[5];
         for (int i = 0; i < numOptions.length; i++) {
             numOptions[i] = 5*(i+1);
         }

@@ -21,7 +21,7 @@ public class PaletteDetailsActivity extends Activity {
     public static final int NUM_TEXT_VIEWS = 5;
     private static final String SAVE_TEXT = "Save Palette to Favorites";
     private static final String UNSAVE_TEXT = "Remove Palette from Favorites";
-    private static final String UPDATED_NAME_KEY = "Palette_Name_Updated";
+    private static final String UPDATED_PALETTE_KEY = "Palette_Updated";
 
     private ImageView mPaletteRender;
     private TextView  mFavoriteButton;
@@ -39,9 +39,23 @@ public class PaletteDetailsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_palette_details);
-        if (savedInstanceState != null) {
+
+        // Restoring from telephony/rotation?
+        if (savedInstanceState == null) {
+            extras = new Bundle();
+            // Load palette from Intent
+            palette = new Palette(
+                    getIntent().getExtras().getBundle(PaletteAdapter.PALETTE_KEY));
+            extras.putBundle(UPDATED_PALETTE_KEY, palette.getPaletteBundle());
+        } else {
             extras = savedInstanceState;
-        } else extras = new Bundle();
+            palette = new Palette(extras.getBundle(UPDATED_PALETTE_KEY));
+        }
+        paletteStgs = palette.getDetailedStrings();
+
+        // Palette name
+        mAlgorithm = (TextView)findViewById(R.id.text_details_algorithm);
+        mAlgorithm.setText(palette.getName() + "\n" + palette.getAlgorithmUsed() + " Palette");
 
         // Necessary for render() !
         WindowManager wm = (WindowManager)getSystemService(WINDOW_SERVICE);
@@ -55,11 +69,6 @@ public class PaletteDetailsActivity extends Activity {
         textViews[2] = (R.id.text_palette_string2);
         textViews[3] = (R.id.text_palette_string3);
         textViews[4] = (R.id.text_palette_string4);
-
-        // Load palette from Bundle!
-        palette = new Palette(
-                getIntent().getExtras().getBundle(PaletteAdapter.PALETTE_KEY));
-        paletteStgs = palette.getDetailedStrings();
 
         psh = new PaletteStorageHelper(PaletteDetailsActivity.this);
         saved = psh.isSaved(palette);
@@ -85,10 +94,6 @@ public class PaletteDetailsActivity extends Activity {
         }
         else mPaletteRender.setImageBitmap(bmp);
 
-        // Display palette name
-        mAlgorithm = (TextView)findViewById(R.id.text_details_algorithm);
-        extras.putString(UPDATED_NAME_KEY, palette.getName() + "\n" + palette.getAlgorithmUsed() + " Palette");
-
         // Display palette color codes
         if (palette.numColors <= 3) {   // Center the text views for less than 3 colors
             for (int i = 0; i < paletteStgs.length; i++) {
@@ -107,13 +112,7 @@ public class PaletteDetailsActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        extras.putString(UPDATED_NAME_KEY, palette.getName() + "\n" + palette.getAlgorithmUsed() + " Palette");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mAlgorithm.setText(extras.getString(UPDATED_NAME_KEY));
+        extras.putBundle(UPDATED_PALETTE_KEY, palette.getPaletteBundle());
     }
 
     @Override
@@ -121,7 +120,7 @@ public class PaletteDetailsActivity extends Activity {
         super.onRestoreInstanceState(savedState);
         Log.i("onRestoreInstanceState", "r");
         if (savedState != null) {
-            extras.putString(UPDATED_NAME_KEY, savedState.getString(UPDATED_NAME_KEY));
+            palette = new Palette(savedState.getBundle(UPDATED_PALETTE_KEY));
         }
     }
 
@@ -129,7 +128,7 @@ public class PaletteDetailsActivity extends Activity {
     protected void onSaveInstanceState(Bundle outState) {
         Log.i("onSaveInstanceState", "s");
         if (outState != null) {
-            outState.putString(UPDATED_NAME_KEY, palette.getName() + "\n" + palette.getAlgorithmUsed() + " Palette");
+            outState.putBundle(UPDATED_PALETTE_KEY, palette.getPaletteBundle());
         }
     }
 
@@ -164,7 +163,7 @@ public class PaletteDetailsActivity extends Activity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     // Save the palette!
-                    int result = PaletteStorageHelper.SUCCESS;
+                    int result;
                     String tempName = input.getText().toString();
                     if (tempName != null && !tempName.equals("")) {
                         palette.setName(tempName);
