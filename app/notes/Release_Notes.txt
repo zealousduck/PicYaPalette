@@ -1,0 +1,35 @@
+
+Pick Ya Palette v1.0 Release Notes:
+
+Looking to decorate your home? Designing a new outfit? Creating a work of art?
+Maybe you’re just feeling creative? Look no further! Pick Ya Palette provides
+the creative inspiration needed for your next project by building color schemes for you!
+
+Features:
+ o Take a Picture and the app will choose colors based on the color in the picture^
+ o Choose an Image from your photo library to the same effect
+ o No Picture on hand? Get inspired by randomly-selected colors
+ o Save your Favorite Palettes for future viewing
+ o 5 Different generation algorithms to choose from
+ o Want a lighter or a darker color scheme? Set your generation preferences accordingly
+ o Picture taken with less-than-ideal lighting? Set your light conditions and the
+   app will do color- and light-correction
+
+Designed and Created by:
+ Auburn University COMP3710 Spring 2015 Team 8
+   Lucas Brooks
+   Sam Bartlett
+   Patrick Stewart
+
+^ For best results, take pictures of solid-color walls, furniture, and items. This results
+  in cleaner, more vibrant colors.
+
+*** Depending on your device’s hardware, Pick Ya Palette may take longer to generate
+    color palettes. Please be patient. If you device is memory-constrained, generating
+    more palettes at a time may result in memory problems.
+
+**** It was discussed with Dr Umphress whether the lack of fragments was acceptable.
+     He gave us permission to not use fragments because we had already developed the
+     app-functionality in the absence of fragments.
+
+Source viewable at https://github.com/zealousduck/PicYaPalette
