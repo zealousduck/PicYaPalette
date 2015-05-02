@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,13 +6,13 @@
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     android:paddingBottom="0dp"
-    android:orientation="vertical"
     tools:context="edu.auburn.eng.csse.comp3710.team8.SettingsActivity"
     android:background="@color/background">
 
-<TextView
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:textSize="30sp"
         android:text="Settings"
         android:id="@+id/title_settings"
@@ -24,216 +24,251 @@
         android:padding="8dp"
         android:elevation="6sp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <ScrollView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="0dp"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:layout_weight="1">
+        android:layout_below="@id/title_settings"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/scrollView">
 
-        <ScrollView
+        <RelativeLayout
+            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/scrollView"
-            android:layout_weight="1">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <!-- ALGORITHM -->
+            <LinearLayout android:id="@+id/algorithm_layout"
+                android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
 
-                <!-- ALGORITHM -->
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="fill_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    android:orientation="vertical"
+                    android:layout_weight="7">
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="7">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="Default Algorithm"
-                            android:id="@+id/textView"
-                            android:layout_gravity="center_vertical" />
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Default Algorithm"
+                        android:id="@+id/textView"
+                        android:layout_gravity="center_vertical" />
 
-                        <Spinner
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/spinner_algorithm"/>
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="@dimen/help_ic_size"
-                        android:layout_height="@dimen/help_ic_size"
-                        android:src="@drawable/ic_help"
-                        android:gravity="end"
-                        android:clickable="true"
-                        android:id="@+id/help_algorithm"
-                        android:onClick="helpAlgorithm"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"/>
+                    <Spinner
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spinner_algorithm"/>
                 </LinearLayout>
 
-                <!-- Vertical Separator! -->
-                <View
-                    android:background="#D2D2D2"
-                    android:layout_width = "fill_parent"
-                    android:layout_height="1dp"/>
-
-                <!-- PALETTES PER ROLL-->
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="7">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="Palettes per Roll"
-                            android:id="@+id/text_num_palettes"
-                            android:layout_gravity="center_vertical"/>
-
-                        <Spinner
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/spinner_num_palettes"/>
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="@dimen/help_ic_size"
-                        android:layout_height="@dimen/help_ic_size"
-                        android:src="@drawable/ic_help"
-                        android:gravity="end"
-                        android:clickable="true"
-                        android:id="@+id/help_num_palettes"
-                        android:onClick="helpNumPerRoll"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"/>
-                </LinearLayout>
-
-                <!-- Vertical Separator! -->
-                <View
-                    android:background="#D2D2D2"
-                    android:layout_width = "fill_parent"
-                    android:layout_height="1dp"/>
-
-                <!-- LIGHT CONDITIONS -->
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="7">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="Light Conditions"
-                            android:id="@+id/text_light_conditions"
-                            android:layout_gravity="center_vertical" />
-
-                        <Spinner
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/spinner_light_conditions"/>
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="@dimen/help_ic_size"
-                        android:layout_height="@dimen/help_ic_size"
-                        android:src="@drawable/ic_help"
-                        android:gravity="end"
-                        android:clickable="true"
-                        android:id="@+id/help_light_conditions"
-                        android:onClick="helpLightConditions"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"/>
-                </LinearLayout>
-
-                <!-- Vertical Separator! -->
-                <View
-                    android:background="#D2D2D2"
-                    android:layout_width = "fill_parent"
-                    android:layout_height="1dp"/>
-
-                <!-- GENERATION PREFERENCES-->
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="7">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="Generation Preferences"
-                            android:id="@+id/text_generation_preference"
-                            android:layout_gravity="center_vertical" />
-
-                        <Spinner
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/spinner_generation_preference"/>
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="@dimen/help_ic_size"
-                        android:layout_height="@dimen/help_ic_size"
-                        android:src="@drawable/ic_help"
-                        android:gravity="end"
-                        android:clickable="true"
-                        android:id="@+id/help_gen_preferences"
-                        android:onClick="helpGenPrefs"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"/>
-                </LinearLayout>
-
-                <!-- Vertical Separator! -->
-                <View
-                    android:background="#D2D2D2"
-                    android:layout_width = "fill_parent"
-                    android:layout_height="1dp"/>
-
+                <ImageView
+                    android:layout_width="@dimen/help_ic_size"
+                    android:layout_height="@dimen/help_ic_size"
+                    android:src="@drawable/ic_help"
+                    android:gravity="end"
+                    android:clickable="true"
+                    android:id="@+id/help_algorithm"
+                    android:onClick="helpAlgorithm"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"/>
             </LinearLayout>
-        </ScrollView>
 
+            <!-- Vertical Separator! -->
+            <View
+                android:background="#D2D2D2"
+                android:layout_width = "fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/algorithm_layout"/>
+
+            <!-- PALETTES PER ROLL-->
+            <LinearLayout android:id="@+id/per_roll_layout"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/algorithm_layout"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="7">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Palettes per Roll"
+                        android:id="@+id/text_num_palettes"
+                        android:layout_gravity="center_vertical"/>
+
+                    <Spinner
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spinner_num_palettes"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/help_ic_size"
+                    android:layout_height="@dimen/help_ic_size"
+                    android:src="@drawable/ic_help"
+                    android:gravity="end"
+                    android:clickable="true"
+                    android:id="@+id/help_num_palettes"
+                    android:onClick="helpNumPerRoll"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <!-- Vertical Separator! -->
+            <View
+                android:background="#D2D2D2"
+                android:layout_width = "fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/per_roll_layout"/>
+
+            <!-- LIGHT CONDITIONS -->
+            <LinearLayout android:id="@+id/light_layout"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/per_roll_layout"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="7">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Light Conditions"
+                        android:id="@+id/text_light_conditions"
+                        android:layout_gravity="center_vertical" />
+
+                    <Spinner
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spinner_light_conditions"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/help_ic_size"
+                    android:layout_height="@dimen/help_ic_size"
+                    android:src="@drawable/ic_help"
+                    android:gravity="end"
+                    android:clickable="true"
+                    android:id="@+id/help_light_conditions"
+                    android:onClick="helpLightConditions"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <!-- Vertical Separator! -->
+            <View
+                android:background="#D2D2D2"
+                android:layout_width = "fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/light_layout"/>
+
+            <!-- GENERATION PREFERENCES-->
+            <LinearLayout android:id="@+id/gen_prefs_layout"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/light_layout"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="7">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Generation Preferences"
+                        android:id="@+id/text_generation_preference"
+                        android:layout_gravity="center_vertical" />
+
+                    <Spinner
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spinner_generation_preference"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/help_ic_size"
+                    android:layout_height="@dimen/help_ic_size"
+                    android:src="@drawable/ic_help"
+                    android:gravity="end"
+                    android:clickable="true"
+                    android:id="@+id/help_gen_preferences"
+                    android:onClick="helpGenPrefs"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <!-- Vertical Separator! -->
+            <View
+                android:background="#D2D2D2"
+                android:layout_width = "fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/gen_prefs_layout"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <LinearLayout android:id="@+id/delete_all_layout"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="1dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/accent_color"
+        android:onClick="deleteFavorites"
+        android:layout_gravity="center"
+        android:paddingBottom="12dp"
+        android:paddingTop="8dp"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="@dimen/button_ic_size"
+            android:layout_height="@dimen/button_ic_size"
+            android:src="@drawable/ic_delete_all"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete Favorites"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/button_text_size"
+            android:layout_gravity="center" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/delete_all_layout"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
@@ -263,37 +298,5 @@
             android:layout_gravity="center" />
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginBottom="0dp"
-        android:background="@color/accent_color"
-        android:elevation="16sp"
-        android:onClick="deleteFavorites"
-        android:layout_gravity="center"
-        android:paddingBottom="12dp"
-        android:paddingTop="8dp"
-        android:gravity="center">
 
-        <ImageView
-            android:layout_width="@dimen/button_ic_size"
-            android:layout_height="@dimen/button_ic_size"
-            android:src="@drawable/ic_delete_all"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete Favorites"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/button_text_size"
-            android:layout_gravity="center" />
-    </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
