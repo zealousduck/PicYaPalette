@@ -13,7 +13,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:text="Generated Palettes"
+        android:text="@string/title_activity_generated_palettes"
         android:id="@+id/title_generated"
         android:layout_gravity="center"
         android:background="@color/theme_color"
@@ -114,7 +114,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reroll Palettes"
+                android:text="@string/reroll"
                 android:singleLine="true"
                 android:textSize="@dimen/button_text_size"
                 android:textColor="@color/text_color"

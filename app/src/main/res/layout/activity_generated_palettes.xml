@@ -13,7 +13,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:text="Generated Palettes"
+        android:text="@string/title_activity_generated_palettes"
         android:id="@+id/title_generated"
         android:layout_gravity="center"
         android:background="@color/theme_color"
@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Algorithm Used"
+                android:text="@string/alg_used"
                 android:id="@+id/textView"
                 android:textColor="@color/text_color"
                 android:layout_gravity="center_vertical" />
@@ -122,7 +122,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reroll Palettes"
+            android:text="@string/reroll"
             android:textSize="@dimen/button_text_size"
             android:textColor="@color/text_color"
             android:layout_gravity="center" />

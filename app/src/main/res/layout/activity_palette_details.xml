@@ -14,7 +14,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:text="Palette Details"
+        android:text="@string/title_activity_palette_details"
         android:id="@+id/title_details"
         android:layout_gravity="center"
         android:background="@color/theme_color"
@@ -127,7 +127,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save Palette to Favorites"
+            android:text="@string/save_to_favs"
             android:id="@+id/button_save"
             android:textSize="@dimen/button_text_size"
             android:textColor="@color/text_color"

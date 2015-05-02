@@ -10,8 +10,19 @@
     <string name="team_8_info_land2">\nAuburn University\nCOMP3710 Spring 2015</string>
     <string name="favorites_title">Favorite Palettes</string>
 
+    <string name="save_to_favs">Save Palette to Favorites</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="reroll">Reroll Palettes</string>
+    <string name="delete_all">Delete Favorites</string>
+    <string name="default_alg">Default Algorithm:</string>
+    <string name="alg_used">Algorithm Used:</string>
+    <string name="pal_per_roll">Paletts per Roll:</string>
+    <string name="light_conditions">Light Conditions:</string>
+    <string name="gen_prefs">Generation Preferences:</string>
+
+
 <!-- TODO: Remove or change this placeholder text -->
-    <string name="title_activity_image_chooser">Pick an Image</string>
+    <string name="title_activity_image_chooser">Pick Ya Palette</string>
     <string name="title_activity_favorite_palettes">Favorite Palettes</string>
     <string name="title_activity_generated_palettes">Generated Palettes</string>
     <string name="title_activity_palette_details">Palette Details</string>
