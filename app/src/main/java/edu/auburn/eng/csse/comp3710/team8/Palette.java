@@ -159,7 +159,8 @@ public class Palette {
             canvas.drawCircle(((i+1)*x)/(numColors+1), y/2, RENDER_RADIUS, paint);
 
         }
-        return bmp;
+        //return bmp;
+        return Bitmap.createScaledBitmap(bmp,3*RENDER_WIDTH/4, 3*RENDER_HEIGHT/4, true);
     }
 
     /* Generates a new color to add to the Palette.
