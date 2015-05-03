@@ -24,6 +24,10 @@ Designed and Created by:
 ^ For best results, take pictures of solid-color walls, furniture, and items. This results
   in cleaner, more vibrant colors.
 
+*** If you are attempting to run this on an emulated device, please make sure your emulator's
+    camera is set to Emulated before attempting to use the "Take a Picture" functionality.
+    Camera functionality guaranteed to work on physical devices.
+
 *** Depending on your device’s hardware, Pick Ya Palette may take longer to generate
     color palettes. Please be patient. If you device is memory-constrained, generating
     more palettes at a time may result in memory problems.
