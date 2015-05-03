@@ -1,0 +1,43 @@
+@startuml
+scale 350 width
+[*] --> Starting
+Starting --> DisplayingSplashScreen
+DisplayingSplashScreen --> DisplayingMenu
+DisplayingMenu --> TakingPicture : Press Take A Picture
+DisplayingMenu --> SelectingPicture : Press Select a Picture
+TakingPicture --> SendIntent : Camera Intent
+SelectingPicture --> SendIntent : Gallery Intent
+SendIntent --> ProcessingPicture : Picture
+ProcessingPicture --> GeneratingPalettes : Color Retrieved
+GeneratingPalettes --> DisplayingPalettes : PalettesGenerated
+DisplayingPalettes --> DisplayingMenu : Press Back Button
+DisplayingPalettes --> GeneratingPalettes : Press Reroll
+DisplayingPalettes --> DisplayingPalette : Press Individual Palette
+DisplayingPalette --> DisplayingPalettes : Press Back Button
+DisplayingPalette --> AddingToFavorites : Press Add to Favorites
+DisplayingPalette --> RemovingFromFavorites : Press Remove From Favorites
+AddingToFavorites --> DisplayingPalette : Added to Favorites
+RemovingFromFavorites  --> DisplayingPalette : Removed from Favorites
+DisplayingMenu --> GeneratingColor : Press Inspiration
+GeneratingColor --> GeneratingPalettes : Color Picked
+DisplayingMenu --> GettingFavorites : Press Favorites
+GettingFavorites --> DisplayingPalettes : Favorites Retrieved
+DisplayingMenu --> DisplayingSettings : Press Settings
+DisplayingSettings --> SettingsUpdating : Press Save Changes
+SettingsUpdating --> DisplayingSettings : Settings Saved
+DisplayingSettings --> DeletingFavorites : Press Delete Favorites
+DeletingFavorites --> DisplayingSettings : Favorites Deleted
+DisplayingSettings --> DisplayingMenu : BackButtonPressed
+DisplayingSettings --> DisplayingDialog : Question Mark Next To Setting Pressed
+DisplayingDialog --> DisplayingSettings : Dialog Dismissed
+
+state SendIntent {
+    [*] --> LaunchingIntent : Request
+    LaunchingIntent --> ReceivingPicture : Picture Returned
+}
+
+state ProcessingPicture {
+    [*] --> ShrinkingPicture : Picture Received
+    ShrinkingPicture --> GettingColor : Picture Shrunk
+}
+@enduml
