@@ -22,7 +22,7 @@ Designed and Created by:
    Patrick Stewart
 
 ^ For best results, take pictures of solid-color walls, furniture, and items. This results
-  in cleaner, more vibrant colors.
+  in cleaner, more vibrant colors. Cropping images may aid in reducing color-noise.
 
 *** If you are attempting to run this on an emulated device, please make sure your emulator's
     camera is set to Emulated before attempting to use the "Take a Picture" functionality.
