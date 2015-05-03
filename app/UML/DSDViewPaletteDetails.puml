@@ -22,9 +22,6 @@ deactivate PaletteStorageHelper
 Palette --> PaletteDetailsActivity : render
 deactivate Palette
 
-
-
-
 PaletteDetailsActivity --> GeneratedPalettesActivity
 deactivate PaletteDetailsActivity
 activate GeneratedPalettesActivity
