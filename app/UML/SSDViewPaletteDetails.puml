@@ -1,0 +1,5 @@
+@startuml
+User -> System: Select a palette from Favorites or Generated Palettes screens
+System --> User: Display Palette Details screen
+
+@enduml

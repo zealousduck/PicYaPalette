@@ -1,0 +1,34 @@
+@startuml
+
+
+[-> GeneratedPalettesActivity : onCreate
+
+activate GeneratedPalettesActivity
+
+create PaletteDetailsActivity
+
+GeneratedPalettesActivity -> PaletteDetailsActivity : startActivity
+activate PaletteDetailsActivity
+deactivate GeneratedPalettesActivity
+
+create Palette
+PaletteDetailsActivity -> Palette : construct
+activate Palette
+create PaletteStorageHelper
+PaletteDetailsActivity -> PaletteStorageHelper : construct
+activate PaletteStorageHelper
+PaletteStorageHelper --> PaletteDetailsActivity
+deactivate PaletteStorageHelper
+Palette --> PaletteDetailsActivity : render
+deactivate Palette
+
+
+
+
+PaletteDetailsActivity --> GeneratedPalettesActivity
+deactivate PaletteDetailsActivity
+activate GeneratedPalettesActivity
+<--GeneratedPalettesActivity
+deactivate GeneratedPalettesActivity
+
+@enduml

@@ -6,8 +6,10 @@ User --> (Random Palette)
 User --> (View Favorites)
 User --> (Change Settings)
 
-(Take Pic) --> (View Palettes) : include
-(Choose Pic) --> (View Palettes) : include
-(Random Palette) --> (View Palettes) : include
+(Take Pic) --> (View Generated Palettes) : include
+(Choose Pic) --> (View Generated Palettes) : include
+(Random Palette) --> (View Generated Palettes) : include
+(View Generated Palettes) -> (Palette Details) : include
+(View Favorites) --> (Palette Details) : include
 
 @enduml
